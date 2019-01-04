@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Building Cloud Communication Apps with Tropo: Part 3</h1>
+<div id="content">  
+  <p>This post is a continuation of the series on building cloud communication applications with Tropo, the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> and the <a href="http://www.limonade-php.net/">Limonade framework</a> for PHP .</p>
+
+<p>If you’re just starting, you can take a look back at <a href="http://www.voiceingov.org/blog/?p=1817">part 1</a> and <a href="http://www.voiceingov.org/blog/?p=1882">part 2</a> to get caught up.</p>
+
+<p>In this post, we’ll continue our work from the last post and complete a simple, yet powerful multi-channel application that can be accessed via telephone, SMS or IM client.</p>
+
+<p>In the previous post, we looked closely at the <a href="https://www.tropo.com/docs/webapi/session.htm">Session</a> and <a href="https://www.tropo.com/docs/webapi/result.htm">Result</a> objects – these are JSON objects that are sent to your application by the Tropo platform that contain information about how a user is accessing your app (i.e., through which channel) and any input they have provided in response to prompts. If you worked through the last post, you have a partially complete script that looks like this:</p>
+
+<p>You should save this script to a server that can be accessed by the Tropo platform – any web hosting platform that supports PHP &gt;= 5.2.0 will do. Let’s call our script <code class="highlighter-rouge">get_zip_code.php</code>.</p>
+
+<p>When you set up the start URL for this script in the Tropo Application Manager, you’ll want to structure it like so:</p>
+
+<blockquote>
+  <p>http://name_of_my_host.com/path/to/get_zip_code.php?<strong>uri=start</strong></p>
+</blockquote>
+
+<p>As you can see, we’ve added a querystring parameter called <code class="highlighter-rouge">uri</code>. This will ensure that the initial HTTP POST to this script by the Tropo platform matches our <em>/start</em> pattern and executes our <strong>zip_start()</strong> method, which is where we want users to begin. Make sure you <a href="http://www.limonade-php.net/README.htm">review the Limonade documentation on setting up routes</a>, as there are multiple options for configuring route pattern matching.</p>
+
+<p>Next, we’ll want to start modifying our partially constructed script. First go to step 6 in the <strong>zip_start()</strong> method, where we had set up a <a href="http://www.postbin.org/" target="_blank">PostBin</a> URL for Tropo to send a user’s input to so we could examine the Result object. Now that we know what the Result object looks like, we want to start using it to look up information and present it to the caller.</p>
+
+<p>You’ll want to set up a URL to the <code class="highlighter-rouge">get_zip_code.php</code> script that will match the route for the <strong>zip_end()</strong> method. This is where we will access the Tropo Result object and process it. Change the URL in the “next” array element to look like this:</p>
+
+<blockquote>
+  <p>$tropo-&gt;on(array(“event” =&gt; “continue”, “next” =&gt; “get_zip_code.php?<strong>uri=end</strong>“, “say” =&gt; “Please hold.”));</p>
+</blockquote>
+
+<p>This change tells Tropo that when the “continue” event is raised (after the caller has completed entering input) POST the Result object back to the <code class="highlighter-rouge">get_zip_code.php</code> script using a relative URL and a querystring parameter that will ensure matching of our <em>/end</em> pattern.</p>
+
+<p>Next, we need to build out the <strong>zip_end()</strong> method to process the results:</p>
+
+<blockquote>
+  <pre>dispatch_post('/end', 'zip_end');
+function zip_end() {
+</pre>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // Step 1. Create a new instance of the result object
+$result = new Result();
+$zip = $result-&amp;gt;getValue(); // get the value of the user input.
+
+    // Step 2. Get weather information for the zip code the caller entered.
+$weather_info = getWeather($zip);
+$city = array_pop($weather_info);
+
+    // Step 3. Create a new instance of the Tropo object.
+$tropo = new Tropo();
+
+    // Step 4. Begin telling the user the weather for the city their zip code is in.
+$tropo-&amp;gt;say("The current weather for $city is...");
+
+    // Step 5. Iterate over an array of weather information.
+foreach ($weather_info as $info) {
+    $tropo-&amp;gt;say("$info.");
+}
+
+    // Step 6. Say thank you (never hurts to be polite) and end the session.
+$tropo-&amp;gt;say("Thank you for using Tropo!");
+    $tropo-&amp;gt;hangup();
+
+    // Step 7. Render the JSON for the Tropo WebAPI to consume.
+   return $tropo-&amp;gt;RenderJson();
+</code></pre></div></div>
+
+<p>}
+&lt;/pre&gt;</p>
+
+<p>As you can see, our <strong>zip_end()</strong> method looks similar to our <strong>zip_start()</strong> method – both use a Tropo object to format information that will be presented to the user, and both call the <strong>RenderJson()</strong> method of the Tropo object at the end.</p>
+
+<p>You may be wondering about the <strong>getWeather()</strong> method that is called in step 2. Let’s build that out now and examine how it works – to keep things simple, we’ll make use of the <a href="http://blog.programmableweb.com/2010/02/08/googles-secret-weather-api/">Google Weather API</a>, which provides weather information by zip code and returns the information in XML format.</p>
+
+<blockquote>
+  <pre>// The URL to the Google weather service. Renders as XML doc.
+define("GOOGLE_WEATHER_URL", "http://www.google.com/ig/api?weather=%zip%&amp;hl=en");
+</pre>
+</blockquote>
+
+<p>// A helper method to get weather details by zip code.
+function getWeather($zip) {</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$url = str_replace("%zip", $zip, GOOGLE_WEATHER_URL);
+$weatherXML = simplexml_load_file($url);
+$city = $weatherXML-&amp;gt;weather-&amp;gt;forecast_information-&amp;gt;city["data"];
+$current_conditions = $weatherXML-&amp;gt;weather-&amp;gt;current_conditions;
+$current_weather = array(
+	"condition" =&amp;gt; $current_conditions-&amp;gt;condition["data"],
+	"temperature" =&amp;gt; $current_conditions-&amp;gt;temp_f["data"]." degrees",
+	"wind" =&amp;gt; formatDirection($current_conditions-&amp;gt;wind_condition["data"]),
+	"city" =&amp;gt; $city
+);
+return $current_weather;
+</code></pre></div></div>
+
+<p>}</p>
+
+<p>// A helper method to format directional abbreviations.
+function formatDirection($wind) {
+	$abbreviated = array(“ N “, “ S “, “ E “, “ W “, “ NE “, “ SE “, “ SW “, “ NW “);
+	$full_name = array(“ North “, “ South “, “ East “, “ West “, “ North East “, “ South East “, “ South West “, “ North West “);
+	return str_replace($abbreviated, $full_name, str_replace(“mph”, “miles per hour”, $wind));
+}
+&lt;/pre&gt;</p>
+
+<p>The mechanics of these functions are pretty straighforward, so I won’t go in to too much detail – you can now see the connection between the call to the <strong>getWeather()</strong> method mentioned above and the array of weather data that it returns.</p>
+
+<p>The last thing we need to do in order to complete our zip code weather demo script is to finish the <strong>zip_error()</strong> method. This is a method we’ll use to tell a user an error occurred (never hurts to be prepared for the unexpected):</p>
+
+<blockquote>
+  <pre>dispatch_post('/error', 'zip_error');
+function zip_error() {
+</pre>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Step 1. Create a new instance of the Tropo object.
+$tropo = new Tropo();
+
+// Step 2. This is the last thing the user will be told before the session ends.
+$tropo-&amp;gt;say("Please try your request again later.");
+
+// Step 3. End the session.
+$tropo-&amp;gt;hangup();
+
+// Step 4. Render the JSON for the Tropo WebAPI to consume.
+return $tropo-&amp;gt;renderJSON(); }
+</code></pre></div></div>
+<p>&lt;/pre&gt;</p>
+
+<p>In order for this method to be invoked, we need to make sure that we set up the proper handler in our <strong>zip_start()</strong> method for it. The Tropo WebAPI makes it possible to set up callback methods that handle things when certain events are raised. This is done by <a href="https://www.tropo.com/docs/webapi/on.htm">using the On object</a>.</p>
+
+<p>Setting up an event handler using the On object with the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library is easy</a>. In fact, we’ve already done it once – look at the <strong>zip_start()</strong> method and you’ll see a hander for the “continue” event (which is raised when a user has finished entering the proper input). We want to set up something similar for when an error event is raised. Let’s add a handler in our zip_start() method for an error event:</p>
+
+<blockquote>
+  <pre>// Step 6. Tell Tropo what to do when the user has entered input, or if there is an error.
+	$tropo-&gt;on(array("event" =&gt; "continue", "next" =&gt; "get_zip_code.php?uri=end", "say" =&gt; "Please hold."));
+	$tropo-&gt;on(array("event" =&gt; "error", "next" =&gt; "get_zip_code.php?uri=error", "say" =&gt; "An error has occured."));
+</pre>
+</blockquote>
+<p>&lt;/pre&gt;</p>
+<blockquote>
+
+  <pre></pre>
+</blockquote>
+
+<p>Our script is now <a href="http://gist.github.com/446713" target="_blank">complete</a> and ready to test.</p>
+
+<p>Make sure you log into your <a href="https://www.tropo.com/">Tropo</a> account and set up the start URL to your script as discussed above. You can test this script with the phone numbers that are automatically provisioned by Tropo when you set up your account.</p>
+
+<p>Tropo will automatically provision a Skype number, a SIP number and an iNum. You can additionally add a PSTN number in a range of different area codes at no charge. This PSTN number can also be used to send an SMS to, so you can interact with this script via text message. Additionally, you can add an IM account, so you can test this script using your favorite IM client/network.</p>
+
+<p>You may notice, if you test this script using SMS or IM that there are things that don’t yet work perfectly. In the next post, we will make some very simple changes to this script to optimize it for use with SMS and IM (and even Twitter!).</p>
+
+<p>This will transform our simple PHP script into a powerful <a href="http://www.voiceingov.org/blog/?p=1314">unified communications</a> application.</p>
+
+<p>Stay tuned…</p>
+
+</div>
+  </body>
+</html>

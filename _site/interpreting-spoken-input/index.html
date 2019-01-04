@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Interpreting Spoken Input</h1>
+<div id="content">  
+  <p>Since the VoiceXML Forum Community Bulletin Board is increasingly besieged by spammers, going forward Iâ€™m going to cross post responses I submit there on this site so that interested parties (assuming there are any ;-)) can read them.</p>
+
+<p>This response relates to the use of semantic interpretation in VoiceXML applications, something I have <a href="http://www.voiceingov.org/blog/?p=82">written on before</a>. I hope readers find the exchange below helpful.</p>
+
+<p><strong>QUESTION:</strong></p>
+
+<p>Is there a way to map a response to a certain value? For instance, if the user says â€œyes,â€ â€œsure,â€ or â€œyeahâ€ I’d like to put 1 in the database? If the user says â€œno,â€ â€œnope,â€ or â€œnahâ€ I’d put 0.</p>
+
+<p><strong>ANSWER:</strong></p>
+
+<p>There are a couple of option open to you if all you are using is a simple yes/no grammar.</p>
+
+<p>Option 1 = use the builtin “boolean” grammar type. By specifying a field type of “boolean”, an implicit grammar is created that should cover affirmative or negative responses for whataver language is being used. A boolean field returns a JavaScript string based on what the user says (e.g., yes=’true’ or no=’false’). You can convert this to a 1 or 0 using a simple if/else construct and a predefnied variable.</p>
+
+<p>`&lt;/p&gt;</p>
+<p><var name="convert" expr="0" /></p>
+<p>...</p>
+<p><field name="F_1" type="boolean"><br />
+<prompt>Do you think VoiceXML rocks?</prompt><br />
+<filled>&lt;/p&gt;
+<p><!-- If the user says yes, then the expression in the "cond" attribute will evaluate to true --><br />
+<if cond="F_1"><br />
+<assign name="convert" expr="1" /><br />
+</if></p>
+<p><!-- If the preceding if statement did not execute, then expression in the cond attribute evaluated to false.  User said no, so we keep our original value of 0 --><br />
+<submit next="mypage.jsp" namelist="convert" /></p>
+<p>&lt;/filled&gt;<br />
+&lt;/field&gt;</p>
+<p>`
+
+Option 2 = you can use the <tag> element with a custom yes/no grammar to return a 1 or a 0. (Check your platform vendor&#8217;s documentation on this element, as there is some variation.) 
+
+`&lt;/p&gt;
+<p><!-- In your VoiceXML document, reference the yes/no grammar --><br />
+<field name="F_1"><br />
+<grammar src="yesno.grxml" /><br />
+...&lt;/p&gt;
+<p><!-- Contents of yesno.grxml file --><br />
+&lt; ?xml version = "1.0"?&gt;<br />
+<grammar xml:lang="en-US" version="1.0" root="R_1" type="application/srgs+xml" xmlns="http://www.w3.org/2001/06/grammar"><br />
+<rule id="R_1"><br />
+&lt;one -of&gt;<br />
+  <item>yes <tag>F_1=1;</tag> </item><br />
+  <item>yeah <tag>F_1=1;</tag> </item><br />
+  <item>hells yeah <tag>F_1=1;</tag> </item><br />
+  <item>yur damn skippy <tag>F_1=1;</tag> </item><br />
+  <item>no <tag>F_1=0;</tag> </item><br />
+  <item>nope <tag>F_1=0;</tag> </item><br />
+  <item>no way <tag>F_1=0';</tag> </item><br />
+  <item>hells no <tag>F_1=0;</tag> </item><br />
+&lt;/one&gt;<br />
+</rule><br />
+</grammar></p>
+<p>&lt;/field</p>
+<p>`
+
+This has the effect of filling the field named &#8220;F_1&#8221; with the value specified in the <tag> when one of the grammar items is recognized. A few good links to get you started follow:
+
+<a href="http://cafe.bevocal.com/docs/vxml/tag.html#288994" target="_blank">BeVocal Cafe</a>
+
+<a href="http://docs.voxeo.com/voicexml/2.0/tag.htm" target="_blank">Voxeo Community</a>
+</tag></p></field></p></tag></p></filled></field></p>
+
+</div>
+  </body>
+</html>

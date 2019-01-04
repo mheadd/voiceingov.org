@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Combating the &#8220;Alpha Bail&#8221;</h1>
+<div id="content">  
+  <p>In a <a href="http://www.speechtechmag.com/issues/ 11_1/human_factor/12763-1.html">very interesting piece</a> in the January/February issue of Speech Technology Magazine, Walter Rolandi discusses the problems of speech recognition with individual letters of the English alphabet.</p>
+
+<blockquote>
+  <p>One [problem] is that all but one letter (W) is monosyllabic. Another reason is that so many of the letters in the English alphabet sound essentially the same.</p>
+</blockquote>
+
+<p>The most common instance where a speech application might need to collect individual English letters from a caller is probably name and address capture. Because this can be excruciatingly difficult to do, a number of techniques and tools have been developed to assist voice application developers.</p>
+
+<p>The first approach – which I term the “lookup approach” usually involves the capture of a caller’s ANI and a name/address lookup using a <a href="http://community.voxeo.com/services_pro/targus/usage.jsp">third party service</a>. This is an easy, efficient way of capturing name and address information but it isn’t full proof. Callers that are not listed in publicly available directories may not be candidates for a lookup, and the services themselves are not free.</p>
+
+<p>An alternative – which I have very unscientifically termed the “prebuilt approach” usually involves the construction of a set of pre-built grammars and other components that can be put in place to support a name and address capture. These components – like the Open Speech Dialog Modules, or OSDM’s, available from Nuance – are typically incorporated into voice applications as subdialogs. They are usually made up of a large collection of individual street-level grammar files that may be precompiled to run faster on a production platform. They’re usually pretty complex, but they act sort of like a black box in your voice application – the caller is handed off to the subdialog and the collected values are <return>ed for post call processing. As with the lookup approach, this technique isn&#8217;t full proof. Since street names and address can change over time (think suburban sprawl) this approach won&#8217;t work for every caller. Additionally, since street listings get stale with time, a long-term subscription to a vendor might be required.</return></p>
+
+<p>The universal alternative to these approaches is human transcription of recorded audio files. When a lookup or a prebuilt component doesn’t work, a voice application will typically fall back to audio recording for transcription later by a human employee. The obvious downside with this approach is the time and cost of transcription.</p>
+
+<p>There are other alternatives, but for many of the reasons outlined by Rolandi most commercial grade applications will employ one of the approaches outlined above.</p>
+
+<p>Many a voice developer has posited the question; “Why not just build a DTMF grammar that let’s a caller spell out words using their keypad?” Good question and one that I have taken on in my spare time to satisfy my curiosity about how efficient and accurate such an approach might be. The result of my humble laboring can be <a href="http://www.voiceingov.org/xfiles/spellTest.txt" target="_blank">found here</a>.</p>
+
+<p>In taking this exercise on, I’ve decided to take a bit of a different approach — building a DTMF grammar that let’s a caller spell out words isn’t all that challenging. Building a voice interface that uses such a grammar gracefully and efficiently most definitely is.</p>
+
+<p>What I have tried to do is to build a simple, yet graceful VoiceXML application that allows callers to spell words. My goal was to make it as simple as possible, but also to make it highly flexible. In undertaking my little exercise, I’ve decided to keep my grammars simple – in fact, I decided to let callers enter DTMF input for spelling words with nothing but a simple builtin “digits” grammar.</p>
+
+<p>I accomplish this by using a JavaScript array that has all of the allowable values for spelling words with DTMF entry in it. I’m not sure it’s the best way of approaching this problem, but it’s definitely unique.</p>
+
+<p>I’ve also tried to structure my application by using both voice and DTMF entry for spelling words. There will be times when an ASR engine will do pretty good in recognizing letters. This won’t always be the case, so if ASR fails the application falls back to DTMF entry.</p>
+
+<p>I’m definitely not finished – I suspect that this will be a work in progress for a while. I’d like to add an additional component that works with the confirmation dialog to speak a word out that begins with the letter the caller entered:</p>
+
+<blockquote>
+  <p>Caller says: “K”</p>
+</blockquote>
+
+<blockquote>
+  <p>Application says: “Did you say K, as in Karate?”</p>
+</blockquote>
+
+<p>I’d also like to add logic that would cause the application to fall back permanently to DTMF entry if the ASR engine gets the wrong letter after a certain number of attempts.</p>
+
+<p>If you’ve got any thoughts, feedback or suggestions please feel free to <a href="mailto:mheadd@voiceingov.org">share them</a> with me.</p>
+
+</div>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Accessing Web Services From VoiceXML</h1>
+<div id="content">  
+  <p>A few weeks ago, I posted about <a href="http://www.voiceingov.org/blog/?p=136">accessing web services from CCXML</a> using PHP. This post will demonstrate how to do the same thing, only from VoiceXML. We’ll be using <a href="http://voxeo.com/prophecy/">Voxeo Prophecy</a> and PHP for this example. We’ll also be referring to the <a href="http://www.voiceingov.org/blog/?p=135">GreenPhone project</a> — available free for download — for the sample code.</p>
+
+<p>Before we dive in, its important to keep in mind that there are a number of different techniques for getting information from web services into a VoiceXML dialog. This is just one method — there are many others. Voxeo even has its own <a href="http://www.voicexmlguide.com/appendixo.htm">platform-specific way of accessing SOAP web services via JavaScript</a>. Ultimately, the method you employ needs to be a good fit for the environment your working in and the requirements of your project.</p>
+
+<p><strong>Using the greenSoapClient Class</strong></p>
+
+<p>In the last post on this topic, I demonstrated how to use a simple PHP class as a way to access multiple SOAP-based web services from CCXML. This class forms the basis of our method for accessing web services from VoiceXML as well. However, in this instance, instead of using the CCXML <send></send> element, we’ll use a VoiceXML <a href="http://www.w3.org/TR/2004/REC-voicexml20-20040316/#dml2.3.4">subdialog</a>.</p>
+
+<p>Subdialogs in VoiceXML are typically used to create reusable dialog components for capturing common types of input, like a series of digits (e.g., credit card numbers, account numbers, etc). They can also be used to compartmentalize complex interactions with a caller and provide a simple interface for accessing results. By way of example, this is how the <a href="http://www.nuance.com/dialogmodules/advanced/">OSDMs from Nuance</a> work, as well as the <a href="http://community.voxeo.com/services_pro/targus/home.jsp">Targus service</a> from Voxeo. We’ll borrow this approach to access a <a href="http://www.strikeiron.com/ProductDetail.aspx?p=190">web service from StrikeIron</a> that will send the details of an E85 or bio-diesel station to a cell phone via SMS.</p>
+
+<p><strong>Setting up our Subdialog</strong></p>
+
+<p>In order to send an SMS message with details on an E85 or bio-diesel station, we’ll need 2 things; the station details, and a cell phone number to send it to.</p>
+
+<p>In order to send the details on a station from VoiceXML to PHP, we’ll pack it up in a pipe-delimited string called “detailsToSend” (I won’t go into too much detail about how this is done in this post — to learn more, refer to the GreenPhone Project code). The cell phone number we are sending to is obtained from the caller ID of the calling party, stored in a variable named “ani”. Details on how to access caller ID are given in a <a href="http://www.voiceingov.org/blog/?p=136">previous post</a>.</p>
+
+<p>Our subdialog call will look like this:</p>
+
+<p>`<br /></p>
+<form id="sendDetails"><br />
+&nbsp;<catch event="error.badfetch"><br />
+&nbsp;&nbsp;<prompt><br />
+&nbsp;&nbsp;&nbsp;There was a problem sending the station details to your phone.<br />
+&nbsp;&nbsp;&nbsp;<break strength="weak" /><br />
+&nbsp;&nbsp;</prompt><br />
+&nbsp;&nbsp;<goto next="#goodbye" /><br />
+&nbsp;</catch><br />
+<subdialog name="sendSMS" src="../php/sendStationDetails.php" namelist="ani detailsToSend"><br />
+&nbsp;<prompt><br />
+&nbsp;&nbsp;Sending the station details to<br />
+&nbsp;&nbsp;<say-as interpret-as="telephone"><value expr="ani" /></say-as><br />
+&nbsp;</prompt><br />
+&nbsp;<filled><br />
+&nbsp;&nbsp;<if cond="sendSMS.result==0"><br />
+&nbsp;&nbsp;&nbsp;<prompt>Your message has been sent.<break strength="weak" /></prompt><br />
+&nbsp;&nbsp;<else /><br />
+&nbsp;&nbsp;&nbsp;<prompt><br />
+&nbsp;&nbsp;&nbsp;&nbsp;There was a problem sending the station details to your phone.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<break strength="weak" /><br />
+&nbsp;&nbsp;&nbsp;</prompt><br />
+&nbsp;&nbsp;</if><br />
+&nbsp;<goto next="#goodbye" /><br />
+&nbsp;</filled><br />
+</subdialog><br />
+</form>
+<p><br />
+`</p>
+
+<p>We use the attributes on the <subdialog> element to give our subdialog a name (which we&#8217;ll use to access the results sent back from PHP), to specify where to POST our variables to and also to specify which variables to POST.</subdialog></p>
+
+<p>You’ll also notice that we have set up a handler here for an “error.badfetch” event. This is a good habit to get into whenever you set up a request to an external resource (like a PHP script). If the script isn’t there or has problems, an “error.badfetch” event will get returned and unless you specified a handler for this event, your day will not end well.</p>
+
+<p>Additionally, we’ve set up logic in our filled block to inspect the result of the subdialog call. We access the result as a property of the subdialog, using the name we set up in the <subdialog> element and the dot notation (&#8220;.&#8221;) familiar to JavaScript.</subdialog></p>
+
+<p>&lt;if cond=”sendSMS.result==0″&gt;</p>
+
+<p>… code logic goes here …</p>
+
+<p>&lt;/if&gt;</p>
+
+<p>With this in mind, our PHP script needs to send back a variable called “result”. How do we do this? Lets take a look at the PHP script:</p>
+
+<p><strong>A Simple Subdialog using PHP</strong></p>
+
+<p>The subdialog that we want to render is extremely simple — we only need to render enough VoiceXML to declare a variable called “result” and return it to the parent dialog. We’ll do this after we make our web service call to send the SMS message.</p>
+
+<p>There are two pieces of information returned from the StrikeIron web service that we are interested in; a string that holds the response message from the service (i.e., “success”, “failure”, etc.) and a number indicating the outcome of the web service call.</p>
+
+<p>We’ll take these two bits if information and assign them to PHP variables:</p>
+
+<p><code class="highlighter-rouge">&lt;br /&gt;
+$result = $xml-&gt;soapHeader-&gt;ResponseInfo-&gt;ResponseCode;&lt;br /&gt;
+$message = $xml-&gt;soapHeader-&gt;ResponseInfo-&gt;Response;&lt;br /&gt;
+</code></p>
+
+<p>Now, we want to write out these variables in a simple VoiceXML subdialog:</p>
+
+<p>`<br />
+<?xml version="1.0" encoding="utf-8"?><br /></p>
+<vxml version="2.1" xmlns="http://www.w3.org/2001/vxml"><br />
+<form id="F_1"><br />
+&nbsp;<log>*** SMS response message was: <?php echo $message; ?>. ***</log><br />
+&nbsp;<block><br />
+&nbsp;&nbsp;<var name="result" expr="&lt;?php echo $result ?&gt;" /><br />
+&nbsp;&nbsp;<return namelist="result" /><br />
+&nbsp;</block><br />
+</form><br />
+</vxml>
+<p>`</p>
+
+<p>As discussed above, this creates just enough VoiceXML to instantiate a variable and return it to the parent dialog. For good measure, we’ll write out the web service string (contained in the PHP variable $message) as a log statement, in case it contains information we want to look at later.</p>
+
+<p><strong>Why This Approach?</strong></p>
+
+<p>Using this technique for accessing web services from VoiceXML provides a couple of advantages. First, it allows us to completely separate the presentation layer (the VoiceXML) from the logic used to invoke the web service. This is a fairly standard design practice that makes creating the dialog much easier for a developer that does not necessarily know a whole lot about web services. With this approach, they don’t really need to — they only need to know that the subdialog call will return a variable called “result” whose value can be inspected to determine what to do next.</p>
+
+<p>Additionally, because the parent dialog is just static VoiceXML it may be possible to cache it. Since the parent dialog isn’t dynamic, it can be cached for fast access, while the subdialog — which must be dynamic — is the only component sent from the web server to the VoiceXML platform each time a caller accesses the application. Careful design can yield additional caching opportunities that can make your applications more efficient and less bandwidth intensive.</p>
+
+<p>In the next post, we’ll explore one additional method for accessing web service from VoiceXML. Stay tuned…</p>
+
+</div>
+  </body>
+</html>

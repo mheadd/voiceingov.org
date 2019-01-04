@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Relaxing on the Couch with Tropo and CouchDB</h1>
+<div id="content">  
+  <p>This is the continuation of a series that will describe how to build voice applications with the <a href="http://www.tropo.com" target="_blank">Tropo</a> cloud telephony platform and <a href="http://couchdb.apache.org/" target="_blank">CouchDB</a>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png" alt="Apache CouchDB Logo" /></p>
+
+<p>In the <a href="http://www.voiceingov.org/blog/?p=1471">last post</a>, I detailed how to get a CouchDB instance up and running on Ubuntu, and how to get an account started on Tropo so that you can start building cloud telephony applications. In this post, we’ll create our first CouchDB database and create a simple Tropo application that connects to our CouchDB instance. First, however, we need to tweak the default settings for CouchDB so that we can access our CouchDB instance from the an external environment.</p>
+
+<p><strong>Configuring CouchDB</strong></p>
+
+<p>Recall from the last post that the configuration files for CouchDB are located in <code class="highlighter-rouge">/usr/local/etc/couchdb/</code>. Open the local configuration file and take a look at the default settings:</p>
+
+<blockquote>
+  <p>$ sudo vim /usr/local/etc/couchdb/local.ini</p>
+</blockquote>
+
+<p>In the  <code class="highlighter-rouge">[httpd]</code> section, you’ll notice the setting for the default port that is used to connect to CouchDB – 5984. You’ll also note the <code class="highlighter-rouge">bind_address</code> setting. By default, CouchDB listens only on localhost – you can change this by altering the value of <code class="highlighter-rouge">bind_address</code> to a publicly resolvable IP address (you may need to uncomment this setting as well).</p>
+
+<p>However, before proceeding please note that CouchDB does not yet have a built in security model, so anyone that can access the IP address in the configuration file can potentially access your CouchDB instance. We’ll need to take some steps to restrict access to our CouchDB instance – there are several ways of doing this.</p>
+
+<p>First, if you know the IP address (or range of addresses) that will be accessing your CouchDB instances, you can <a href="https://help.ubuntu.com/community/IptablesHowTo" target="_blank">simply use IPTables to restrict access</a> to that IP:</p>
+
+<blockquote>
+  <p>$ iptables -A INPUT -p tcp -s 64.57.102.34 –dport 5984 -j ACCEPT</p>
+</blockquote>
+
+<p>The above command would restrict access to your CouchDB instance to a single IP address.</p>
+
+<p>Another method for securing a publicly exposed CouchDB instance is to use Apache password authentication. A good <a href="http://smartic.us/2008/11/08/couchdb-basic-authentication/" target="_blank">overview of this approach</a> can be found here.</p>
+
+<p>After you’ve modified the bind_address setting, restart CouchDB and test connectivity to it:</p>
+
+<blockquote>
+  <p>$ sudo /usr/local/etc/init.d/couchdb restart</p>
+</blockquote>
+
+<blockquote>
+  <p>$ curl http://your_new_couchdb_ip:5984</p>
+</blockquote>
+
+<p><strong>Creating our CouchDB Database</strong></p>
+
+<p>Once you have your CouchDB instance up and running, you can create a database in one of two ways. The first, and easiest, is simply to use the <code class="highlighter-rouge">curl</code> command. You create a database in CouchDB by using the HTTP PUT method:</p>
+
+<blockquote>
+  <p>$curl -X PUT http://your_new_couchdb_ip:5984/call_logs</p>
+</blockquote>
+
+<p>You can also create a database (and do lots of management functions in CouchDB) by using the GUI (called Futon). Its located at http://your_new_couchdb_ip:5984/_utils</p>
+
+<p><strong>Building a Simple Auto Attendant Application with Tropo</strong></p>
+
+<p>Now that we have an initial database in our CouchDB instance, lets build a simple Tropo application that will populate it with records (or <em>documents</em> in CouchDB parlance):</p>
+
+<p>This simple application is a basic auto attendant. It asks the caller for a 4-digit extension and then transfers them to a 10-digit PSTN number. At the end of the call, we write a very simple call log document to our new call_logs database using the HTTP POST method.</p>
+
+<p>(One small side note – you can use either the POST or PUT methods to insert a document into a CouchDB database. However, using PUT assumes you want to assign a specific document ID to your document. When you use HTTP POST, CouchDB will automatically assign a document ID. For now, we’ll keep things simple and use POST.)</p>
+
+<p>Much of the functionality in this simple app is just stubbed out for now – i.e., the <code class="highlighter-rouge">getPhoneNumberByExtension()</code> method – we’ll build more of this out in later posts.</p>
+
+<p>Modify this file by adding your instance-specifc details to the constant declarations at the top. Do also note that the last two constants can remain blank for now.</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">&lt;br /&gt;
+define("COUCH_DB_DESIGN_DOCUMENT_NAME", "");&lt;br /&gt;
+define("COUCH_DB_SHOW_FUNCTION_NAME", "");&lt;br /&gt;
+</code></p>
+</blockquote>
+
+<p>We’ll talk about how to use design documents in the next post.</p>
+
+<p>When you load this file up on Tropo and make a test call, you will see your call log document is inserted into the call_logs database. The structure of the document is pure JSON, which is supported <a href="http://us2.php.net/manual/en/book.json.php" target="_blank">quite nicely in PHP</a> (and most every other language that can run on Tropo as well).</p>
+
+<p>In the next post, we’ll examine CouchDB design documents in more detail and modify our simple demo application to get a list of extensions from another CouchDB database and parse the JSON data structure in the <code class="highlighter-rouge">getPhoneNumberByExtension()</code> method.</p>
+
+<p>Until then, keep on relaxing….</p>
+
+</div>
+  </body>
+</html>

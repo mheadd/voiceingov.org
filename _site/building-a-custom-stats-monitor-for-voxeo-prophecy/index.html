@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Building a Custom Stats Monitor for Voxeo Prophecy</h1>
+<div id="content">  
+  <p>I do a lot of work on the <a href="http://www.voxeo.com/prophecy/" target="_blank">Voxeo Prophecy platform</a>. Pretty regularly, I have a need to check and see how many ports are in use, or how many active sessions are currently running on a Prophecy machine.</p>
+
+<p>Prophecy has some nice features that make checking these stats pretty easy. You can get a view of currently running sessions by pointing your browser at <em>sessions_10</em> on either the CCXML or VoiceXML control port — for example, if you want to check CCXML sessions you would point to http://prophecy_ip:9999/sessions_10. There is also another utility that provides a wealth of information on what is happening on your Prophecy server — <em>stats_10</em>.</p>
+
+<p>This utility is particularly useful because you can pass in query string parameters and customize the information that is returned, as well as the format that it is rendered in. Pointing your browser to http://prophecy_ip:9999/stats_10?type=counters&amp;format=xml gets you a list of currently utilized ports and running CCXML sessions in a compact XML document. As handy as this is, because its browser-based, you have to keep hitting refresh to get updated stats from your server. Since this can be inconvenient, I decided to whip up a small AJAX-powered stats monitor for Voxeo Prophecy.</p>
+
+<p><strong>Requirements / Considerations:</strong></p>
+
+<ul>
+  <li>
+    <p>You’ll need to download the <a href="http://xajaxproject.org/" target="_blank">xajax PHP class library</a> to use this utility. I downloaded 0.5 RC 2 Full — you can do this by entering the following at the Linux command line: <em>wget http://xajaxproject.org/download/0.5_rc2/xajax_0.5_rc2_full.zip</em>. Extract these files to a folder where PHP scripts can be executed. 
+<img style="float:right;padding-left:10px;" src="http://www.voiceingov.org/blog/monitor_off.jpg" /></p>
+  </li>
+  <li>
+    <p>Before running this monitor, you’ll want to make sure that you can run xajax applications — do this by testing out the helloworld.php sample in the xajax/examples directory. I developed this app on Ubuntu 8.10. It should run just fine on Windows — if you want to run this on the same machine as Prophecy you should use a separate PHP installation, not the one that comes bundled with Prophecy.</p>
+  </li>
+</ul>
+
+<p><strong>Get the Source Code:</strong></p>
+
+<p>You can <a href="http://www.voiceingov.org/tutorials/prophecy_stats_monitor.zip">get the code</a> for the custom stats monitor <a href="http://www.voiceingov.org/tutorials/prophecy_stats_monitor.zip">here</a>.</p>
+
+<p>When downloaded, extract the files to the same directory where you placed your xajax files. Open up the file called <strong>voxeo.php</strong> in an editor and modify the configuration options as needed. The value of <em>$interval</em> determines how frequently an AJAX callback will be made to your Prophecy server to check stats. You will want to change the value of <em>$prophecyHost</em> to the IP address of your Prophecy server. You can add stats items to the <em>$counterNames</em> array if you want to check more than the basic level of stats. Save and close this file when finished.</p>
+
+<p><img style="float:right;padding-left:10px;" src="http://www.voiceingov.org/blog/monitor_on.jpg" /></p>
+
+<p>Open up the <strong>voxeo.php</strong> file in your web browser. When the page loads, the stats monitor is not yet started — click “Start Monitor” to engage. When you make a test phone call to your Prophecy server, you will see the numbers change for ports and sessions.</p>
+
+<p>Prophecy 9 is <a href="http://evolution.voxeo.com/forums/main.jsp?bb-cid=85&amp;bb-tid=718099" target="_blank">on the horizon</a>, and the good folks at Voxeo will likely be adding all sorts of eye candy that will make monitoring your Prophecy server a snap. Still, it is nice to know that the Prophecy platform is open enough to support custom utilities that can help manage your server.</p>
+
+</div>
+  </body>
+</html>

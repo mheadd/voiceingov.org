@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Upgrading to CouchDB 0.11</h1>
+<div id="content">  
+  <p>Just a few days ago, <a href="http://blog.couch.io/post/490755034/couchdb-0-11-0-released" target="_blank">CouchDB version 0.11 was released</a> – this new version is packed full of cool new features as <a href="http://blog.couch.io/post/468392274/whats-new-in-apache-couchdb-0-11-part-three-new" target="_blank">outlined on the Couch.io blog</a>. It’s also the first release without the Alpha or Beta label attached to it.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png" alt="Apache CouchDB Logo" /></p>
+
+<p>What’s more exciting, CouchDB version 0.11 is a feature-freeze release candidate for the upcoming version 1.0. So if you’ve played around with CouchDB and have an old instance laying around, now is the time to upgrade.</p>
+
+<p>If you’ve read <a href="http://www.voiceingov.org/blog/?p=1525">my previous series on using CouchDB</a> to build cloud telephony applications with Voxeo’s <a href="https://www.tropo.com/home.jsp" target="_blank">Tropo platform</a>, and you used my instructions for setting up CouchDB on Ubuntu 8.04, then upgrading to CouchDB version 0.11 will be a piece of cake. (Note – the mirror you download from may be different than below. Go to the <a href="http://couchdb.apache.org/downloads.html" target="_blank">download page</a> to find the best one):</p>
+
+<p>Before upgrading, make sure that any customizations you’ve made to the CouchDB configuration are in <code class="highlighter-rouge">/usr/local/etc/couchdb/local.ini</code>. The upgrade process will overwrite any changes you have made in <code class="highlighter-rouge">default.ini</code>.</p>
+
+<blockquote>
+  <p>$ sudo /usr/local/etc/init.d/couchdb stop</p>
+
+  <p>You should probably run <em>make uninstall</em> on the previous version of CouchDB before starting.</p>
+</blockquote>
+
+<blockquote>
+  <p>If you see leftover files in <em>/user/local</em></p>
+</blockquote>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>$ find /usr/local -name *couch*</td>
+        <td>wc -l</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>You should probably get rid of them:</p>
+</blockquote>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>$ find /usr/local -name *couch*</td>
+        <td>xargs rm -rf</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>$ wget http://www.trieuvan.com/apache/couchdb/0.11.0/apache-couchdb-0.11.0.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ tar -zxvf apache-couchdb-0.11.0.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cd apache-couchdb-0.11.0/</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ./configure &amp;&amp; make &amp;&amp; sudo make install</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo /usr/local/etc/init.d/couchdb start</p>
+</blockquote>
+
+<blockquote>
+  <p>$ curl -X GET http://127.0.0.1:5984</p>
+
+  <p>You should see:</p>
+
+  <p><strong>{”couchdb”:”Welcome”,”version”:”0.11.0″}</strong></p>
+</blockquote>
+
+<p>Note – if you see an error that says <code class="highlighter-rouge">{"error":"error","reason":"eacces"}</code> when trying to create a database or insert documents, you may need to re run some commands listed in the previous install instructions:</p>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/etc/couchdb</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/var/lib/couchdb</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/var/log/couchdb</p>
+</blockquote>
+
+<p>I’m in the process of finishing up a project that will make use of the <a href="http://wiki.open311.org/API" target="_blank">Open311 API deployed by the City of San Francisco</a> and it shall be SQL-free – now that I have CouchDB 0.11 installed, I’m ready to finish up.</p>
+
+<p>Stay tuned – this project is going to kill!</p>
+
+</div>
+  </body>
+</html>

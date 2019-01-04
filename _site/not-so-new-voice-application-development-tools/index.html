@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> (Not So) New Voice Application Development Tools</h1>
+<div id="content">  
+  <p>Today I came across a couple of new services that aim to make the development of voice applications easier. The question I have after reading about each is: why do we need these?</p>
+
+<p>The first, <a href="http://voicephp.com/" target="_blank">VoicePHP</a>, is from <a href="http://tringme.com/" target="_blank">TringMe</a> – a company that provides voice services and an API that developers can use to integrate telephony functions into web applications (e.g., click-to-call). The other, <a href="http://www.twilio.com/" target="_blank">Twilio</a>, is a service that let’s application developers use an XML-based markup language to develop telephone applications.</p>
+
+<p>To be fair, I have not fully evaluated either service, but I will be developing test applications over the coming days and commenting further on each as deemed necessary (still waiting on my trial account to fully dig into VoicePHP).</p>
+
+<h3 id="voicephp">VoicePHP</h3>
+
+<p>In a nutshell, VoicePHP <a href="http://voicephp.com/whyvoicephp.html" target="_blank">extends the PHP scripting language</a> for voice applications:</p>
+
+<blockquote>
+  <p>VoicePHP will automagically give voice to all existing PHP APIs and language constructs. For example:</p>
+
+  <p><code class="highlighter-rouge">echo "Hello World";</code></p>
+
+  <p>will speak “Hello World” instead of printing it</p>
+</blockquote>
+
+<p>In addition, VoicePHP appears to add several new PHP language constructs that are specific to voice applications. I believe that these are intended to enable functionality for telephone-specific functions not present in the core PHP language (e.g., conducting a transfer). The deployment model for applications built with VoicePHP is not entirely clear — traditional web apps built with PHP render markup that is consumed by a web browser. Where are VoicePHP applications executed? In a plain old Apache web server like other PHP applications? If so, how are <acronym title="Text-To-Speech">TTS</acronym> and <acronym title="Automatic Speech Recognition">ASR</acronym> handled? How is integration with the telephony environment handled?</p>
+
+<p>The idea of abstracting away the details of VoiceXML markup and using a mainstream programming language like PHP to build voice applications <a href="http://www.phpmagazine.net/docs/voicexml/" target="_blank">is not a new one</a>. I’ve <a href="http://www.voiceingov.org/blog/?p=150">personally made use</a> of the fantastic <a href="http://www.hawhaw.de/" target="_blank">HAWHAW library</a> from Norbert Huffschmid to build voice and mobile applications, and anyone seriously considering building a voice application with PHP should give it a look. So the question becomes, what does VoicePHP offer that existing approaches to using PHP to create voice applications do not?</p>
+
+<p>I will admit that the basic premise of VoicePHP is attractive — I’m eager to try it. However, until my trial account is activated I’ll just have to wait and offer what thoughts I have.</p>
+
+<h3 id="twilio">Twilio</h3>
+
+<p><a href="http://www.twilio.com/" target="_blank">Twilio</a> is a service that allows developers to build voice applications using an XML-based language. Twilio applications are executed in a hosted environment where implementation details like telephone number provisioning and interacting with the PSTN are handled through a simple web interface. The Twilio environment interacts with an application platform via HTTP.</p>
+
+<p>Developers can use a variety of different languages and platforms to interact with the hosted platform (i.e., generating the TwiML markup that performs telephony functions and user dialogs) — PHP, Ruby, Python, etc. The choice of a whether to use a back end database, integrate with other systems, interact with web services, etc. is left to the developer and all of these details occur outside the Twillo execution environment. In a nutshell, Twillo aims to provide a simple way to develop and deploy a voice interface to web applications.</p>
+
+<p>If that description sounds eerily close to the Raison d’être for VoiceXML then you’re in the same place that I am.</p>
+
+<p>It’s not immediately clear to me what hole in the voice application development tool set Twilio is intended to fill. This is exactly the purpose for the development of XML-based dialog languages like VoiceXML. Companies like Voxeo, BeVocal, TellMe, VoiceGenie and others have provided hosting services similar to what Twillo provides <a href="http://www.voiceingov.org/blog/?p=146">for a while now</a> — and they’re pretty good at it too.</p>
+
+<p>If VoiceXML is viewed as being too complex or to unweildy for a voice application, I would strongly recommend looking at a language like <a href="http://docs.voxeo.com/callxml/3.0/" target="_blank">CallXML</a>, which has a pretty healthy user base and a growing company like <a href="http://www.voxeo.com/" target="_blank">Voxeo</a> behind it. CallXML is also close enough to <a href="http://www.gnutelephony.org/index.php/BayonneXML" target="_blank">other dialog languages</a> that it might be possible to port them to other platforms. Twilio is the one and only company that supports TwiML.</p>
+
+<p>Don’t get me wrong, Twilio sounds pretty cool and I’m working on my first Twilio app right now. I’m just not sure how (or if) it’s going to change my life as a voice application developer.</p>
+
+</div>
+  </body>
+</html>

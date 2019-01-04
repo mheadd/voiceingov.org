@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Building Cloud Communication Apps with Tropo: Part 4</h1>
+<div id="content">  
+  <p>This post is the final installment in the series on building cloud communication applications with Tropo, the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> and the <a href="http://www.limonade-php.net/">Limonade framework</a> for PHP.</p>
+
+<p>If you’re just starting, you can take a look back at <a href="http://www.voiceingov.org/blog/?p=1817">part 1</a>, <a href="http://www.voiceingov.org/blog/?p=1882">part 2</a> and <a href="http://www.voiceingov.org/blog/?p=1899">part 3</a> to get caught up.</p>
+
+<p>In the last installment, we finished our <a href="http://gist.github.com/446713" target="_blank">first complete script</a> using the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> and Limonade. We tested this script by calling it using one of the numbers automatically provisioned for applications on the Tropo platform. In this case, we used the auto provisioned Skype number to make test calls.</p>
+
+<p>In this post we’ll refine our script by optimizing it so that the exact same code can efficiently service users on an array of different communication channels. This is the definition of “multi-modality,” and the Tropo platform does it better than pretty much any other platform currently available to developers.</p>
+
+<p><strong>So Many Channels, So Little Code</strong></p>
+
+<p>Tropo’s strong suit is empowering developers to build applications that work across multiple channels from the same code base. Enabling different channels for existing application is easy – log into your <a href="http://www.tropo.com">Tropo</a> account and go to “Your Applications.” Select the application we’ve been using for this series, and make note of the sections entitled “Phone Numbers” and “Instant Messaging Networks.”</p>
+
+<p>To SMS-enable your application (so that users can simply send a text message to get weather information) select <em>Add a New Phone Number</em>. The phone number you add can be used for both voice phone calls and for SMS messages. Under “Instant Messaging Networks” you can add any one of the many networks supported by Tropo – for this example, we’ll add a Jabber account so we can test a channel other than voice.</p>
+
+<p>If you set up a Jabber account for your app, you can interact with it by sending it a message – try starting things off by sending a simple message like “Hello.” Once you do, you’ll see the same series of prompts that you can hear when you call into your application via Skype.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/07/before.png" alt="IM Bot Before Changes" title="IM Bot Before Changes" width="487" height="353" style="margin:5px;padding:7px;" /></p>
+
+<p>Now that we can see how our application behaves when we interact with it using an IM client, it becomes obvious that there are some things we’d like to change to optimize it for this channel. User interface elements like a welcome message, reprompts (playing a prompt over again when a user has not entered any input), etc. don’t really make much sense in the context of an IM session. More importantly, it would be nice if we could simply send a zip code to our application to begin the session, as opposed to sending a message like “Hello.”</p>
+
+<p>Fortunately, Tropo was built with multi-modality baked into it so changes like these are rather trivial. To illustrate how to optimize our application so that it can be used on multiple channels, consider the Session object we examined in detail in one of the previous posts in this series.</p>
+
+<p>That Session object was created when we placed a phone call to our application – note that the property name <em>initialText</em> is <strong>null</strong>.</p>
+
+<p>When we access our application using an IM client, the Session object looks like this:</p>
+
+<p>This Session objects looks considerably different than the one created when we made a phone call to our application. In particular, you can see that the <em>initialText</em> property is now populated with the text we first sent – the string “Hello.”</p>
+
+<p>We can access this property using the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> like so:</p>
+
+<blockquote>
+  <pre>$session = new Session();
+$initial_text = $session-&gt;getInitialText();
+</pre>
+</blockquote>
+<p>&lt;/pre&gt;</p>
+
+<p>After accessing the value of this property, we need to do something with it:</p>
+
+<blockquote>
+  <pre>if(strlen($initial_text) == 5 &amp;&amp; is_numeric($initial_text)) {
+	// Since the user submitted a zip code, look up weather info.
+}
+</pre>
+</blockquote>
+<p>&lt;/pre&gt;</p>
+
+<p>Now that we can access the <em>initialText</em> sent to our application, and we can examine it to determine if the user has sent us a valid zip code. This allows us to tailor the behavior of our app more efficiently to an IM channel <em>without changing how it behaves when a caller makes a telephone call to it</em>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/07/after.png" alt="IM Bot Before Changes" title="after" width="484" height="196" style="margin:5px;padding:7px;" /></p>
+
+<p>The modified script with changes to optimize it for IM <a href="http://gist.github.com/464579" target="_blank">can be found here</a>.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>Clearly there are lots of other things we could do to tweak our application, to tailor it more efficiently to different channels supported by Tropo. For example, breaking out the weather information into discreet segments for temperature, wind, etc. (by using a separate <a href="https://www.tropo.com/docs/webapi/say.htm">Say object</a> for each) might work well with a voice or IM channel, but it would probably not work well for SMS or Twitter.</p>
+
+<p>Additional changes to optimize this script for these other channels is pretty straightforward. I won’t get into it in this post, but now that you’ve got the hang of how easy it is to create multi-modal communication apps with Tropo, Limonade and the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> you should give it a try.</p>
+
+<p>Rock on!</p>
+
+</div>
+  </body>
+</html>

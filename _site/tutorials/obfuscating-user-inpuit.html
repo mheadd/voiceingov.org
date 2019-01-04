@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Obfuscating User Input</h1>
+<div id="content">  
+  <p><strong>Controlling sensitive information on hosting platforms</strong></p>
+
+<p>When deploying voice applications, the first question developers often face is whether to host their own voice gateway or outsource this function to an application service provider (ASP). To help with this question, there is a great <a href="http://www.developer.com/voice/article.php/1569431">article in Developer.com</a>. If you are outsourcing this function, then there are several things you will need to keep in mind – most of these are discussed in the Developer.com article. One very important consideration for governments deploying voice applications using the ASP model is the protection of citizen information.</p>
+
+<p>VoiceXML ASPs like <a href="http://cafe.bevocal.com/docs/tools/logbrowser.html#192640">BeVocal</a> and <a href="http://studio.tellme.com/help/debuglegend.html">TellMe</a> provide suites of online tools for developers, among them are tools to help developers analyze calls. Typically, these log analyzing tools capture information that is spoken or input via DTMF by users — there are a number of instances where having this information is useful in debugging an application and/or analyzing how it is working. However, if you are creating voice applications that will be used by citizens and taxpayers, chances are these applications will utilize citizen-specific identifiers (e.g., Social Security numbers).</p>
+
+<p>For some very obvious reasons, it is generally not a very good idea to have this information stored in the log files of a VoiceXML ASP. Fortunately, there is something developers can do.</p>
+
+<p><strong>BeVocal Platform</strong></p>
+
+<p>The BeVocal Platform provides an extension to the VoiceXML 2.0 specification to allow developers to control the logging of user input. The <a href="http://cafe.bevocal.com/docs/vxml/index.html?content=properties.html#285537">bevocal.logging</a> property lets a developer manipulate when information is recorded in the trace logs used in BeVocal’s log browser tool. The following code sets the value of the bevocal.logging property to “false” and prevents user input from being logged (the default value is “true”).</p>
+
+<pre>&lt;property name=&ldquo;bevocal.logging&rdquo; value=&ldquo;false&rdquo;/&gt;
+</pre>
+
+<p>The BeVocal platform also allows devleopers to have their log files (and any captured utterances) encrypted. This is accomplised through the use of naother extension – the <a href="http://cafe.bevocal.com/docs/vxml/properties.html#312498">bevocal.securelogging.enabled</a> property.</p>
+
+<p><strong>TellMe Platform</strong></p>
+
+<p>Just like the BeVocal Platform, the TellMe platform has its own extension to control logging. TellMe provides the “tellme.confidential” attribute to the <a href="http://studio.tellme.com/vxml2/ref/elements/property.html">Property Tag</a>. One point of contrast between the two platforms — unlike the BeVocal extension, the “tellme.confidential” attribute must be set to “true” in order to control logging.</p>
+
+<!-- Creative Commons License -->
+
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights20.gif" /></a></p>
+
+<p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/">Creative Commons Attribution-NonCommercial-ShareAlike 2.5 License</a>.</p>
+
+<!-- /Creative Commons License -->
+
+</div>
+  </body>
+</html>

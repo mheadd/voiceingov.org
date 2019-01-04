@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> XHP for VoiceXML</h1>
+<div id="content">  
+  <p>Facebook has been busy lately doing all sorts of interesting things to the PHP scripting language. Although most of the recent PR hype was centered around <a href="http://wiki.github.com/facebook/hiphop-php/">HipHop for PHP</a> (a name that, quite frankly, makes me want to use it less), Facebook also released another very interesting and potentially useful extension for PHP – <a href="http://github.com/facebook/xhp">XHP</a>. From the <a href="http://wiki.github.com/facebook/xhp/">XHP wiki on Github</a>:</p>
+
+<blockquote>
+  <p><a href="http://github.com/facebook/xhp">XHP</a> is a PHP extension which augments the syntax of the language such that XML document fragments become valid PHP expressions. This allows you to use PHP as a stricter templating engine and offers much more straightforward implementation of reusable components.</p>
+</blockquote>
+
+<p>Not sure where I read it, but one commenter compared XHP to <a href="https://developer.mozilla.org/En/E4X/Processing_XML_with_E4X">E4X in JavaScript</a>. It’s a neat idea, and its actually not all that hard to start playing around with XHP (if you’re comfortable installing PHP extensions).</p>
+
+<p>After thinking about XHP and playing around with it a bit, I started to think it might be useful as a way of generating not just HTML, but also other XML-based languages like VoiceXML.</p>
+
+<p>The core XHP classes that are used for generating HTML are fairly easy to understand, once you get use to the syntax – extending these core classes to generate VoiceXML (or any other XML-based language) is not all that hard. But before we do that, let’s install XHP as a PHP extension and kick the tires a bit.</p>
+
+<h3 id="installing-xhp-on-ubuntu">Installing XHP on Ubuntu</h3>
+
+<p>I’ve tried the following instructions on both Ubuntu 8.04 and 8.10, and I’m pretty sure they’ll work with just about any recent Ubuntu version.</p>
+
+<p>Make sure you’ve got the basics for building PHP extensions:</p>
+
+<blockquote>
+  <p>$ sudo apt-get install build-essential</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo apt-get install php5-dev</p>
+</blockquote>
+
+<p>Get the XHP source code:</p>
+
+<blockquote>
+  <p>$ mkdir xhp</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cd xhp</p>
+</blockquote>
+
+<blockquote>
+  <p>$ git clone git://github.com/facebook/xhp.git</p>
+</blockquote>
+
+<p>Get the PHP source code</p>
+
+<blockquote>
+  <p>$ sudo apt-get source php5</p>
+</blockquote>
+
+<p>Make a directory in the PHP source code for the XHP extension</p>
+
+<blockquote>
+  <p>$ mkdir php-5.X.X/ext/xhp</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cp -r xhp/xhp/* php-5.X.X/ext/xhp/</p>
+</blockquote>
+
+<p>Depending on your system, you may need to add some of the prerequisites for building this extension:</p>
+
+<blockquote>
+  <p>$ sudo apt-get install flex bison</p>
+</blockquote>
+
+<p>I tried this approach on both Ubuntu 8.04 and 8.10 and in both cases only version 0.13.5 of re2c worked (earlier version obtained via apt-get did not cut the mustard). If you’re running a later version, you may be able to get this version of re2c from the standard repos.</p>
+
+<p>For this example, I’ll just build it from source:</p>
+
+<blockquote>
+  <p>$ wget http://sourceforge.net/projects/re2c/files/re2c/0.13.5/re2c-0.13.5.tar.gz/download</p>
+</blockquote>
+
+<blockquote>
+  <p>$ tar -zxvf re2c-0.13.5.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cd re2c-0.13.5/</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ./configure</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo make</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo make install</p>
+</blockquote>
+
+<p>Move to new XHP extension directory and get ‘er done.</p>
+
+<blockquote>
+  <p>$ cd php-5.X.X/ext/xhp</p>
+</blockquote>
+
+<blockquote>
+  <p>$ phpize</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ./configure</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo make</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo make install</p>
+</blockquote>
+
+<p>When you run <code class="highlighter-rouge">make install</code>, the new extension file is placed in a directory where Apache can load it – however, we need to modify the <code class="highlighter-rouge">php.ini</code> file so that Apache is aware of the extension. Open <code class="highlighter-rouge">php.ini</code> and add the following:</p>
+
+<blockquote>
+  <p>extension=xhp.so</p>
+</blockquote>
+
+<blockquote>
+  <p>extension_dir=directory_where_xhp.so_is_located</p>
+</blockquote>
+
+<p>When setting this last option, use the directory where xhp.so was placed by <code class="highlighter-rouge">make install</code>. Now we just restart Apache:</p>
+
+<blockquote>
+  <p>$ sudo /etc/init.d/apache2 restart</p>
+</blockquote>
+
+<p>Easy right? Unfortunately, things get a little less clear at this point. It turns out that to make XHP work properly, some PHP libraries need to be included in any of the XHP scripts we write. These files are located in the <code class="highlighter-rouge">php-lib</code> directory of the XHP source code.</p>
+
+<p>To make things easier (especially when we start to write our own extension to XHP for VoiceXML, lets move these files to a convenient local directory that we can include in our scripts:</p>
+
+<blockquote>
+  <p>$ cp php-5.X.X/ext/xhp/php-lib/* my/local/directory/php-lib/</p>
+</blockquote>
+
+<p>So now we can do some interesting stuff like this:</p>
+
+<p>What’s especially interesting about XHP is that it enforces proper syntax at compile time, so if your markup isn’t syntactically correct an exception gets tossed.</p>
+
+<h3 id="generating-voicexml-with-xhp">Generating VoiceXML with XHP</h3>
+
+<p>The XHP libraries we just discussed implement the HTML spec out of the box. However, if you try and render tags that are not part of the HTML spec an exception will occur. I wanted to find out how hard it would be to extend the concepts behind XHP for other markup languages, like VoiceXML. Turns out, its not hard at all.</p>
+
+<p>If you look at the <code class="highlighter-rouge">init.php</code> file that is included in the example above, you’ll see its in turn including a file called html.php, which defines all of the HTML elements that can be rendered by XHP, the attributes that each can have and also the parent-child relationship between elements.</p>
+
+<p>Using this is a guide (the syntax is new but fairly easy to follow), I knocked out a quick class file for some basic VoiceXML elements – just to illustrate the concept:</p>
+
+<p>This is admittedly rough, and it only covers a few basic VoiceXML elements, but it demonstrates that extending XHP to render VoiceXML is actually quite easy. To use this file, simple edit the <code class="highlighter-rouge">init.php</code> file mentioned previously and add an include statement:</p>
+
+<blockquote>
+
+  <p>Now we’re ready to use XHP to generate VoiceXML:</p>
+</blockquote>
+
+<p>How cool is that?</p>
+
+<p>I’m still toying around with XHP, but this little experiment clearly shows that it has use beyond just simply rendering HTML. I’d be interested in hearing from other developers – is this worth a full blown project to flush out a complete VoiceXML class library for XHP? What other markup languages would make good candidates for this same type of approach?</p>
+
+<p>Post a comment here, a tweet to <a href="http://twitter.com/mheadd">@mheadd</a> or shoot a quick e-mail to mheadd [at] voiceingov.org with your thoughts or comments.</p>
+
+</div>
+  </body>
+</html>

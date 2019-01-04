@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Using SoX on Headerless (VOX) Audio files</h1>
+<div id="content">  
+  <p>Recently, I had occasion to use <a href="http://sox.sourceforge.net/" target="_blank">Sound eXchange</a> (SoX), the open source sound processing program that lets you convert audio files into different formats, add sound effects to audio files, mix multiple audio files together, and a bunch of other cool stuff.</p>
+
+<p>I really like this tool — it’s powerful, easy to use and easy to incorporate into scripts for batch processing. I did, however, run into a bit of a snag when using it to try and convert audio files in “.vox” format (used on one VoiceXML platform) to “.wav” format (for use on another platform). I simply could not get SoX to convert my “.vox” files to “.wav” files successfully. Every “.wav” audio file I generated was garbled nonsense that sounded only vaguely like human speech.</p>
+
+<p>Trying things like…</p>
+
+<pre>~$ sox myfile.vox myfile.wav
+</pre>
+
+<p>or</p>
+
+<pre>~$ sox -r 8000 -t vox -c 1 myfile.vox myfile.wav
+</pre>
+
+<p>…failed miserably. I had a hard time figuring out why. I could find almost nothing helpful on the web.</p>
+
+<p>According to the SoX documentation:</p>
+
+<blockquote>
+  <p>SoX attempts to determine the file type of input files automatically by looking at the header of the audio file. When it is unable to detect the file type or if its an output file then it uses the file extension of the file to determine what type of file format handler to use.</p>
+</blockquote>
+
+<p>The thing about “.vox” files is that <a href="http://en.wikipedia.org/wiki/VOX_%28file_format%29" target="_blank">they are headerless</a> — they don’t have descriptive information that can be read in by utilities that play these files. The utility has to be told things like sample rate, encoding format, etc. But based on my read of the documentation, I thought that SoX would pick this up through the “.vox” extension on the file.</p>
+
+<p>After a number of unsuccessful attempts, I decided to try again taking a bit of a different approach. The SoX documentation also states that “audio data can usually be totally described by four characteristics”</p>
+
+<ul>
+  <li>The sample rate;</li>
+  <li>The precision the data is stored in;</li>
+  <li>The data encoding, and;</li>
+  <li>The number of channels</li>
+</ul>
+
+<p>When I told SoX to treat the input file as a raw file (i.e., ignore the “.vox” extension), and then specifically told SoX each of the four characteristics of my file, it finally worked.</p>
+
+<pre>~$ sox -t raw -r 8000 -c 1 -U -b myfile.vox myfile.wav
+</pre>
+
+<ul>
+  <li>The -t option tells SoX that the input file is raw (headerless) audio</li>
+  <li>The -r option tells SoX the sample rate of the input file</li>
+  <li>The -c option tells SoX that the input file has one channel (mono)</li>
+  <li>The -U option tells SoX that the data encoding is u-law</li>
+  <li>The -b option tells SoX that the data size is in bytes</li>
+</ul>
+
+<p>My generated “.wav” files are clear as a bell and sound great. In the end, it turned out not to be a SoX issue as much as a lack of information on how to use it properly with “.vox” files, which is a rather old format but is still used on many telephony platforms. I hope this post helps someone else down the line struggling with the same issue.</p>
+
+</div>
+  </body>
+</html>

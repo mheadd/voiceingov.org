@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Getting Conferency With Asterisk</h1>
+<div id="content">  
+  <p>A good indicator of just how powerful and useful Asterisk can be is demonstrated by the amount of effort that is required to build a feature rich conference call application. What if I told you it can be done in <em>6 lines of code</em>?</p>
+
+<p>(Yes, <em>extensions.conf</em> is software – when you work with it, you are writing software code. See “When You Write extensions.conf, You Are Writing Software” by @jicksta <a href="http://jicksta.com/posts/what-were-not-admitting-about-asterisk">in this post</a> for more on this.)</p>
+
+<p>Create a conference room by editing meetme.conf:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">$ echo "conf =&gt; 1234,2345,5678" &gt;&gt; /etc/asterisk/meetme.conf</code></p>
+</blockquote>
+
+<p>Or you can open the file with your favorite editor and add the new line at the bottom. This will create a conference numbered 1234, with a user PIN of 2345 and an administrator PIN of 5678. Next create a dialplan context and rule set for the conference room</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">[MyFirstConferenceRoom]&lt;br /&gt;
+exten =&gt; 9000,1,Answer()&lt;br /&gt;
+exten =&gt; 9000,n,Meetme(1234,ips)&lt;br /&gt;
+exten =&gt; 9000,n,Hangup()</code></p>
+</blockquote>
+
+<p>The parameters passed into the Meetme() application are the number of our conference room (just created in meetme.conf) and a set of options. The <strong>i</strong> option enables an announcement each time someone enters or leaves the room. The <strong>p</strong> option allows a user to exit the conference by pressing the ‘#’ key. The <strong>s</strong> option allows a user (regular or admin) to hear a menu of options when the ‘*’ key is pressed.</p>
+
+<p>Now, include the conference room context in your primary dialplan context:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">include =&gt;  MyFirstConferenceRoom</code></p>
+</blockquote>
+
+<p>That’s it – to test it out, make sure you reload your dialplan, and then dial 9000.</p>
+
+<p>You’ve got to love how easy it is to get conferency with Asterisk!</p>
+
+</div>
+  </body>
+</html>

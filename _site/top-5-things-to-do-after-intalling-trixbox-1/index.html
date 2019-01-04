@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Top 5 Things to do after intalling Trixbox: #1</h1>
+<div id="content">  
+  <p>Today I’ll start a series that I’ve been meaning to commit to writing for some time. The top 5 things to do after you finish installing Trixbox.</p>
+
+<p><a href="http://www.trixbox.org/downloads">Trixbox 2.2</a> is now out, so if you’ve ever thought about setting up your own VoIP system I would strongly recommend giving Trixbox a try. The Trixbox <a href="http://www.trixbox.org/forum">forums</a> provide a wealth of information, and there is some <a href="http://forge.trixbox.org/gf/project/trixbox2/wiki/?action=index">documentation</a> available from the Trixbox project itself. However, most of the documentation focuses on the installation process, and does not provide a whole lot of information about what to do after your system is installed and running.</p>
+
+<p>With this in mind, I’d like to share some of the things that I think are important to ensuring that your Trixbox system is running smoothly (and securely).</p>
+
+<p>First things first — we need to lock down <strong><acronym title="Secure Shell">SSH</acronym></strong>.</p>
+
+<p>If your not familiar with SSH, you should <a href="http://www.suso.org/docs/shell/ssh.sdf">brush up</a> on this remote connection method. Right out of the gate SSH is a more secure way of connecting to a Linux machine than alternatives like Telnet, but that doesn’t mean it’s perfect.</p>
+
+<p>At a minimum, the following steps should be taken to improve SSH security:</p>
+
+<ul>
+  <li>Run SSH on an alternate port (the default is port 22).</li>
+  <li>Only use the SSH 2 protocol (SSH 1 is not as secure as 2)</li>
+  <li>Do not allow root logins via SSH (in fact, it’s a much better approach to only allow specifically named users to log in via SSH, but never root).</li>
+  <li>Use public key authentication, instead of passwords.</li>
+</ul>
+
+<p>There are a number of other helpful tips and tricks available <a href="http://enterprise.linux.com/enterprise/07/03/26/1423232.shtml?tid=129&amp;tid=100&amp;tid=35">here</a>.</p>
+
+<p>Next up, we’ll walk through the process of backing up a Trixbox system and transferring the backup to a remote machine using scp and cron.</p>
+
+</div>
+  </body>
+</html>

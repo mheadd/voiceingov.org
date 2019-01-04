@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Ubuntu Asterisk Oddness</h1>
+<div id="content">  
+  <p>I have a virtual machine running Ubuntu 8.10 Server and I’ve been meaning to give <a href="http://www.voiceglue.org/" target="_blank">VoiceGlue</a> a try to see if I could set up my own completely open source VoiceXML platform,</p>
+
+<p>I found that I was able to run <code class="highlighter-rouge">sudo apt-get install asterisk</code> at the command line, and I started to get excited. This was going to be the easiest Asterisk install yet. I was very soon disabused of this foolish notion.</p>
+
+<p>The Asterisk install seemed to go smoothly, as did the basic set up and config. Just to make sure I was doing things by the numbers I set up a couple of extensions and a quick test to have Festival read something back to me. So far, so good. Next it was on to the VoiceGlue install.</p>
+
+<p>Following the instructions in the <a href="http://voiceglue.org/wiki/doku.php" target="_blank">VoiceGlue Wiki</a>, the install went smoothly. All three VoiceGlue-related services started just fine (the <code class="highlighter-rouge">voiceglue</code> service itself barked at me because I had not yet set up call routing in /etc/voiceglue.conf – once I did this, it started up just fine.)</p>
+
+<p>That’s when things got weird. The VoiceGlue Wiki says:</p>
+
+<blockquote>
+  <p>Phoneglue also needs to be contacted via FastAGI for all calls that it will handle, and it needs to use a particular context, extension, and priority to send calls to itself.</p>
+</blockquote>
+
+<p>OK, no worries there. I set up a new context in /etc/asterisk/extensions.conf and then reloaded the dialplan from the Asterisk console. So far so good. Then, the oddness set in.</p>
+
+<p>I kept seeing an error in the Asterisk logs saying:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">res_agi.c:229 launch_netscript: Connect to 'agi://localhost' failed: Connection refused</code></p>
+</blockquote>
+
+<p>After banging my head against the wall trying to figure it out I decided to check and see if anything was listening on port 4573 (the default port for FastAGI). No dice.</p>
+
+<p>I tried running the test AGI script comes with Asterisk (agi-test.agi). Again, no dice. In fact, it doesn’t look like there are any directories containing AGI scripts anywhere.</p>
+
+<p>Ubuntu Asterisk seems to be looking in /usr/share/asterisk/agi-bin/ – it doesn’t exist. Neither does the usual directory for AGI scripts (/var/lib/asterisk/agi-bin/). Nor does another common directory – /var/spool/asterisk/outgoing.</p>
+
+<p>Why is all of this missing from the Ubuntu version of Asterisk? Anyone have any thoughts? Did I miss something obvious during the install?</p>
+
+<p>I’m still eager to try VoiceGlue, so it looks like I’ll be building Asterisk from scratch.</p>
+
+</div>
+  </body>
+</html>

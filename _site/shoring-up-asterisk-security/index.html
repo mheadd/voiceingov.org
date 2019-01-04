@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Shoring up Asterisk Security</h1>
+<div id="content">  
+  <p>Found out today that an external host had been scanning my Asterisk server looking for valid SIP extensions. Turned out the IP belonged to some German hacking site that was probably using some brute force tools to scan my server (and lots of others) for valid SIP extensions. The ultimate goal was more than likely to try and exploit any live extensions for some free phone calls.</p>
+
+<p>Fortunately, in anticipation of moving my in-house Asterisk server <a href="http://voxilla.com/2009/02/13/asterisk-amazon-ec2-1178" target="_blank">out to the cloud</a> I had recently done some work to become better educated on Asterisk security and to shore up the security of the CentOS machine my Asterisk instance is running on. As a result, my intrusion detection system slammed the door to the external scans pretty quick, and I’ve since added the IP address to my iptables rule set to to drop any requests from the IP used for the scan.</p>
+
+<p>It was a little unnerving to find out that my box was getting scanned, but I’m glad I took the time recently to get things working more securely. This incident reminds me that one can never be too careful about security, and that there is <strong>always</strong> more to learn about running Asterisk more securely. To underscore this last point, here are some great links I’ve come across lately for Asterisk and Linux security:</p>
+
+<ul>
+  <li><a href="http://www.junctionnetworks.com/blog/mike/2009/03/25/weak-passwords-on-extensions-equals-hacked-box" target="_blank">Weak Passwords on Extensions Equals Hacked Box</a></li>
+  <li><a href="http://www.voipusersconference.org/forum/topics/john-todds-security-list" target="_blank">John Todd’s Security List</a></li>
+  <li><a href="http://nerdvittles.com/?p=580" target="_blank">Avoiding the $100,000 Phone Bill: A Primer on Asterisk Security</a></li>
+</ul>
+
+<p>Some general Linux security reading:</p>
+
+<ul>
+  <li><a href="http://www.iptablesrocks.org/" target="_blank">An iptables Guide and Tutorial</a></li>
+  <li><a href="http://www.linux.com/feature/61061" target="_blank">Advanced SSH security tips and tricks</a></li>
+</ul>
+
+<p>Happy reading!</p>
+
+</div>
+  </body>
+</html>

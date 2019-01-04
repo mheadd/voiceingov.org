@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> SOAP up your VoiceXML Apps</h1>
+<div id="content">  
+  <p>Both the <a href="http://cafe.bevocal.com">BeVocal</a> and <a href="http://community.voxeo.com">Voxeo</a> VoiceXML platforms incorporate the Simple Object Access Protocol (SOAP) and Web Services Definition Language (WSDL) specifications to provide some interesting options for VoiceXML developers.</p>
+
+<p>Both platforms allow developers to create a proxy object for a web service by referencing a WSDL file for a given service. By doing this, developers can then access the methods of a web service as if it were simply a JavaScript object. The proxy object handles all the conversion necessary to transform a call to a JavaScript function to a SOAP method.</p>
+
+<p>This functionality provides another way for developers to separate the presentation layer (in the case of a voice application, the rendering of VoiceXML) from the business layer. It also allows VoiceXML developers to access the <a href="http://www.xmethods.net/">wealth of different services available</a> from web services providers. Developers should pay close attention to the implementation details provided on both he <a href="http://www.vxml.org/frame.jsp?page=appendixo.htm">Voxeo</a> and <a href="http://cafe.bevocal.com/docs/vxml/soap.html#270560">BeVocal</a> sites.</p>
+
+<p>One caveat, it appears that at least the BeVocal implementation works only with RPC-oriented services, not document-oriented services (support for document-oriented services is planned for a later release). Not sure if the Voxeo platform supports document-oriented services.</p>
+
+</div>
+  </body>
+</html>

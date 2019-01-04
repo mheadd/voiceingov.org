@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Behold the Power of the Command Line</h1>
+<div id="content">  
+  <p>After finding the unbelievingly cool and useful <a href="http://www.commandlinefu.com" target="_blank">Command-line fu</a> website, I have been consumed with finding and using powerful command line tools. Here are some of the tools I’ve been playing with recently:</p>
+
+<p><strong>xmlstarlet</strong> – <a href="http://xmlstar.sourceforge.net/" target="_blank">xmlstarlet</a> is a powerful tool set for using and manipulating XML from the command line. Anyone that interacts regularly with REST-based APIs should give this a look.</p>
+
+<p><strong>curl</strong> – I did a <a href="http://www.voiceingov.org/blog/?p=691">separate post on curl</a> and explained how to use it to interact with the Twitter API. Things get cool fast when you start to combine these tools by piping output from one command to another. For example, using curl and xmlstarlet, you can get your Tweets from the command line (you can change the count parameter in the call to the Twitter API to get a different number of Tweets back):</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">curl -s -u user:password 'http://twitter.com/statuses/friends_timeline.xml?count=5' | xmlstarlet sel -t -m '//status' -v 'user/screen_name' -o ': ' -v 'text' -n</code></p>
+</blockquote>
+
+<p><strong>festival</strong> – why read text when you can <a href="http://www.cstr.ed.ac.uk/projects/festival/" target="_blank">have your computer speak to you</a>? I’m now getting my daily horoscope via curl, xmlstarlet, festival and cron:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">curl -s 'http://www.trynt.com/astrology-horoscope-api/v2/?m=2&amp;d=23' | xmlstarlet sel -t -m '//horoscope' -v 'horoscope' | festival --tts</code></p>
+</blockquote>
+
+<p>When you’ve got tools like this, the command line is where its at!</p>
+
+</div>
+  </body>
+</html>

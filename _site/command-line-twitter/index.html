@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Command Line Twitter</h1>
+<div id="content">  
+  <p>Just when I thought it couldn’t get any easier to send out a Tweet, I lucked out and found <a href="http://www.commandlinefu.com" target="_blank">Command-line Fu</a>.</p>
+
+<p>While browsing some very cool command line tricks, I happened upon a command to send out a Tweet using <code class="highlighter-rouge">curl</code> from the command line. I’ve seen this kind of example before – there may even be something similar in the Twitter API Wiki – but for some reason it resonated with me this morning. After playing around with it a bit, I’ve tweaked it to my liking:</p>
+
+<p><code class="highlighter-rouge">curl -s -u user:password -d status="$1" http://twitter.com/statuses/update.xml &gt; /dev/null</code></p>
+
+<p>You can drop this into a file using your favorite editor. Save it and make sure the file is executable (<code class="highlighter-rouge">chmod u+x fileName</code>). You can execute this file at the command line like this:</p>
+
+<p><code class="highlighter-rouge">$ ./fileName "This is the text of my Tweet."</code></p>
+
+<p>I’ve opted to redirect the output returned by executing the <code class="highlighter-rouge">curl</code> command (Twitter will respond to the request with an XML document) to the <a href="http://en.wikipedia.org/wiki/Data_sink" target="_blank">bit bucket</a>. I’ve also opted to turn off the normal progress indicator used by <code class="highlighter-rouge">curl</code> by invoking the <code class="highlighter-rouge">-s</code> flag. Feel free to tweak this to your heart’s desire.</p>
+
+<p>I’ll definitely be sending out more Tweets from the command line, and I’ll definitely be going back over to <a href="http://www.commandlinefu.com" target="_blank">Command-line Fu</a> for some more command line tricks.</p>
+
+</div>
+  </body>
+</html>

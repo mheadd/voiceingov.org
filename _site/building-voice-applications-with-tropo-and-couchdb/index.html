@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Building Voice Applications with Tropo and CouchDB</h1>
+<div id="content">  
+  <p>The beginning of a new decade is usually the time when there is a lot of reflection on what has changed for the better (and the worse) over the past 10 years.</p>
+
+<p><img src="http://voiceingov.files.wordpress.com/2010/01/tropo_logo.png" alt="Tropo" title="Tropo" style="margin:10px;padding:15px;float:right;" /></p>
+
+<p>The end of 2009 saw its fair share of pundits talking about how far we’ve come since the year 2000, but for me the most dramatic change has been to the way that voice applications are developed and deployed. In the past 10 years (hell, in the past 10 months!) we’ve seen a dramatic shift toward cloud telephony with the launch of a number of new services that have fundamentally altered how voice applications can be built.</p>
+
+<p>There has simply never been a more varied and powerful array of tools available for developers to build phone applications with than exists today. Some of the newest and most innovative platforms around for building cloud-based phone applications are listed below:</p>
+
+<ul>
+  <li><a href="http://www.tropo.com/" target="_blank">Tropo</a></li>
+  <li><a href="http://cloudvox.com/" target="_blank">Couldvox</a></li>
+  <li><a href="http://www.callfire.com/dialer/cm/custom_telephony.html" target="_blank">CallFire</a></li>
+  <li><a href="http://tringme.com/" target="_blank">TringMe</a></li>
+  <li><a href="http://www.twilio.com/" target="_blank">Twilio</a></li>
+  <li><a href="http://www.ribbit.com/" target="_blank">Ribbit</a></li>
+</ul>
+
+<p>Over the same period of time there’s also been lots of changes to some of the foundational technologies supporting voice applications (and other kinds of web applications). The NoSQL movement is gaining steam, and there is an interesting collection of new <a href="http://nosql-database.org/" target="_blank">document-oriented databases</a> available for developers to use. One of my favorite is Apache <a href="http://couchdb.apache.org/" target="_blank">CouchDB</a>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png" alt="Apache CouchDB Logo" /></p>
+
+<p>The thing I find really interesting about CouchDB is that it makes use of an HTTP-based API – pretty much any tool or technology that can communicate via HTTP can be used to interact with a CouchDB instance (hello command line…). In addition, that data structure of the documents stored in a CouchDB instance is <a href="http://www.json.org/" target="_blank">JSON</a>. In my mind, this makes CouchDB a very useful choice when building cloud applications, specifically cloud telephony applications.</p>
+
+<p>Who wants to use one of those old relational databases to build a cutting edge cloud phone app? That’s so 2009.</p>
+
+<p>This post and the next several that follow it will detail how to set up a CouchDB instance and to build a cloud telephony application with it using the Voxeo <a href="http://tropo.com/" target="_blank">Tropo platform</a>.</p>
+
+<p>For those that don’t know, Tropo is one of the new cloud telephony platforms that lets developers author voice apps quickly and easily using one of several different languages. It’s open source, well documented and supported by Voxeo’s industry leading telephony infrastructure.</p>
+
+<p>So, if you want to start the new decade of right by learning how to build powerful, scalable, full featured voice applications using Tropo and CouchDB, read on.</p>
+
+<p><strong>Getting Started with Tropo</strong></p>
+
+<p>Head on over to <a href="http://tropo.com/" target="_blank">Tropo.com</a> and set up a new account (if you don’t have one already). Take a little time to review the <a href="http://docs.tropo.com/" target="_blank">documentation for Tropo</a> – I’d recommend running through a few of the sample apps if you have time. They’re fairly self explanatory and provide a solid overview of the different languages that can be used to write a Tropo app – I’ll be using PHP for the example application in this series of blog posts, but you can use any language that Tropo supports.</p>
+
+<p>Deploying and testing an application on Tropo is a snap, and you can even deploy a PSTN number for your application (or you can use the Skype calling number automatically provisioned when you create a Tropo app). More on this in the next post.</p>
+
+<p><strong>Installing CouchDB</strong></p>
+
+<p>The next step in building our cloud telephony application for the new decade is getting CouchDB up and running. The steps listed below detail how to install CouchDB 0.9 on Ubuntu 8.04 (the long-term support version of Ubuntu). A few points before we get started…</p>
+
+<p>This specific combination of Ubuntu and CouchDB is my own preference. I typically run Ubuntu 8.04 when I deploy a new virtual server, but you are free to run whatever version you like, or another Linux distro entirely – its up to you. Depending on the version of Ubuntu you are running, you may be able to get CouchDB 0.9 installed by simply doing <code class="highlighter-rouge">sudo apt-get install couchdb</code>.</p>
+
+<p>Keep in mind, though, that the HTTP API for CouchDB can change dramatically between versions – I’ve noticed some significant changes when going from 0.8 to 0.9 – the discussion here will focus on version 0.9 (as does a lot of <a href="http://books.couchdb.org/relax/" target="_blank">good documentation on CouchDB</a> available on the web).</p>
+
+<p>If you don’t want to install CouchDB yourself, you may be able to take advantage of one of the growing number of CouchDB hosting services like <a href="http://cloudant.com/" target="_blank">CloudAnt </a>or <a href="http://hosting.couch.io/" target="_blank">Couch.io</a>. Again, its up to you.</p>
+
+<p>To install CouchDB 0.9 on Ubuntu 8.04, using the following steps.</p>
+
+<p>Step 1. Determine what version of Ubuntu is running on your machine:</p>
+
+<blockquote>
+  <p>$ cat /etc/lsb-release</p>
+</blockquote>
+
+<p>Step 2. Install Erlang – CouchDB 0.9 requires at least Erlang version 5.5.5. If you are running Ubuntu 8.10 or above, you can probably get the required Erlang version by simply doing <code class="highlighter-rouge">sudo apt-get install erlang</code>. (Note – The last step in this section may take a while, feel free to go grab a cup of Joe while the source compiles.)</p>
+
+<blockquote>
+  <p>$ sudo apt-get build-dep erlang</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo apt-get install java-gcj-compat java-gcj-compat-dev</p>
+</blockquote>
+
+<blockquote>
+  <p>$ wget http://www.erlang.org/download/otp_src_R12B-5.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ tar -zxvf otp_src_R12B-5.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cd otp_src_R12B-5/</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ./configure &amp;&amp; make &amp;&amp; sudo make install</p>
+</blockquote>
+
+<p>Step 3. Install CouchDB dependencies:</p>
+
+<blockquote>
+  <p>$ sudo apt-get install libmozjs-dev libicu-dev libcurl4-openssl-dev</p>
+</blockquote>
+
+<p>Step 4. Download CouchDB 0.9 Source and install:</p>
+
+<blockquote>
+  <p>$ wget http://apache.mirrors.redwire.net/couchdb/0.9.0/apache-couchdb-0.9.0.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ tar -zxvf apache-couchdb-0.9.0.tar.gz</p>
+</blockquote>
+
+<blockquote>
+  <p>$ cd apache-couchdb-0.9.0/</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ./configure &amp;&amp; make &amp;&amp; sudo make install</p>
+</blockquote>
+
+<p>Step 5. Create a user for CouchDB (More on this in the CouchDB README.txt file):</p>
+
+<blockquote>
+  <p>$ sudo adduser – –system – –home /usr/local/var/lib/couchdb – –no-create-home – –shell /bin/bash – –group – –gecos “CouchDB Administrator” couchdb</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/etc/couchdb</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/var/lib/couchdb</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown -R couchdb /usr/local/var/log/couchdb</p>
+</blockquote>
+
+<p>Step 6. Start CouchDB</p>
+
+<blockquote>
+  <p>$ sudo /usr/local/etc/init.d/couchdb start</p>
+
+  <p>If you see an error that says:</p>
+
+  <p><em>“Apache CouchDB needs write permission on the PID file: /usr/local/var/run/couchdb.pid”</em></p>
+
+  <p>Do the following, then try starting CouchDB again:</p>
+
+  <p>$ sudo touch /usr/local/var/run/couchdb.pid</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo chown couchdb:couchdb /usr/local/var/run/couchdb.pid</p>
+
+  <p>When CouchDB starts successfully, you will see a message that says:</p>
+
+  <p><strong>* Starting database server couchdb     [ OK ]</strong></p>
+</blockquote>
+
+<p>Step 7. Test connectivity to CouchDB:</p>
+
+<blockquote>
+  <p>$ curl http://127.0.0.1:5984</p>
+
+  <p>You should see:</p>
+
+  <p><strong>{“couchdb”:”Welcome”,”version”:”0.9.0″}</strong></p>
+</blockquote>
+
+<p>The configuration file for CouchDB is located at /usr/local/etc/couchdb/local.ini — in the next post, we’ll modify some of the config settings for our CouchDB instance so that we can access it via HTTP from the Tropo environment.</p>
+
+<p>We’ll also set up our first CouchDB database, add some documents and start coding our new cloud telephony application using Tropo.</p>
+
+<p>Stay tuned…</p>
+
+</div>
+  </body>
+</html>

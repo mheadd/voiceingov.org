@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Telephone Links in Web Pages</h1>
+<div id="content">  
+  <p>Have you ever hovered over a hyperlink on a web page and noticed that it uses the mysterious <strong>tel:</strong> protocol? What happens when you click on a link <a href="tel:18005551234">like this</a> in your browser?</p>
+
+<p>The answer to that question can depend a lot on how your browser is set up. If your using Firefox, you can associate specific applications with different protocols by opening a new tab and entering <strong>about:config</strong> in the address bar.</p>
+
+<p>In the configuration settings you’ll need to add two entries, or modify the existing ones if these are already there:</p>
+
+<ul>
+  <li>network.protocol-handler.external.tel (boolean – set to true).</li>
+  <li>network.protocol-handler.app.tel (string – the path to the application you want to launch)</li>
+</ul>
+
+<p>Not exactly sure if this works the same way on Windows, but on my Linux machine I set the second value to the path to my Gizmo softphone (/usr/bin/gizmo) and it automatically launches and dials the number. Pretty neat!</p>
+
+<p>There is a <a href="http://www.faqs.org/rfcs/rfc3966.html" target="_blank">standard for telephone URIs</a> out there, but there doesn’t seem to be a lot of good information on how different browsers / platforms deal with this type of link.</p>
+
+<p>This might be a good area for some standards, especially since lots of web content is now being consumed on mobile devices (like iPhones) that are more tightly coupled with phones.</p>
+
+<p>If anyone is aware of some standards in this area, or even where better information on different browsers / platforms can be obtained, please <a href="tel:13024824592">call me</a>. 😉</p>
+
+</div>
+  </body>
+</html>

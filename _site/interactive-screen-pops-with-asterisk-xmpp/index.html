@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Interactive Screen Pops with Asterisk &#038; XMPP</h1>
+<div id="content">  
+  <p>I’ve got a thing about <a href="http://en.wikipedia.org/wiki/Screen_pop">screen pops</a>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/10/asterisk1.gif" alt="Asterisk" title="Asterisk" style="margin:10px;padding:15px;float:right;" /></p>
+
+<p>I’ve <a href="http://www.voiceingov.org/blog/?p=326">written before</a> about using Asterisk and XMPP to enable IM-based screen pops, but the recent release of Asterisk 1.8 creates a whole new reason to be excited about this topic.</p>
+
+<p>The <a href="http://www.asterisk.org/node/51444">new version of Asterisk</a> includes a new dialplan function called <a href="https://wiki.asterisk.org/wiki/display/AST/Function_JABBER_RECEIVE">JABBER_RECEIVE</a>.</p>
+
+<p>This new function nicely compliments the existing <a href="https://wiki.asterisk.org/wiki/display/AST/Application_JabberSend">JabberSend() dialplan application</a> and lets you read incoming XMPP messages into dialplan variables (via <a href="https://wiki.asterisk.org/wiki/display/AST/Application_Set">Set()</a>).</p>
+
+<p>Now that you can both send <strong>and</strong> receive XMPP messages via the dialplan, it is possible to build sophisticated CTI applications using standards-based XMPP servers and clients with nothing but <code class="highlighter-rouge">extensions.conf</code>. Here’s how.</p>
+
+<p>You’ll need an XMPP server with (at least) two accounts. One for you, as a user. One for Asterisk. You’ll also want to fire up your XMPP client and add the Asterisk user to your buddy list.</p>
+
+<p>Set up jabber.conf with the details of the Asterisk account on your XMPP server (make sure you run <code class="highlighter-rouge">jabber reload</code> in the Asterisk CLI after modifying the file):</p>
+
+<p>Once you’ve done that, you’ll need to add some dialplan logic to use both JabberSend() and JABBER_RECEIVE (run <code class="highlighter-rouge">dialplan reload</code> in the Asterisk CLI after adding this logic):</p>
+
+<p>In this simple example, anytime a call comes into the <code class="highlighter-rouge">default</code> context, a set of IM messages are sent to the XMPP account user@xxx.xxx.xxx.xxx (where xxx.xxx.xxx.xxx represents the host name/IP for your XMPP server). The following line in the dialplan will cause Asterisk to wait 10 seconds to receive a response from user@xxx.xxx.xxx.xxx.</p>
+
+<blockquote>
+  <p>exten =&gt; _XXXX,n,Set(OPTION = ${JABBER_RECEIVE(asterisk,user@xxx.xxx.xxx.xxx,10)})</p>
+</blockquote>
+
+<p>When a response is received, it is read into the variable OPTION. Subsequent dialplan logic will either send the call to the extention that was dialed, or simply hang up (you could just as easily add options and logic to route the call to one of several different phone numbers or to voicemail).</p>
+
+<p>That’s it!</p>
+
+<p>This powerful new addition to Asterisk makes building sophisticated, interactive XMPP-based screen pops easy. Just imagine what other <a href="http://svn.digium.com/view/asterisk/branches/1.8/CHANGES?view=markup" target="_blank">juicy little nuggets</a> await in the new version of Asterisk.</p>
+
+<p>Happy screen popping!</p>
+
+</div>
+  </body>
+</html>

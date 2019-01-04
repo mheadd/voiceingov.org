@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> How NOT to Manage an API</h1>
+<div id="content">  
+  <p>Recently, I decided to build a small application that interacts with the Twitter API, the <a href="http://cli.gs/api" target="_blank">cli.gs</a> API and Google Calendar to allow me to get advanced notice of any and all Boston Celtics games. The app is actually live and can be <a href="http://twitter.com/celticsgames" target="_blank">followed on Twitter</a>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2008/12/celtics.gif" alt="Boston Celtics" title="Boston Celtics" style="float:left;margin-top:15px;margin-right:15px;margin-bottom:15px;padding-top:10px;padding-bottom:10px;padding-right:10px;" /></p>
+
+<p>It’s a pretty neat little application that runs on a daily <code class="highlighter-rouge">cron</code> job and queries a small database to see if there is a Celtics game on the following day. If there is a game the next day, it generates a link to add the game to Google Calendar, shortens the link using the cli.gs API and sends out a Tweet with the game details and Calendar link. Pretty sweet, right?</p>
+
+<p>Unfortunately, almost immediately after going live the Twitter API started to return some nasty HTTP responses and I was unable to update the status of the <a href="http://twitter.com/celticsgames" target="_blank">celticsgames</a> account. Specifically, the Twitter API started to return the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" target="_blank">HTTP 417 response code</a>. After doing a little Googling, I found that I was <a href="http://groups.google.com/group/twitter-development-talk/browse_thread/thread/7c67ff1a2407dee7?pli=1" target="_blank">not the only person</a> using the Twitter API to suddenly (and without any warning) run into a problem that broke their application.</p>
+
+<p>The issue stems from the inclusion of the HTTP Expect header in the request that is sent to the Twitter API. I’m using PHP and cURL to interact with the Twitter API. Apparently, this header is sent by default with a value of ‘100-continue’ by cURL (unless you override it and set a different value). Seems the Twitter API grew very confused by this setting in the past few days. The HTTP spec states that:</p>
+
+<blockquote>
+  <p>A server that does not understand or is unable to comply with any of the expectation values in the Expect field of a request MUST respond with appropriate error status. The server MUST respond with a 417 (Expectation Failed) status if any of the expectations cannot be met or, if there are other problems with the request, some other 4xx status.</p>
+</blockquote>
+
+<p>I did some checking and I can’t find any mention on the Twitter API Wiki about a recent change that would have affected how the Twitter API responded to HTTP requests with the Expect header set in any particular way (it is possible, though, that I could have missed it). I also referred to the specific list of <a href="http://apiwiki.twitter.com/REST-API-Documentation?SearchFor=expect+header&amp;sp=1#HTTPStatusCodes" target="_blank">HTTP status codes</a> returned by the API — no mention of a 417 response at all.</p>
+
+<p>In my opinion, this is a pretty crappy way to manage an API. If your goal is to encourage third-party developers to build applications that work with your API, don’t make breaking changes without going to great lengths to ensure the developer community understands how the change will impact them. And for goodness sake, update your documentation.</p>
+
+<p>Fortunately, there is a Celtics game on later today (during which they will absolutely pound the LA Lakers) — that should take this bad taste out of my mouth.</p>
+
+</div>
+  </body>
+</html>

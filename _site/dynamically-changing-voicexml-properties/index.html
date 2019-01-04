@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Changing VoiceXML Property Values</h1>
+<div id="content">  
+  <blockquote>
+  <p>Properties are used to set values [in VoiceXML applications] that affect platform behavior, such as the recognition process, timeouts, caching policy, etc.</p>
+</blockquote>
+
+<p>One of the most frequently used <a href="http://www.w3.org/TR/voicexml20/#dml6.3">properties</a> is the “inputmodes” property, which controls the types of input that a caller may use to interact with a VoiceXML application. In practice, it’s often a wise design consideration to construct handlers for when certain types of input are not working well (e.g., voice input) and direct a caller to utilize another input method (e.g., touch tone, or DTMF entry).</p>
+
+<p>However, while it is fairly easy to detect the type of input method being used by a caller, and even easier to simply tell a caller to use an alternate input method, it can sometime be tricky to change the “inputmodes” property from within a VoiceXML application. Changing this property value can become important when a VoiceXML application is not handling voice input efficiently. This can occur in a noisy environment with lots of background noise, or when other factors (static on the line) may be causing the Automatic Speech Recognition (ASR) engine to try and recognize input. Often, an ASR engine will attempt a recognition when what it thinks is spoken input is detected. Setting the “inputmodes” property to DTMF will cause the VoiceXML platform to ignore spoken input.</p>
+
+<p>`<br />
+<!-- Default  / typical setting --><br /></p>
+<property name="inputmodes" value="dtmf voice" />
+<p>&lt;/p&gt;</p>
+<p><!-- Setting for use in noisy environments --><br />
+<property name="inputmodes" value="dtmf" /><br />
+` 
+
+VoiceXML doesn&#8217;t allow property values to be set through client-side scripting. There is no &#8220;expr&#8221; attribute to the <property> tag, as there is with so many other VoiceXML elements, but perhaps there will be in a future version of the specification. So, what options are there for manipulating this property from within a VoiceXML application&#8230;?
+
+**Detecting input modes**
+
+Before we can change the &#8220;inputmodes&#8221; property, we need to be able to detect which mode a caller is using, and set up handlers for when there are problems. To detect the input mode used by a caller, we can access the &#8220;[application.lastresult$](http://www.w3.org/TR/voicexml20/#dml5.1.5)&#8221; variable. This variable holds, among other things, information about the input mode last used. A set of handlers that leverages this information to help a caller having trouble might look like this:
+
+`<br />
+<nomatch count="1"><br />
+<prompt>I'm sorry I didn't understand what you said. </prompt><br />
+<reprompt /><br />
+</nomatch>&lt;/p&gt;
+<p><nomatch count="2"><br />
+<if cond=" application.lastresult$.inputmode='voice'"><br />
+<prompt>I'm still having trouble hearing you.<br />
+Please try entering your selection using your touch tone key pad. </prompt><br />
+<reprompt /><br />
+  <else /><br />
+<prompt>I didn't get that. Please try entering your selection again.<br />
+</prompt><br />
+<reprompt /><br />
+</if><br />
+</nomatch></p>
+<p><nomatch count="3"><br />
+<prompt>I'm sorry. I'm still having trouble understanding your selection.<br />
+Please wait while I transfer you to a customer service representative.<br />
+</prompt><br />
+<goto next="#transfer" /><br />
+</nomatch><br />
+` 
+
+As stated above, its pretty straightforward to simply tell the caller to use DTMF entry &#8211; which I&#8217;ve done above &#8211; but quite another to actually enforce it by changing the &#8220;inputmodes&#8221; property. If the problem the caller is having is a function of a faulty line, or a noisy environment (both factors probably outside their control) telling them to use DTMF entry probably isn&#8217;t a good enough solution by itself.
+
+**Changing property values inside a VoiceXML application &#8211; the static approach**
+
+The easiest way to change property settings is simply to direct a caller to another dialog or module with the desired setting. So, using the above example, we might detect when a caller is having trouble and move them to a different part of the application:
+
+`<br />
+<nomatch count="2"><br />
+<if cond=" application.lastresult$.inputmode='voice'"><br />
+<prompt>I'm still having trouble hearing you.<br />
+Please try entering your selection using your touch tone key pad. </prompt><br />
+<goto next="#dtmfOnly" /><br />
+  <else /><br />
+<prompt>I didn't get that. Please try entering your selection again.<br />
+</prompt><br />
+<reprompt /><br />
+</if><br />
+</nomatch></p>
+<p><form id="dtmfOnly"><br />
+<property name="inputmodes" value="dtmf" />&lt;/p&gt;
+<p>..some more VoiceXML logic...</p>
+<p>&lt;/form&gt;<br />
+` 
+
+By directing the caller to a specific portion of the application with a property setting scoped to that part of the application, we may have gone a long way toward solving the problem. However, we may have inadvertently created another &#8211; this approach can get burdensome because it means that there is more code to write and take care of. The &#8220;dtmfOnly&#8221; form may be identical to the form that directed the caller there in every way, with the exception of this one property setting. In some extreme cases, it could mean developing parallel call legs for DTMF and Voice entry. (Shudder!)
+
+Another approach involves the introduction of some server-side scripting.
+
+**Changing property values inside a VoiceXML application &#8211; the dynamic approach**
+
+You can&#8217;t change the value of a property setting with VoiceXML alone (or even with VoiceXML and JavaScript), but it&#8217;s possible if you use some server side logic. For this example, I&#8217;ll use PHP but you can really use any flavor that you desire.
+
+To start out, lets add some server-side code at the beginning of our VoiceXML script, or in the application root document if you prefer:
+
+`<br />
+<?php</p>
+<p>// Check to see if mode variable is submitted with page request<br />
+if (isset($_REQUEST['mode']) ) {<br />
+    echo '<property name="inputmodes" value="'.$_REQUEST['mode'].'"/>';<br />
+    }</p>
+<p>// If not, use default value with property setting<br />
+    else {<br />
+    echo '<property name="inputmodes" value="dtmf voice"/>';<br />
+}</p>
+<p>?><br />
+` 
+
+This, admittedly simplistic set of logic does two things; first it checks to see if a variable submitted with the page request (named &#8220;mode&#8221;) is set, and if it is, it uses the value of &#8220;mode&#8221; to generate the VoiceXML markup to set the property value for our application. Otherwise, we simply set the value of our &#8220;inputmodes&#8221; property to DTMF/voice (this step is probably not necessary, since this is likely the default setting on the platform you are using).
+
+Now, let&#8217;s return for a moment to our handy handler from previous examples, and continue to add server-side markup:
+
+`<br />
+<nomatch count="2"><br />
+<if cond=" application.lastresult$.inputmode='voice'"><br />
+<prompt>I'm still having trouble hearing you. Please try entering your selection using your touch tone key pad. </prompt><br />
+<assign name="mode" expr="'dtmf'" /><br />
+<submit next="&lt;?php echo $_SERVER['PHP_SELF'] ?&gt;" namelist="mode" /><br />
+ <else /><br />
+<prompt>I didn't get that. Please try entering your selection again. </prompt><br />
+<reprompt /><br />
+</if><br />
+</nomatch><br />
+` 
+
+This handler will now transition the caller to a new dialog &#8211; the destination of the submit element is the name of the [currently executing script](http://us2.php.net/reserved.variables) (i.e., it&#8217;s submitted to itself). When this submit takes place, our &#8220;mode&#8221; variable will be sent along for the ride with a value of &#8216;dtmf&#8217; to be caught and processed by the logic we added above. (Note, in order to use the <assign> within this handler, we should declare the &#8220;mode&#8221; variable in our application root document, or somewhere else within our application, before getting to this point.)
+
+This approach lets us rewrite the value of our &#8220;inputmodes&#8221; property without creating a parallel call flow for DMTF entry only. It has the additional flexibility of allowing us to set our &#8220;inputmodes&#8221; property to voice only if that&#8217;s what we wanted to do:
+
+`<br />
+<assign name="mode" expr="voice'" /><br />
+<submit next="&lt;?php echo $_SERVER['PHP_SELF'] ?&gt;" namelist="mode" /><br />
+` 
+
+You&#8217;ll obviously want to get a bit more sophisticated with your server-side logic. However, this approach demonstrates that it is possible to dynamically change the value of a property setting in a VoiceXML application to dramatically improve a caller&#8217;s experience.
+</assign></p></form></p></property></p>
+
+</div>
+  </body>
+</html>

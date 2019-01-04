@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> JavaScript Trick for Voice Applications</h1>
+<div id="content">  
+  <p>There are times when it is desirable to change the behavior of a VoiceXML application based on a specific setting.</p>
+
+<p>For example, the GreenPhone application that I have mentioned in <a href="http://www.voiceingov.org/blog/?p=135">several</a> <a href="http://www.voiceingov.org/blog/?p=136">previous posts</a> has a setting that can be used to control whether special audio files are played. I personally find these audio files funny and somewhat endearing — others may not. To control whether they are played, there is a variable in the application root document called (cleverly) <strong>playAudio</strong>.</p>
+
+<p><code class="highlighter-rouge">&lt;br /&gt;
+&lt;var name="playAudio" expr="true"/&gt;&lt;br /&gt;
+</code></p>
+
+<p>It’s default setting is <strong>true</strong>, and this can be changed to <strong>false</strong> to prevent these files from playing. The typical method for checking a variable like this one to determine if an audio file should be played looks something like this:</p>
+
+<p>`<br /></p>
+<if cond="playAudio"><br />
+&nbsp;&nbsp;<audio src="myFile.wav" /><br />
+</if>
+<p><br />
+`</p>
+
+<p>There isn’t anything wrong with this, and since there isn’t a “cond” attribute on the <audio></audio> tag there aren’t very many good alternatives. There is one alternative method that I rather fancy that uses the <a href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Operators:Special_Operators:Conditional_Operator">JavaScript conditional operator</a> to distill this to a single line of code:</p>
+
+<p>`<br /></p>
+<audio expr="playAudio ? 'myRealAudioFile.wav' : 'myFakeAudioFile.wav'" />
+<p><br />
+`</p>
+
+<p>This shortcut allows us to assign a value to the audio file reference via the “expr” attribute, instead of using an explicit URI to the location of an audio file. The way the operator behaves is to first evaluate the condition on the far left side — if it evaluates to <strong>true</strong> then the first expression is assigned as the URI of the audio file. If it evaluates to <strong>false</strong>, then the second expression is used.</p>
+
+<p>The trick here is that the second expression resolves to a bogus audio file — it doesn’t exist. This will not cause a fatal error in your application, it will simply cause Prophecy not to play an audio file (it can’t because the file doesn’t exist).</p>
+
+<p>The JavaScript conditional operator can come in very handy in CCXML as well. For example, there are times in CCXML where I want to use <dialogterminate></dialogterminate> to end a call, but I may not be certain which dialog a caller is in — the JavaScript conditional operator can come in handy here:</p>
+
+<p>`<br /></p>
+<dialogterminate dialogid="loggedIn ? voiceMailDialog : loginDialog" />
+<p><br />
+`</p>
+
+<p>Since the “dialogid” attribute is an expression, we can use the JavaScript conditional operator to check and see if a caller has logged into a voice mail system to retrieve their voicemail. If there loggedIn status is true, we assume that they are in the voiceMailDialog and yank them from that. Otherwise, we assume they are in the first dialog and yank from there.</p>
+
+<p>There are surely other ways to do these things, but in my humble opinion the JavaScript conditional operator deserves some attention as a powerful shortcut for doing things in CCXML or VoiceXML using the <a href="http://voxeo.com/prophecy/">Voxeo Prophecy platform</a>.</p>
+
+</div>
+  </body>
+</html>

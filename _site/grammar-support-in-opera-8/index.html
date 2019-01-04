@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Grammar Support in Opera 8</h1>
+<div id="content">  
+  <p>Conflicting posts in newsgroups dealing with the new multimodal browser released from Opera raise the question of which grammar formats are supported in the new browser.</p>
+
+<p><a href="http://www.voicexml.org/cgi-bin/ubb/ultimatebb.cgi?ubb=get_topic;f=7;t=000006">This post</a> on the VoiceXML Forum Community Message Board bemoans the lack of support for the SRGS (Speech Recognition Grammar Specification) format for speech grammars in Opera 8. It suggests that the new browser only supports the JSGF (Java Speech Grammar Format).</p>
+
+<p>This would be a major issue in my opinion, as <a href="http://www.w3.org/TR/speech-grammar/">the SRGS specification</a> is closely tied to the VoiceXML standard â€“ both were developed under the auspices of the W3C, both were adopted as standards on the same day and the certification of both <a href="http://www.voicexml.org/certification/developer.html">developers</a> and <a href="http://www.voicexml.org/certification/platform.html">platforms</a> by the VoiceXML Forum is contingent on support for the SRGS. If one of the benefits of XHTML+Voice is that it will leverage the existing skills of VoiceXML developers, why wouldn’t the first XHTML+Voice browser support the designated standard for grammars under the VoiceXML specification?</p>
+
+<p>After further research, I came across <a href="http://my.opera.com/forums/showthread.php?s=c77dd1d8426abe986c9dc010c6aebed8&amp;threadid=83252">this post</a> on the Opera Developer forum. It states pretty clearly that the SRGS spec is indeed supported in Opera 8. The only way to be sure, however, is to set up a quick test.</p>
+
+<p>Using <a href="http://my.opera.com/community/dev/voice/xv-script/">one of the examples</a> on the Opera developer site, which is designed to use a JSGF grammar, I modified the example to use an SRGS grammar (in XML format). These two sample files can be tested by pointing the  <a href="http://my.opera.com/mheadd/affiliate/">latest version of the Opera Browser</a> at the links below:</p>
+
+<ul>
+  <li><a href="http://www.voiceingov.org/files/x_plus_v/grammar_test1.xml">Grammar Test 1</a> (using JSGF grammar)</li>
+  <li><a href="http://www.voiceingov.org/files/x_plus_v/grammar_test2.xml">Grammar Test 2</a> (using SRGS grammar)</li>
+</ul>
+
+<p>Both work identically, demonstrating that the new <a href="http://my.opera.com/mheadd/affiliate/">XHTML+Voice enabled browser from Opera</a> does indeed support the SRGS grammar format.</p>
+
+</div>
+  </body>
+</html>

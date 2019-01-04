@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Building Voice Applications with Tropo and Node.js</h1>
+<div id="content">  
+  <p>I’ve been smitten of late with <a href="http://nodejs.org/">Node.js</a>.</p>
+
+<p>Node.js is a framework for building server-based applications in JavaScript. Node.js is event driven, so if you got a fairly good understanding of state-driven development frameworks you’ll probably get it quickly. If not, start <a href="http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb">here</a>.</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/10/nodejs_.jpg" alt="Node.js" title="Node.js" width="222" height="75" style="float:right;margin:15px;" /></p>
+
+<p>I wanted to learn more about Node.js, so I decided to build a module. There are lots of modules out there, but I wanted to do something very specific with mine. I wanted to use Node.js to build voice applications. (Not a shocker, it’s what I do.)</p>
+
+<p>Turns out Node.js is a very nice match for the <a href="https://www.tropo.com/docs/webapi/">Tropo WebAPI</a>, a cloud-based API for building sophisticated speech and communication applications. The Tropo WebAPI speaks <a href="http://json.org/">JSON</a>, and I can’t think of any more natural way of creating and consuming JSON than with good ‘ol JavaScript. Really, you can see why this gets me excited.</p>
+
+<p>The Node.js module that I’ve been working on for interacting with the Tropo WebAPI is now <a href="http://github.com/tropo/tropo-webapi-node">available on GitHub</a>. It comes with some very nice examples, and even a set of unit tests (yes, Virginia, you can write unit tests with Node.js). It has everything you need to get started using Node.js to write voice apps in JavaScript.</p>
+
+<p>If you decide to give it a try (which I hope you do), there are some additional ingredients I would recommend adding to the mix:</p>
+
+<ul>
+  <li>The <a href="http://expressjs.com/">Express.js framework</a> – a Node.js module very much like <a href="http://www.sinatrarb.com/">Sinatra</a> in Ruby or <a href="http://www.limonade-php.net/">Limonade</a> in PHP.</li>
+  <li><a href="http://couchdb.apache.org/">CouchDB</a> – The wonderfully powerful document-oriented storage engine that uses both JavaScript (for map/reduce and views) and JSON (for storing documents). There are also many fine <a href="http://github.com/ry/node/wiki/modules">Node.js modules</a> available for interacting with CouchDB.</li>
+</ul>
+
+<p>With these ingredients you’ve got a pretty powerful foundation on which to build robust, sophisticated multi-channel communication apps.</p>
+
+<p>But why would you want to build a voice application with JavaScript?</p>
+
+<p><img src="http://localhost:8000/wp-content/uploads/2010/03/tropo.jpg" alt="Tropo" title="Tropo" width="194" height="119" style="float:left;margin:15px;" /></p>
+
+<p>Pretty much all of the voice application development tools and technologies that have been developed over the last decade or so have one essential unifying characteristic – each of them seeks to leverage easy to understand, low cost web technologies to build phone applications.</p>
+
+<p>This principle can be seen very clearly in the approach embodied by the new <a href="http://github.com/tropo/tropo-webapi-node">Node.js library for the Tropo WebAPI</a>. If you can write JavaScript, you can build sophisticated, cloud-based communication applications that not long ago required specialized skills, training, software and hardware (Big bucks, people. Big bucks).</p>
+
+<p>Cloud-based telephony services based around simple to use APIs that employ widely supported standards like HTTP and JSON are democratizing phone and voice application development.</p>
+
+<p>It’s really exciting to be a part of this trend and to contribute tools that others can use to build powerful applications.</p>
+
+</div>
+  </body>
+</html>

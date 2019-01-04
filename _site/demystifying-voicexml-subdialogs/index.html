@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Demystifying VoiceXML Subdialogs</h1>
+<div id="content">  
+  <p><em>Note â€“ this post demonstrates the use of VoiceXML subdialogs. The examples below were tested on the Voxeo Prophecy platform. To download the Prophecy software and run these examples locally, go to <a href="http://www.voxeo.com/prophecy/" target="_blank">http://www.voxeo.com/prophecy/</a>.</em></p>
+
+<p><strong>What are Subdialogs?</strong></p>
+
+<p><a href="http://www.w3.org/TR/2004/REC-voicexml20-20040316/#dml2.3.4" target="_blank">Subdialogs</a> are a powerful, but often misunderstood, part of the VoiceXML specification that can be used to create reusable components for telephone applications.</p>
+
+<p>The official W3C VoiceXML specification defines subdialogs thusly:</p>
+
+<blockquote>
+  <p>A subdialog is like a function call, in that it provides a mechanism for invoking a new interaction, and returning to the original form. Variable instances, grammars, and state information are saved and are available upon returning to the calling document. Subdialogs can be used, for example, to create a confirmation sequence that may require a database query; to create a set of components that may be shared among documents in a single application; or to create a reusable library of dialogs shared among many applications.</p>
+</blockquote>
+
+<p>One of the most confusing aspects of subdialogs is that they run in a completely separate execution context from the dialog that invokes them (the parent dialog). However, once developers get over this conceptual hurdle, the real power of subdialogs becomes apparent.</p>
+
+<p><strong>Fun with Subdialogs</strong></p>
+
+<p>One of the things I like most about subdialogs is their reusability. I often find myself in situations where I need to collect input from a caller in several steps that are generally the same (i.e., a series of digits), but each has a specific validation requirement.</p>
+
+<p>For example, in order to process a credit card payment there are several pieces of information that need to be obtained form a caller â€“ credit card number, CVV number, expiration date, etc. All have the same common characteristic that they are a series of digits, but all have unique verification requirements. Valid credit card numbers have specific lengths and must pass <a href="http://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">a “mod 10” check</a>. CVV numbers are <a href="http://en.wikipedia.org/wiki/Card_Security_Code" target="_blank">specific lengths</a> for different card types.</p>
+
+<p>As with a typical function call in any programming language, parameters can be passed into a VoiceXML subdialog when it is invoked. These parameters often take the form of a string of text to be read out to the caller, or a number that is used to count actions. However, we also have the option of passing more complex data types into a subdialog call</p>
+
+<p>We can pass JavaScript arrays and custom object into a subdialog, or we can pass some of the native object types in JavaScript. For example, every function that is declared in JavaScript is also an instance of the  <a href="http://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Function" target="_blank">JavaScript Function Object</a>. So a JavaScript function that is declared in a parent dialog can be passed into a subdialog as a parameter.</p>
+
+<p>For example, consider the following simple subdialog:</p>
+
+<p>&lt;form id=”S_1″&gt;</p>
+
+<p>&lt;!– Parameters passed into subdialog –&gt;</p>
+
+<p>&lt;var name=”myPrompt” /&gt;</p>
+
+<p>&lt;var name=”myFunction” /&gt;</p>
+
+<p>&lt;catch event=”noinput nomatch”&gt;</p>
+
+<p>  <prompt>That was not valid input. Try again.</prompt></p>
+
+<p>  <reprompt></reprompt></p>
+
+<p>&lt;/catch&gt;</p>
+
+<p>&lt;field name=”getInput” type=”digits”&gt;</p>
+
+<p> <prompt>&lt;value expr=&#8221;myPrompt&#8221;/&gt;</prompt></p>
+
+<p>  <filled></filled></p>
+
+<p>    &lt;if cond=”myFunction(getInput)”&gt;</p>
+
+<p>     &lt;return namelist=”getInput”/&gt;</p>
+
+<p>    <else></else></p>
+
+<p>     <clear></clear></p>
+
+<p>     &lt;throw event=”nomatch”/&gt;</p>
+
+<p>    &lt;/if&gt;</p>
+
+<p>  &lt;/filled&gt;</p>
+
+<p>&lt;/field&gt;</p>
+
+<p>This subdialog accepts two parameters â€“ a prompt that is read out to the caller, and a function that is used to validate the input. The conditional logic in the <filled> block assumes that the function returns a boolean (true/false).</filled></p>
+
+<p>This same subdialog structure can be used to collect input that meets a wide range of validation criteria. To use this subdialog to collect a 5-digit zip code, we would set the parameters as follows:</p>
+
+<blockquote>
+  <p>// JavaScript function to determine length of a string variable</p>
+</blockquote>
+
+<blockquote>
+  <p>function isFive(x) {</p>
+</blockquote>
+
+<blockquote>
+  <p>  if (x.length == 5 ) {</p>
+</blockquote>
+
+<blockquote>
+  <p>    return true;</p>
+</blockquote>
+
+<blockquote>
+  <p>  }</p>
+</blockquote>
+
+<blockquote>
+  <p>return false;</p>
+</blockquote>
+
+<blockquote>
+  <p>}</p>
+
+  <p>&lt;param name=”myPrompt” expr=”‘Please enter your five digit zip code.’”/&gt;</p>
+</blockquote>
+
+<blockquote>
+  <p>&lt;param name=”myFunction” expr=”isFive”/&gt;</p>
+</blockquote>
+
+<p>To use this subdialog to collect and validate a credit card numbers, we would set the parameters as follows:</p>
+
+<blockquote>
+  <p>// JavaScript function to perform a mod 10 check</p>
+</blockquote>
+
+<blockquote>
+  <p>function mod10Check(x) {</p>
+</blockquote>
+
+<blockquote>
+  <p>    // logic of mod 10 check</p>
+</blockquote>
+
+<blockquote>
+  <p>    return true;</p>
+</blockquote>
+
+<blockquote>
+  <p>}</p>
+</blockquote>
+
+<blockquote>
+  <p>return false;</p>
+</blockquote>
+
+<blockquote>
+  <p>}</p>
+
+  <p>&lt;param name=”myPrompt” expr=”‘Please enter your credit card number.’”/&gt;</p>
+</blockquote>
+
+<blockquote>
+  <p>&lt;param name=”myFunction” expr=”mod10Check”/&gt;</p>
+</blockquote>
+
+<p>A sample VoiceXML document, demonstrating how this same basic subdialog can be used to collect different kinds of input <a href="../tutorials/sub_db_example.vxml.txt" target="_blank">can be found here</a>.</p>
+
+<p>As this discussion shows, subdialogs are a tremendously powerful tool that can enhance the reusability of code and reduce the maintenance requirements of telephone applications. So, if you find yourself in a situation where you need to collect the same type of input from a caller several times during a call flow, take a look at subdialogs.</p>
+
+<p>Their power and reusability have the potential to make your life a lot easier.</p>
+
+</div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Customizing Caller ID with CiviCRM and trixbox</h1>
+<div id="content">  
+  <p>Recently, I had an opportunity to set up a <a href="http://civicrm.org/" target="_blank">CiviCRM</a> site for a client to use to track contributors.</p>
+
+<p>I think CiviCRM is a great piece of software that can be enormously useful to non-profit organizations, and I’m actually surprised that more don’t opt to use it. It’s powerful, robust, extensible and open source.</p>
+
+<p>The site I set up is running a Red Hat-based <a href="http://www.redhat.com/magazine/003jan05/features/lamp/" target="_blank">LAMP stack</a> with <a href="http://drupal.org/" target="_blank">Drupal</a>, CiviCRM and the <a href="http://civicrm.org/civicontribute" target="_blank">CiviContribute</a> module. I have the same set up mirrored in a local development environment that lets me test tweaks and upgrades to the site before they get pushed out into production. I also have an instance of <a href="http://www.trixbox.org/" target="_blank">trixbox CE</a> running locally, and I decided to try and see if I could set up a trixbox PBX that uses CiviCRM as the data source for looking up caller information on inbound calls. This way, if a non-profit is using both CiviCRM and trixbox they could set their PBX to look up information about clients, donors, volunteers, etc. that call their offices and display this information in either a SIP client or in a <a href="http://www.voiceingov.org/blog/?p=326">screen pop</a>.</p>
+
+<p>The process of setting up trixbox to use CiviCRM as the data source for caller ID lookups couldn’t be easier (note, I used these steps on trixbox version 2.6.1.10):</p>
+
+<li style="margin-bottom:4px;">
+  Log into your trixbox and enter admin mode.
+</li>
+<li style="margin-bottom:4px;">
+  From the toolbar, select <strong>PBX</strong> &gt;&gt; <strong>PBX Settings</strong>.
+</li>
+<li style="margin-bottom:4px;">
+  From the FreePBX left-hand side menu (under &#8220;Inbound Call Control&#8221;), select <strong>CallerID Lookup Sources</strong>
+</li>
+<li style="margin-bottom:4px;">
+  In the section entitled &#8220;Add Source&#8221;, enter the <em>Source Description</em> (CiviCRM), and <em>Source Type</em> (MySQL). Using <em>Cache Results</em> will cache the CID lookup in AstDB. Depending on your own set up, you may or may not feel the need to enable this setting.
+</li>
+<li style="margin-bottom:4px;">
+  In the section entitled &#8220;MySQL&#8221; (appears after you designate the <em>Source Type</em>), enter the <em>Host</em>, <em>Database</em>, <em>Username</em> and <em>Password</em> to access your CiviCRM database.
+</li>
+<li style="margin-bottom:4px;">
+  The section entitled <em>Query</em> is where you will enter the SQL query that will return the information you want to display about on incoming calls. I used the following SQL (you can modify this as you like to alter your display information &#8211; note, the special token &#8216;[NUMBER]&#8217; is replaced with the caller ID of the incoming call):
+</li>
+<blockquote>
+  <p><code class="highlighter-rouge">&lt;br /&gt;
+SELECT CONCAT('CiviCRM: ',display_name) FROM civicrm_contact WHERE id = (SELECT id FROM civicrm_phone WHERE REPLACE(phone, '-', '') = SUBSTRING('[NUMBER]',-10))&lt;br /&gt;
+</code></p>
+</blockquote>
+
+<li style="margin-bottom:4px;">
+  Click <strong>Submit Changes</strong>.
+</li>
+<li style="margin-bottom:4px;">
+  Navigate to <strong>Inbound Routes</strong> (also under the &#8220;Inbound Call Control&#8221; section of the FreePBX menu).
+</li>
+<li style="margin-bottom:4px;">
+  Select the route that you would like to use CiviCRM as the data source for.
+</li>
+<li style="margin-bottom:4px;">
+  In the section entitled &#8220;CID Lookup Source&#8221;, select <strong>CiviCRM</strong> from the drop down menu.
+</li>
+<li style="margin-bottom:4px;">
+  Click <strong>Submit</strong>.
+</li>
+<ol>
+  <li>Scroll to the top of the page and click on the orange bar that says <em>Apply Configuration Changes</em> and reload the settings.</li>
+</ol>
+
+<p>Thats it!</p>
+
+<p>Now on an inbound call, the name of the CiviCRM contributor in the format <strong>CiviCRM: John Doe</strong> is displayed in my SIP client whenever a successful lookup occurs. There are all sorts of options that can now be used to display the caller information to non-profit staff, send a <a href="http://www.voiceingov.org/blog/?p=326">screen pop</a>, route the call to a specific destination, etc.</p>
+
+<p>CiviCRM and trixbox are a potent combination. I hope this brief explanation of how to use the two together gets more non-profits excited about using them.</p>
+
+</div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> How to steal an election</h1>
+<div id="content">  
+  <p>I found an <a href="http://arstechnica.com/articles/culture/evoting.ars/1">interesting article</a> today on <a href="http://www.slashdot.org">/.</a> that lays out in some detail the problems with â€œstate of the artâ€ direct recording electronic (DRE) voting machines. There is a lot of good information in this article for those of us interested in using technology to support the elections process <strong>AND</strong> make elections more secure.</p>
+
+<p>Some of the information on the Diebold AccuVote TS (a popular DRE voting unit) just floored meâ€¦</p>
+
+<blockquote>
+  <p>The GEMS database stores all of the votes collected from precinct accumulators, and it’s used to do the vote tabulation for a county. Because it’s so sensitive, you might think it would be tightly secured. But you’d be wrong.</p>
+
+  <p>The GEMS database is a vanilla, unencrypted Microsoft Access database that anyone with a copy of Access can edit. So if you have physical access to the GEMS server’s filesystem (either locally or remotely), then it’s not too hard to just go in and have your way with the vote totals. If Access isn’t installed on a particular GEMS server, just install it from a CD-ROM, or connect remotely from a laptop and edit the database that way.</p>
+</blockquote>
+
+<p>Access?!?! No wonder people are so paranoid about DRE voting, and insistent on a verifiable paper trail. Iâ€™ve thought a lot about security in the telephone-based voting project I am working on, and I hope to use some of the points made in this article as context to describe why I think my system will be much more secure. (Particularly since I’ll be using a real database on the backend.)</p>
+
+<p>I donâ€™t want to get too far ahead of myself â€“ Iâ€™ve still got to finish the $#@^% thing â€“ but one of the things I have spent the most time on so far has been security related features.</p>
+
+<p>More to come â€“ stay tuned.</p>
+
+</div>
+  </body>
+</html>

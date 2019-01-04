@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Top 5 Things to do after intalling Trixbox: #2</h1>
+<div id="content">  
+  <p>Once you’ve got your Trixbox all set up, you need to think about backups â€“ what happens if your system needs to be restored, or if you’re doing and upgrade (say from version 2.0 to 2.2)?</p>
+
+<p>The FreePBX module in Trixbox has a handy â€œSystem Backupâ€ feature â€“ in FreePBX, go to Tools-&gt;Backup &amp; Restore.</p>
+
+<p>Click on the â€œAdd Backup Scheduleâ€ link and name your new schedule â€“ I personally take the simple approach of just doing a weekly backup on Sunday night.</p>
+
+<p>When your backup is created, Trixbox places a â€œ.tar.gzâ€ file in the /var/lib/asterisk/backups/ directory. So, if you created a schedule called â€œWeeklyâ€ your backup file would be placed in the directory /var/lib/asterisk/backups/Weekly/. Here these files will stay â€“ a new one is created each time your scheduled backup is run â€“ unless you do something with them.</p>
+
+<p>For obvious reasons, we want to move these backup files to another server for safe keeping. Additionally, one we’ve successfully moved our backup, we want to clean up the old files from our backup directory.</p>
+
+<p>There are <a href="http://www.sureteq.com/asterisk/trixboxv2.2.htm#18.1_-_Backing_up_Trixbox" target="_blank">any number</a> of ways of doing this. Here is my preferred method:</p>
+
+<blockquote>
+  <p>Create a new user on your Trixbox machine, and add that user to the â€œasteriskâ€ group. (The user will need to be a part of this group to access the backups directory.)</p>
+
+  <p>**useradd -G asterisk backup</p>
+</blockquote>
+
+<blockquote>
+  <p>passwd backup**</p>
+
+  <p>Log in as this new user, and create a key pair for ssh connections. When prompted to enter a pass phrase, simply hit enter (blank pass phrase).</p>
+
+  <p><strong>ssh-keygen -t dsa</strong></p>
+
+  <p>Export your public key to the machine where you will be storing your backups.</p>
+
+  <p><strong>scp ~/.ssh/id_dsa.pub username@xxx.xxx.xxx.xxx:.ssh/authorized_keys</strong></p>
+
+  <p>Make sure you can SSH to the machine where you will store your back up files. You’ll want to make sure that key-based authentication is working (i.e., that your not prompted for a password).</p>
+
+  <p><strong>ssh username@xxx.xxx.xxx.xxx</strong></p>
+
+  <p>Make sure you can securely copy files to the machine where you will store your back up files (again, make sure that your not prompted for a password).</p>
+
+  <p><strong>scp /var/lib/asterisk/backups/Weekly/* username@xxx.xxx.xxx.xxx:trixbox_backups/</strong></p>
+</blockquote>
+
+<p>If all of the above steps went successfully, you are now ready to set up your automated process. We’ll use CRON to do this.</p>
+
+<blockquote>
+  <p>Log on as the new backup user on your Trixbox machine.</p>
+
+  <p>Create a new crontab for this user.</p>
+
+  <p>**crontab -e</p>
+</blockquote>
+
+<blockquote>
+  <p>**</p>
+
+  <p>Insert cron entries to copy backup files to the remote machine, and to clean up old files after they have been moved.</p>
+
+  <p><em>*01 0 * * 1 scp /var/lib/asterisk/backups/Weekly/</em> username@xxx.xxx.xxx.xxx:trixbox_backups/</p>
+</blockquote>
+
+<blockquote>
+
+</blockquote>
+
+<blockquote>
+  <p>01 1 * * 1 rm -f /var/lib/asterisk/backups/Weekly/***</p>
+
+  <p>The first entry will move our weekly backup file at 12:01 a.m. on Monday morning to our remote server. The second entry will clear the Weekly directory an hour later. This way, when you go to the office on Monday, all of your backup process are done and your ready to start the week on a good note.</p>
+</blockquote>
+
+<p>In the next article, we’ll discuss how to monitor your Trixbox to make sure that it is performing properly.</p>
+
+</div>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+---
+permalink: /
+---
+
+## Vox Populi

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Government Technology Mistakes</h1>
+<div id="content">  
+  <p>One of the things that makes government agencies unique is that they are repositories for vast amounts of information — some of which is highly sensitive (i.e., tax data), or that could be damaging if it fell into the wrong hands (i.e., social security numbers).</p>
+
+<p>Accounts of government agencies exposing sensitive data, like social security numbers, are <a href="http://www.nytimes.com/2007/04/21/washington/21data.html">shockingly common</a>. Many of these stories share an underlying theme or two. One of the most frustrating — poor web programming.</p>
+
+<p>The State of Oklahoma’s Department of Corrections is the <a href="http://thedailywtf.com/Articles/Oklahoma-Leaks-Tens-of-Thousands-of-Social-Security-Numbers,-Other-Sensitive-Data.aspx">latest to join</a> this embarrassing fraternity of government entities that have completely overlooked the most basic tenets of good web development and exposed sensitive information.</p>
+
+<blockquote>
+  <p>_One of the cardinal rules of computer programming is to never trust your input. This holds especially true when your input comes from users, and even more so when it comes from the anonymous, general public. Apparently, the developers at Oklahomaâ€™s Department of Corrections slept through that day in computer science class, and even managed to skip all of Common Sense 101. You see, not only did they trust anonymous user input on their public-facing website, but they blindly executed it and displayed whatever came back.&lt;/p&gt;</p>
+
+  <p>The result of this negligently bad coding has some rather serious consequences: the names, addresses, and social security numbers of tens of thousands of Oklahoma residents were made available to the general public for a period of at least three years.&lt;/em&gt;&lt;/blockquote&gt;</p>
+
+  <p>Including an SQL statement as a URL parameter and then blindly allowing your web application to execute said parameter is a recipe for disaster.</p>
+
+  <p>After reading this, I thought it might be interesting to see how common this problem might be with other government website. I decided to run a quick check using one of the advanced search features of Google to look for SQL keywords in web site URLs that have “.gov” in them. The results? Very, very <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3ASELECT+FROM+WHERE+.gov&amp;btnG=Search" target="_blank">Depressing</a>.</p>
+
+  <p>The fact that the Oklahoma DOC allowed the social security numbers of individuals to be displayed through SQL manipulation masks a deeper issue — why are these social security numbers being stored in unencrypted form in their database? If there isn’t a legitimate reason to store this data in an unencrypted form, then it should be avoided at all costs. (And the database that holds the unencrypted version should be nowhere near a web server.) <a href="http://www.webmonkey.com/webmonkey/00/20/index4a.html">One way encryption</a> works just fine for most authentication needs.</p>
+
+  <p>This same issue was the cause of a breach at the <a href="http://www.udel.edu/PR/UDaily/2006/mar/classifieds031006.html">University of Delaware</a> a few years back — wonder if they learned their lesson?</p>
+</blockquote>
+
+</div>
+  </body>
+</html>

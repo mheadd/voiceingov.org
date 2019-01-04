@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <body>
+      <h1> Extension Methods vs. Prototype</h1>
+<div id="content">  
+  <p>I had my first exposure recently to <a href="http://msdn.microsoft.com/en-us/library/bb383977.aspx" target="_blank">extension methods</a> in C# (which I am still relatively new to):</p>
+
+<blockquote>
+  <p>Extension methods enable you to “add” methods to existing types without creating a new derived type, recompiling, or otherwise modifying the original type. Extension methods are a special kind of static method, but they are called as if they were instance methods on the extended type. For client code written in C#…there is no apparent difference between calling an extension method and the methods that are actually defined in a type.</p>
+</blockquote>
+
+<p>This makes it easy to add functionality to existing types — this comes in pretty handy if you find yourself doing the same thing a number of times in your code. A good example of extension methods in action can be <a href="http://weblogs.asp.net/dwahlin/archive/2008/01/25/c-3-0-features-extension-methods.aspx" target="_blank">found here</a>.</p>
+
+<p>I use a similar approach to format telephone numbers for readback in <acronym title="Text-to-Speech">TTS</acronym> when I need to render VoiceXML using C#/ASP.NET. So, if I have a string representing a telephone number, it may be formatted as 555-111-3333, or (555) 111-3333, or 555.111.3333, etc. When I render a phone number in VoiceXML (using the SSML <code class="highlighter-rouge">&lt;say-as&gt;</code> tag) I like to use a string of numbers only, no special delimiters or other characters, to ensure it is read out properly by the TTS engine. Extension methods can help with this.</p>
+
+<p><strong>C# example:</strong></p>
+
+<p><code class="highlighter-rouge">&lt;br /&gt;
+public&amp;nbsp;static&amp;nbsp;class&amp;nbsp;StringExtensionsClass&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;public&amp;nbsp;static&amp;nbsp;string&amp;nbsp;GetOnlyNumbers(this&amp;nbsp;string&amp;nbsp;s)&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;MatchCollection&amp;nbsp;col&amp;nbsp;=&amp;nbsp;Regex.Matches(s,&amp;nbsp;"[0-9]");&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;StringBuilder&amp;nbsp;sb&amp;nbsp;=&amp;nbsp;new&amp;nbsp;StringBuilder();&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;foreach&amp;nbsp;(Match&amp;nbsp;m&amp;nbsp;in&amp;nbsp;col)&amp;nbsp;&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;sb.Append(m.Value);&amp;nbsp;&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;return&amp;nbsp;sb.ToString();&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}</code></p>
+
+<p>In ASP.NET, you would invoke this extension method as if it were a built in method of String:</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">&lt;br /&gt;
+string telephoneString = "(555) 111-3333";&lt;br /&gt;
+...&lt;br /&gt;
+Response.Write("&lt;say -as interpret-as="telephone"&gt;" + telephoneString.GetOnlyNumbers() + "&lt;/say-as&gt;");&lt;br /&gt;
+</code></p>
+</blockquote>
+
+<p>Extension methods remind me a lot of the <a href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Class-Based_vs._Prototype-Based_Languages" target="_blank">prototype-based approach</a> of extending classes in JavaScript.</p>
+
+<p><strong>JavaScript example:</strong></p>
+
+<p><code class="highlighter-rouge">&lt;br /&gt;
+String.prototype.getNumbersOnly&amp;nbsp;=&amp;nbsp;function()&lt;br /&gt;
+{&lt;br /&gt;
+var&amp;nbsp;mySplitString&amp;nbsp;=&amp;nbsp;this.split("");&lt;br /&gt;
+var&amp;nbsp;myMatch&amp;nbsp;=&amp;nbsp;new&amp;nbsp;RegExp("[0-9]");&lt;br /&gt;
+var&amp;nbsp;myNumberString&amp;nbsp;=&amp;nbsp;"";&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;for(var&amp;nbsp;i=0;&amp;nbsp;i&lt;mysplitstring.length;&amp;nbsp;i++)&amp;nbsp;{&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;if(myMatch.test(mySplitString[i]))&amp;nbsp;{&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;myNumberString&amp;nbsp;+=&amp;nbsp;mySplitString[i];&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}&lt;br /&gt;
+&amp;nbsp;&amp;nbsp;}&lt;br /&gt;
+	return&amp;nbsp;myNumberString;&lt;br /&gt;
+};&lt;br /&gt;
+</code></p>
+
+<p>In your VoiceXML code, you would invoke this custom method of the JavaScript String Object like this:</p>
+
+<blockquote>
+  <p>`<br />
+<var name="telephoneString" expr="'(555) 111-3333'"></var><br />
+…<br /></p>
+</blockquote>
+<p>&lt;say -as interpret-as=”telephone”&gt;<value expr="telephoneString.getNumbersOnly()"></value>&lt;/say-as&gt;<br />
+`</p>
+
+<p>So, whether you need to modify your phone number string in your server-side code, or in your client-side code this approach can make the job easy and consistent.</p>
+
+</div>
+  </body>
+</html>
