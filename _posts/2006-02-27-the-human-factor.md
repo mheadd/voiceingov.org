@@ -1,0 +1,36 @@
+---
+id: 85
+title: The Human Factor
+date: 2006-02-27T21:02:20+00:00
+author: mheadd
+layout: post
+guid: http://www.voiceingov.org/blog/?p=85
+permalink: /the-human-factor/
+jd_tweet_this:
+  - 'yes'
+original_post_id:
+  - "85"
+categories:
+  - Development Tools
+  - Standards
+---
+> The true value of a human being can be found in the degree to which he has attained liberation from the self.
+  
+> _Albert Einstein_
+
+When you create voice applications for a living, it can be hard to watch things like the <a href="http://www.37signals.com/svn/archives2/press_zero_to_talk_to_a_human.php" target="_blank">new Citibank commercials</a> that extol the virtues of being able to dump an automated phone system and talk to a human. (Although, I will admit that I laugh every time the actor in the commercial has to say his password louder a second time &#8230; &#8220;Big Boy!&#8221;)
+
+There are <a href="http://gethuman.com/" target="_blank">entire web sites</a> devoted to providing information on how to circumvent automated phone systems. As a VoiceXML developer, I&#8217;ve been asking myself some tough questions about what sort of reflection these developments are on the current state of voice technologies.
+
+Not that aggravation with automated phone systems is a new phenomenon, it&#8217;s just that we&#8217;re currently sitting in a pretty happy time for the technologies used to build telephone applications. The <a href="http://www.w3.org/TR/voicexml20/" target="_blank">VoiceXML 2.0</a> standard has been widely adopted, along with a <a href="http://www.w3.org/TR/voice-intro/" target="_blank">host of related technologies</a> that make creating voice applications easier and more cost effective; platform vendors and developers are embracing the new standards with gusto, and; <a href="http://www.voicexml.org/press/press_releases.asp?item_id=82" target="_blank">improvements to the current standards</a>, which will dramatically enhance their power and flexibility, are already in the works. 
+
+So why aren&#8217;t more people happy with the current state of voice applications? Why aren&#8217;t consumers taking corporate web applications to task in the same way they do voice applications? Why is it still possible for those Madison Avenue weenies to elicit such a visceral reaction from the public when they take jabs a telephone applications?
+
+After I stopped feeling picked on for a few minutes (and secretly laughing at the Citibank commercials) I came up with at least two reasons that explain this apparent paradox:
+
+  * **With voice, it&#8217;s personal.** Voice applications are inherently more _personal_ than other types of interactive applications, web-based or otherwise. Because the act of talking is such a fundamental way of communicating and emoting, people will always react differently to voice applications. As such, they will always hold voice applications to a different (and higher) standard. I don&#8217;t think there is a way around this, but I do think that there is a silver lining in this precept for voice developers. 
+  * **VoiceXML makes it easer, not (necessarily) better.** There is an <a href="http://www.voicexmlreview.org/Jan2006/columns/Jan2006_speak_listen.html" target="_blank">excellent discussion</a> in the latest issue of VoiceXML Review that talks about the reasons the technology was developed. This helps underscore the simple fact that it is very possible to build a lousy IVR system using a great technology like VoiceXML. VoiceXML changes the economics and the complexity of building voice applications &#8211; it doesn&#8217;t make voice applications bulletproof to [second rate performance or design issues](http://www.voiceingov.org/blog/?p=66). 
+
+It is incumbent upon voice application developers and designers to understand the unique nature of voice as an interactive medium, and to appreciate the limitations that even the most powerful new voice technologies come along with. Simply put, we have to use the new generation of voice technologies to build the intuitive, agile and elegant voice applications users expect. I think that most would admit that there is a lot of work that needs to be done to change the stigma that hangs over voice applications.
+
+Until then, enjoy your laughs while you can Big Boy.
