@@ -10,7 +10,7 @@ categories:
   - General Discussion
   - Standards
 ---
-One of the few browserâ€™s to support the developing [XHTML+Voice](http://my.opera.com/community/dev/voice/) standard is now free.
+One of the few browser's to support the developing [XHTML+Voice](http://my.opera.com/community/dev/voice/) standard is now free.
 
 This is a great step forward for the advancement of the [X+V standard](http://www.voicexml.org/specs/multimodal/x+v/12/), and a signal to governments everywhere that it is now time to incorporate this new standard into their web pages and applications to improve accessibility.
 

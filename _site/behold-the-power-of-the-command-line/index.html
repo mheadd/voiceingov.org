@@ -1,7 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> Behold the Power of the Command Line</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> Behold the Power of the Command Line</h1>
 <div id="content">  
   <p>After finding the unbelievingly cool and useful <a href="http://www.commandlinefu.com" target="_blank">Command-line fu</a> website, I have been consumed with finding and using powerful command line tools. Here are some of the tools I’ve been playing with recently:</p>
 
@@ -10,17 +43,23 @@
 <p><strong>curl</strong> – I did a <a href="http://www.voiceingov.org/blog/?p=691">separate post on curl</a> and explained how to use it to interact with the Twitter API. Things get cool fast when you start to combine these tools by piping output from one command to another. For example, using curl and xmlstarlet, you can get your Tweets from the command line (you can change the count parameter in the call to the Twitter API to get a different number of Tweets back):</p>
 
 <blockquote>
-  <p><code class="highlighter-rouge">curl -s -u user:password 'http://twitter.com/statuses/friends_timeline.xml?count=5' | xmlstarlet sel -t -m '//status' -v 'user/screen_name' -o ': ' -v 'text' -n</code></p>
+  <p><code class="language-plaintext highlighter-rouge">curl -s -u user:password 'http://twitter.com/statuses/friends_timeline.xml?count=5' | xmlstarlet sel -t -m '//status' -v 'user/screen_name' -o ': ' -v 'text' -n</code></p>
 </blockquote>
 
 <p><strong>festival</strong> – why read text when you can <a href="http://www.cstr.ed.ac.uk/projects/festival/" target="_blank">have your computer speak to you</a>? I’m now getting my daily horoscope via curl, xmlstarlet, festival and cron:</p>
 
 <blockquote>
-  <p><code class="highlighter-rouge">curl -s 'http://www.trynt.com/astrology-horoscope-api/v2/?m=2&amp;d=23' | xmlstarlet sel -t -m '//horoscope' -v 'horoscope' | festival --tts</code></p>
+  <p><code class="language-plaintext highlighter-rouge">curl -s 'http://www.trynt.com/astrology-horoscope-api/v2/?m=2&amp;d=23' | xmlstarlet sel -t -m '//horoscope' -v 'horoscope' | festival --tts</code></p>
 </blockquote>
 
 <p>When you’ve got tools like this, the command line is where its at!</p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -21,7 +21,7 @@ Ouch! This is shockingly easy to do if you know how to <a href="http://www.googl
 
 I also take issue with one contention made by Raymond regarding the [recent spate of calls](http://politicalticker.blogs.cnn.com/2007/11/16/romney-camp-anti-mormon-calls-repulsive/) made to potential primary voters in New Hampshire and Iowa regarding Mitt Romney:
 
-> &#8220;That was not nickel-and-dime stuff,&#8221; says Raymond, explaining that the cost of such an operation narrows the field of suspects. &#8220;It couldn&#8217;t have come from Huckabee, McCain or Thompson â€” they don&#8217;t have enough money to pay for that kind of operation.&#8221;
+> &#8220;That was not nickel-and-dime stuff,&#8221; says Raymond, explaining that the cost of such an operation narrows the field of suspects. &#8220;It couldn&#8217;t have come from Huckabee, McCain or Thompson "” they don&#8217;t have enough money to pay for that kind of operation.&#8221;
 
 Baloney! These kinds of tricks are easy to pull off and extremely cheap. All you need is a little bit of know how, access to a voter registration file and some basic equipment and you can pull off one of these despicable tactics. It is not expensive anymore to initiate an outbound calling campaign to thousands of households.
 

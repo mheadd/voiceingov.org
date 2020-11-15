@@ -10,7 +10,7 @@ categories:
   - General Discussion
   - VoIP
 ---
-It appears that Google has begun testing a new click-to-call advertising service â€“ [check out the story](http://news.com.com/Hello%2C+this+is+Google%2C+your+operator%2C+speaking/2100-1032_3-5974318.html?tag=nefd.top) at CNET News.com. The new service will allow web searchers to click an icon to initiate a phone call with an advertiser, presumably to ask more specific questions about their product or to order goods. It appears that some other tech heavyweights (i.e., Microsoft, IBM) are also pursuing click-to-call strategies.
+It appears that Google has begun testing a new click-to-call advertising service "“ [check out the story](http://news.com.com/Hello%2C+this+is+Google%2C+your+operator%2C+speaking/2100-1032_3-5974318.html?tag=nefd.top) at CNET News.com. The new service will allow web searchers to click an icon to initiate a phone call with an advertiser, presumably to ask more specific questions about their product or to order goods. It appears that some other tech heavyweights (i.e., Microsoft, IBM) are also pursuing click-to-call strategies.
 
 It&#8217;s worth noting that&#8230;
 
@@ -20,4 +20,4 @@ A while back, I argued that the developing trend toward Voice over IM would [hav
 
 One can imagine elected officials allowing their constituents to click-to-call, or using it in conjunction with government agency websites that have detailed information about program eligibility. For example, click-to-call could be tied to government web sites explaining land use rules, eligibility for government programs, or tax questions. Citizens could get the information they need by reading the text on a web site, but if they had further questions, or needed more information they could click-to-call. It will be interesting to see how this develops.
 
-By the way dear reader, if you havenâ€™t noticed I now have my **own** click-to-call option enabled for this blog â€“ Iâ€™m using the [Skype plugin for WordPress](http://anti.masendav.com/2005/11/skype-button-for-wordpress/) developed by Anti Veeranna. Not a bad little plugin â€“ don&#8217;t hesitate to give me a ring.
+By the way dear reader, if you haven't noticed I now have my **own** click-to-call option enabled for this blog "“ I'm using the [Skype plugin for WordPress](http://anti.masendav.com/2005/11/skype-button-for-wordpress/) developed by Anti Veeranna. Not a bad little plugin "“ don&#8217;t hesitate to give me a ring.

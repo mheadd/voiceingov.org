@@ -12,9 +12,9 @@ categories:
 ---
 Some interesting talk of late about the possibility of Google making a play for the Norwegian browser company Opera.
 
-[Some analysts are speculating](http://www.pcworld.com/resource/article/0,aid,123948,pg,1,RSS,RSS,00.asp) that such an acquisition would support Google&#8217;s recent partnerships with Sun and the [OpenOffice.org](http://www.openoffice.org/) project, and align with its strategy to deliver office software functionality as a service through a browser interface. There is a lot for advocates of voice technologies to be enthusiastic about in such talks â€“ and some things to be concerned about as well. 
+[Some analysts are speculating](http://www.pcworld.com/resource/article/0,aid,123948,pg,1,RSS,RSS,00.asp) that such an acquisition would support Google&#8217;s recent partnerships with Sun and the [OpenOffice.org](http://www.openoffice.org/) project, and align with its strategy to deliver office software functionality as a service through a browser interface. There is a lot for advocates of voice technologies to be enthusiastic about in such talks "“ and some things to be concerned about as well. 
 
-Google clearly recognizes the value of using voice as a medium for delivering information, and for allowing users to interact with each other â€“ take a look at [Google Talk](http://www.google.com/talk/) (if you haven&#8217;t already). The possibilities of a pairing between Google with the browser company that has been at the forefront of helping further the development of the [XHTML+Voice](http://www.voiceingov.org/blog/?page_id=13) standard are very exciting.
+Google clearly recognizes the value of using voice as a medium for delivering information, and for allowing users to interact with each other "“ take a look at [Google Talk](http://www.google.com/talk/) (if you haven&#8217;t already). The possibilities of a pairing between Google with the browser company that has been at the forefront of helping further the development of the [XHTML+Voice](http://www.voiceingov.org/blog/?page_id=13) standard are very exciting.
 
 However, there are those speculating that such an acquisition could lead to the development of a Google-optimized browser:
 

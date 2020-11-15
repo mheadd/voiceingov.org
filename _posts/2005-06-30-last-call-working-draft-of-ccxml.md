@@ -19,7 +19,7 @@ In the absence of a call control standard, some VoiceXML platforms have implemen
 
 **Where is CCXML in the standards approval process?**
 
-Unfortunately, the process used by the W3C is somewhat of a labyrinth. My understanding of this process leads me to believe that after this â€œcallâ€ for comments, the specification will advance to â€œCandidate Recommendationâ€ status, which should encourage more vendors to implement it in their platforms. Those with lots of time, or an inclination for self abuse ( 😉 ), can read more about the W3C approval process [here](http://www.w3.org/2004/02/Process-20040205/).
+Unfortunately, the process used by the W3C is somewhat of a labyrinth. My understanding of this process leads me to believe that after this "call" for comments, the specification will advance to "Candidate Recommendation" status, which should encourage more vendors to implement it in their platforms. Those with lots of time, or an inclination for self abuse ( 😉 ), can read more about the W3C approval process [here](http://www.w3.org/2004/02/Process-20040205/).
 
 **Where can I learn more about CCXML?**
 

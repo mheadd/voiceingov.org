@@ -24,6 +24,6 @@ Openness + Choice == Innovation!
 
 Or, to quote Lowell McAdam, chief executive of Verizon Wireless:
 
-> â€œThe trend we see here is an explosion of innovation. People want to take so much of whatâ€™s on the Internet and put it on the phone.â€
+> "The trend we see here is an explosion of innovation. People want to take so much of what's on the Internet and put it on the phone."
 
 Lots of other places in the software world that could benefit from applying this philosophy.

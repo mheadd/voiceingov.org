@@ -63,6 +63,6 @@ This will pass the caller ID to our AGI script, which will then invoke the PHP s
 
 Obviously there are lots of options for looking up information on the caller, once you have their caller ID, that you can use to augment the information in your screen pop.
 
-Just goes to show you, there isnâ€™t much you canâ€™t do with open source / open standards.
+Just goes to show you, there isn't much you can't do with open source / open standards.
 
 Viva screen pop!

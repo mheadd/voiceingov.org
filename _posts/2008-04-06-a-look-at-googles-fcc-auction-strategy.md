@@ -15,4 +15,4 @@ Google&#8217;s legacy from this historic auction is that it helped ensure that a
 
 Even though Google didn&#8217;t &#8220;win&#8221; the auction for the C Block outright, there are those that believe that their strategy of opening up the world of wireless communication may have been served nonetheless:
 
-> â€œIf Google had won a license, there was only downside risk for them,â€ said Gregory L. Rosston, a former F.C.C. official and senior fellow at the Stanford Institute for Economic Policy Research. â€œNow they can just spend $1 million a year on a law firm to ensure Verizon lives up to the openness requirements.â€
+> "If Google had won a license, there was only downside risk for them," said Gregory L. Rosston, a former F.C.C. official and senior fellow at the Stanford Institute for Economic Policy Research. "Now they can just spend $1 million a year on a law firm to ensure Verizon lives up to the openness requirements."

@@ -23,4 +23,4 @@ Other trends are also driving change, like the emergence of Voice over Internet 
 
 > With a Linux server, off-the-shelf LAN/WAN hardware, a broadband connection, and SIP-compatible telephone handsets, one can now build a fully functional telephone system, complete with high-end features.
 
-Will the telephone industry ever be the same again? Probably not â€“ and that is hugely important for governments as major users of telephone services. It&#8217;s also critical given government&#8217;s [regulatory oversight and tax administration](http://governing.com/articles/4voip.htm) role over the telephone industry.
+Will the telephone industry ever be the same again? Probably not "“ and that is hugely important for governments as major users of telephone services. It&#8217;s also critical given government&#8217;s [regulatory oversight and tax administration](http://governing.com/articles/4voip.htm) role over the telephone industry.

@@ -14,7 +14,7 @@ There are not a lot of really good tools for IVR developers to detect when calle
 
 For example, most developers utilize a graduated set of noinput/nomatch handlers for transferring callers who are having problems to an agent. Additionally, it is also possible to detect when a certain type of input on the part of the caller is causing problems (e.g., voice input) and to direct them utilize another (e.g., DTMF) &#8212; there is a more complete discussion of this approach [here](http://www.voiceingov.org/blog/?p=90), and [here](http://www.voiceingov.org/blog/?p=66). 
 
-We can not detect frustration by looking at the volume, pitch or prosody of spoken input within VoiceXML â€“ at least not yet.
+We can not detect frustration by looking at the volume, pitch or prosody of spoken input within VoiceXML "“ at least not yet.
 
 However, the new VoiceXML 2.1 specification provides another tool that we can use to try and detect when callers are becoming testy. The <a href="http://www.w3.org/TR/voicexml21/#sec-mark" target="_blank"><mark> element</a> is a new VoiceXML element that allows developers to determine when caller bargin occurs. This can be very handy for detecting when callers are becoming frustrated with repetitive prompts (like confirmation dialogs that ask the caller to confirm what they have said or entered).
 

@@ -28,6 +28,6 @@ It would be nice to see an organization like NASCIO or a similar organization st
 
 A friend just made me wise to <a href="http://www.fema.gov/media/2009/010909.shtm" target="_blank">an interesting event</a> taking place in just a few minutes:
 
-> FEMA Administrator David Paulison will be available from 3 -3:30 pm Monday, Jan 12, 2009, to give a message and reply to questions using the agencyâ€™s Twitter account, <a href="http://twitter.com/femainfocus" target="_blank">femainfocus</a>. The agencyâ€™s top official will discuss where FEMA was, where it is now, and where he sees it going. 
+> FEMA Administrator David Paulison will be available from 3 -3:30 pm Monday, Jan 12, 2009, to give a message and reply to questions using the agency's Twitter account, <a href="http://twitter.com/femainfocus" target="_blank">femainfocus</a>. The agency's top official will discuss where FEMA was, where it is now, and where he sees it going. 
 
 This looks like a pretty novel way of using Twitter to communicate with the public, and I&#8217;m interested to see how it goes.

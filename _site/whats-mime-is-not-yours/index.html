@@ -1,11 +1,44 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> What&#8217;s MIME is Not Yours</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> What&#8217;s MIME is Not Yours</h1>
 <div id="content">  
   <p>Continuing on the theme of safety and security in VoiceXML applications, I’ve been thinking a lot lately about MIME types and how VoiceXML browsers request content from a web server.</p>
 
-<p>When any browser (VoiceXML or otherwise) requests a document from a server, it sends along information in the request telling the server what media types it can consume. This information is usually conveyed in the HTTP accept header as a MIME type. A VoiceXML browser should explicitly request documents from a web server using the VoiceXML MIME type (â€œapplication/voicexml+xmlâ€) and servers should use this MIME type when responding to such requests (instead of sending back plain old â€œtext/xmlâ€).</p>
+<p>When any browser (VoiceXML or otherwise) requests a document from a server, it sends along information in the request telling the server what media types it can consume. This information is usually conveyed in the HTTP accept header as a MIME type. A VoiceXML browser should explicitly request documents from a web server using the VoiceXML MIME type (“application/voicexml+xml”) and servers should use this MIME type when responding to such requests (instead of sending back plain old “text/xml”).</p>
 
 <p>If a browser can’t consume VoiceXML, what’s the point of responding with it (unless were doing something legitimate, like debugging). It was with this thought in mind that I decided to throw together a quick script to inspect the Accept header on HTTP requests and to only send back VoiceXML content if the appropriate MIME type is included in the request.</p>
 
@@ -71,7 +104,7 @@ class readHeaders {
 
 </pre>
 
-<p>This class uses a specific pattern (passed in to its one an only method as a string) and looks for it in the accept header. We return a boolean value depending on whether the string is found in the header value (note â€“ many browsers, including VoiceXML browsers, will use a comma delimited string of different MIME types in the accept header)</p>
+<p>This class uses a specific pattern (passed in to its one an only method as a string) and looks for it in the accept header. We return a boolean value depending on whether the string is found in the header value (note ““ many browsers, including VoiceXML browsers, will use a comma delimited string of different MIME types in the accept header)</p>
 
 <h3 id="using-the-http-header-inspection-classes">Using the HTTP Header Inspection Classes</h3>
 
@@ -104,14 +137,20 @@ class readHeaders {
 
 <p>Of particular note here is our use of the PHP <a href="http://us2.php.net/manual/en/function.apache-request-headers.php">apache_request_headers()</a> function. This function will return an associative array of all the HTTP headers and their values. Use of this function is limited, however, to instances where PHP is running as an Apache module.</p>
 
-<p>In this example, we check specifically for the presence of the â€œapplication/voicexml+xmlâ€ content type in the HTTP headers. If we find it, we send back VoiceXML; if not, we simply respond with a 404 error and stop execution of the script.</p>
+<p>In this example, we check specifically for the presence of the “application/voicexml+xml” content type in the HTTP headers. If we find it, we send back VoiceXML; if not, we simply respond with a 404 error and stop execution of the script.</p>
 
-<p>This simple example is just one way of ensuring that your VoiceXML code is obscured form prying eyes. Its far from perfect â€“ anyone with some chops can easily construct an HTTP request with the appropriate MIME type and look at your VoiceXML code in an effort to footprint your application for possible SQL injection.</p>
+<p>This simple example is just one way of ensuring that your VoiceXML code is obscured form prying eyes. Its far from perfect ““ anyone with some chops can easily construct an HTTP request with the appropriate MIME type and look at your VoiceXML code in an effort to footprint your application for possible SQL injection.</p>
 
 <p>However, an approach like this one (and those discussed in the previous post) can make life harder for the average web surfer intent on doing a little mischief. It might also make it harder for automated vulnerability scanners to footprint your applications.</p>
 
 <p>Its a new year. Be safe.</p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

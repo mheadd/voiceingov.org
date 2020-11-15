@@ -10,13 +10,13 @@ categories:
   - General Discussion
   - Tutorials
 ---
-Since the VoiceXML Forum Community Bulletin Board is increasingly besieged by spammers, going forward Iâ€™m going to cross post responses I submit there on this site so that interested parties (assuming there are any ;-)) can read them.
+Since the VoiceXML Forum Community Bulletin Board is increasingly besieged by spammers, going forward I'm going to cross post responses I submit there on this site so that interested parties (assuming there are any ;-)) can read them.
 
 This response relates to the use of semantic interpretation in VoiceXML applications, something I have [written on before](http://www.voiceingov.org/blog/?p=82). I hope readers find the exchange below helpful.
 
 **QUESTION:**
 
-Is there a way to map a response to a certain value? For instance, if the user says â€œyes,â€ â€œsure,â€ or â€œyeahâ€ I&#8217;d like to put 1 in the database? If the user says â€œno,â€ â€œnope,â€ or â€œnahâ€ I&#8217;d put 0.
+Is there a way to map a response to a certain value? For instance, if the user says "yes," "sure," or "yeah" I&#8217;d like to put 1 in the database? If the user says "no," "nope," or "nah" I&#8217;d put 0.
 
 **ANSWER:**
 

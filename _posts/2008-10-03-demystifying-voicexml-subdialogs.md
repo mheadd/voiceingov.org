@@ -11,7 +11,7 @@ original_post_id:
 categories:
   - Tutorials
 ---
-_Note â€“ this post demonstrates the use of VoiceXML subdialogs. The examples below were tested on the Voxeo Prophecy platform. To download the Prophecy software and run these examples locally, go to <a href="http://www.voxeo.com/prophecy/" target="_blank">http://www.voxeo.com/prophecy/</a>._
+_Note "“ this post demonstrates the use of VoiceXML subdialogs. The examples below were tested on the Voxeo Prophecy platform. To download the Prophecy software and run these examples locally, go to <a href="http://www.voxeo.com/prophecy/" target="_blank">http://www.voxeo.com/prophecy/</a>._
 
 **What are Subdialogs?**
 
@@ -27,7 +27,7 @@ One of the most confusing aspects of subdialogs is that they run in a completely
 
 One of the things I like most about subdialogs is their reusability. I often find myself in situations where I need to collect input from a caller in several steps that are generally the same (i.e., a series of digits), but each has a specific validation requirement.
 
-For example, in order to process a credit card payment there are several pieces of information that need to be obtained form a caller â€“ credit card number, CVV number, expiration date, etc. All have the same common characteristic that they are a series of digits, but all have unique verification requirements. Valid credit card numbers have specific lengths and must pass <a href="http://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">a &#8220;mod 10&#8221; check</a>. CVV numbers are <a href="http://en.wikipedia.org/wiki/Card_Security_Code" target="_blank">specific lengths</a> for different card types.
+For example, in order to process a credit card payment there are several pieces of information that need to be obtained form a caller "“ credit card number, CVV number, expiration date, etc. All have the same common characteristic that they are a series of digits, but all have unique verification requirements. Valid credit card numbers have specific lengths and must pass <a href="http://en.wikipedia.org/wiki/Luhn_algorithm" target="_blank">a &#8220;mod 10&#8221; check</a>. CVV numbers are <a href="http://en.wikipedia.org/wiki/Card_Security_Code" target="_blank">specific lengths</a> for different card types.
 
 As with a typical function call in any programming language, parameters can be passed into a VoiceXML subdialog when it is invoked. These parameters often take the form of a string of text to be read out to the caller, or a number that is used to count actions. However, we also have the option of passing more complex data types into a subdialog call
 
@@ -73,7 +73,7 @@ For example, consider the following simple subdialog:
   
 </field>
 
-This subdialog accepts two parameters â€“ a prompt that is read out to the caller, and a function that is used to validate the input. The conditional logic in the <filled> block assumes that the function returns a boolean (true/false).
+This subdialog accepts two parameters "“ a prompt that is read out to the caller, and a function that is used to validate the input. The conditional logic in the <filled> block assumes that the function returns a boolean (true/false).
 
 This same subdialog structure can be used to collect input that meets a wide range of validation criteria. To use this subdialog to collect a 5-digit zip code, we would set the parameters as follows:
 

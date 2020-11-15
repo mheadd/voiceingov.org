@@ -1,3 +1,14 @@
+
+
+
+sass:
+  sass_dir: assets/css
+
+plugins:
+  - jekyll-autoprefixer
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
 url: voiceingov.org
 name: Vox Populi
 description: >
@@ -5,4 +16,4 @@ description: >
   uninfluenced by the voice of the
   people.”
 
-theme: jekyll-theme-slate
+

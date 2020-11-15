@@ -1,7 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> Relaxing on the Couch with Tropo and CouchDB</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> Relaxing on the Couch with Tropo and CouchDB</h1>
 <div id="content">  
   <p>This is the continuation of a series that will describe how to build voice applications with the <a href="http://www.tropo.com" target="_blank">Tropo</a> cloud telephony platform and <a href="http://couchdb.apache.org/" target="_blank">CouchDB</a>.</p>
 
@@ -11,13 +44,13 @@
 
 <p><strong>Configuring CouchDB</strong></p>
 
-<p>Recall from the last post that the configuration files for CouchDB are located in <code class="highlighter-rouge">/usr/local/etc/couchdb/</code>. Open the local configuration file and take a look at the default settings:</p>
+<p>Recall from the last post that the configuration files for CouchDB are located in <code class="language-plaintext highlighter-rouge">/usr/local/etc/couchdb/</code>. Open the local configuration file and take a look at the default settings:</p>
 
 <blockquote>
   <p>$ sudo vim /usr/local/etc/couchdb/local.ini</p>
 </blockquote>
 
-<p>In the  <code class="highlighter-rouge">[httpd]</code> section, you’ll notice the setting for the default port that is used to connect to CouchDB – 5984. You’ll also note the <code class="highlighter-rouge">bind_address</code> setting. By default, CouchDB listens only on localhost – you can change this by altering the value of <code class="highlighter-rouge">bind_address</code> to a publicly resolvable IP address (you may need to uncomment this setting as well).</p>
+<p>In the  <code class="language-plaintext highlighter-rouge">[httpd]</code> section, you’ll notice the setting for the default port that is used to connect to CouchDB – 5984. You’ll also note the <code class="language-plaintext highlighter-rouge">bind_address</code> setting. By default, CouchDB listens only on localhost – you can change this by altering the value of <code class="language-plaintext highlighter-rouge">bind_address</code> to a publicly resolvable IP address (you may need to uncomment this setting as well).</p>
 
 <p>However, before proceeding please note that CouchDB does not yet have a built in security model, so anyone that can access the IP address in the configuration file can potentially access your CouchDB instance. We’ll need to take some steps to restrict access to our CouchDB instance – there are several ways of doing this.</p>
 
@@ -43,7 +76,7 @@
 
 <p><strong>Creating our CouchDB Database</strong></p>
 
-<p>Once you have your CouchDB instance up and running, you can create a database in one of two ways. The first, and easiest, is simply to use the <code class="highlighter-rouge">curl</code> command. You create a database in CouchDB by using the HTTP PUT method:</p>
+<p>Once you have your CouchDB instance up and running, you can create a database in one of two ways. The first, and easiest, is simply to use the <code class="language-plaintext highlighter-rouge">curl</code> command. You create a database in CouchDB by using the HTTP PUT method:</p>
 
 <blockquote>
   <p>$curl -X PUT http://your_new_couchdb_ip:5984/call_logs</p>
@@ -59,12 +92,12 @@
 
 <p>(One small side note – you can use either the POST or PUT methods to insert a document into a CouchDB database. However, using PUT assumes you want to assign a specific document ID to your document. When you use HTTP POST, CouchDB will automatically assign a document ID. For now, we’ll keep things simple and use POST.)</p>
 
-<p>Much of the functionality in this simple app is just stubbed out for now – i.e., the <code class="highlighter-rouge">getPhoneNumberByExtension()</code> method – we’ll build more of this out in later posts.</p>
+<p>Much of the functionality in this simple app is just stubbed out for now – i.e., the <code class="language-plaintext highlighter-rouge">getPhoneNumberByExtension()</code> method – we’ll build more of this out in later posts.</p>
 
 <p>Modify this file by adding your instance-specifc details to the constant declarations at the top. Do also note that the last two constants can remain blank for now.</p>
 
 <blockquote>
-  <p><code class="highlighter-rouge">&lt;br /&gt;
+  <p><code class="language-plaintext highlighter-rouge">&lt;br /&gt;
 define("COUCH_DB_DESIGN_DOCUMENT_NAME", "");&lt;br /&gt;
 define("COUCH_DB_SHOW_FUNCTION_NAME", "");&lt;br /&gt;
 </code></p>
@@ -74,10 +107,16 @@ define("COUCH_DB_SHOW_FUNCTION_NAME", "");&lt;br /&gt;
 
 <p>When you load this file up on Tropo and make a test call, you will see your call log document is inserted into the call_logs database. The structure of the document is pure JSON, which is supported <a href="http://us2.php.net/manual/en/book.json.php" target="_blank">quite nicely in PHP</a> (and most every other language that can run on Tropo as well).</p>
 
-<p>In the next post, we’ll examine CouchDB design documents in more detail and modify our simple demo application to get a list of extensions from another CouchDB database and parse the JSON data structure in the <code class="highlighter-rouge">getPhoneNumberByExtension()</code> method.</p>
+<p>In the next post, we’ll examine CouchDB design documents in more detail and modify our simple demo application to get a list of extensions from another CouchDB database and parse the JSON data structure in the <code class="language-plaintext highlighter-rouge">getPhoneNumberByExtension()</code> method.</p>
 
 <p>Until then, keep on relaxing….</p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -11,7 +11,7 @@ categories:
 ---
 > When voters in Kenya and the Ukraine go to the polls this month, speech technologies from Angel.com will be there to make sure the elections run smoothly. 
 > 
-> The International Republican Institute (IRI), a Washington-based independent, nonprofit, nonpartisan organization that sends delegates to foreign countries to observe elections and report on violations of fair election practices, will use Angel.comâ€™s Virtual Call Center and IVR Survey applications to automate the reports that delegates file from the field in those countries. IRI first used the applications during local and presidential elections in Nigeria in mid-April.
+> The International Republican Institute (IRI), a Washington-based independent, nonprofit, nonpartisan organization that sends delegates to foreign countries to observe elections and report on violations of fair election practices, will use Angel.com's Virtual Call Center and IVR Survey applications to automate the reports that delegates file from the field in those countries. IRI first used the applications during local and presidential elections in Nigeria in mid-April.
 
 Full story <a href="http://www.speechtechmag.com/Articles/ReadArticle.aspx?ArticleID=39747" target="_blank">here</a>.
 

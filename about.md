@@ -12,7 +12,7 @@ twitter_cards_summary_img_size:
 
 Providing high quality information and timely services to the public can be a difficult job. Throw in challenges like the Digital Divide and limited IT resources and it can become next to impossible.
 
-<img src="http://localhost:8000/wp-content/uploads/2012/09/voicexml_forum_certif_devel.gif" alt="Certified VoiceXML Application Developer" title="Certified VoiceXML Application Developer" style="float:right;padding:15px;margin:10px;" />
+<img src="/wp-content/uploads/2012/09/voicexml_forum_certif_devel.gif" alt="Certified VoiceXML Application Developer" title="Certified VoiceXML Application Developer" style="float:right;padding:15px;margin:10px;" />
 
 To help governments and non-profits face these challenges, a host of new standards have been developed that are changing the service delivery equation. These standards will allow public sector and non-profit organizations to deliver web content and Internet services to ordinary household telephones and other devices quickly, easily and cost effectively. These new technologies promise to change the way that governments interact with citizens, and will fundamentally change the direction of e-Government.
 

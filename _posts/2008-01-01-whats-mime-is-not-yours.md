@@ -15,7 +15,7 @@ categories:
 ---
 Continuing on the theme of safety and security in VoiceXML applications, I&#8217;ve been thinking a lot lately about MIME types and how VoiceXML browsers request content from a web server.
 
-When any browser (VoiceXML or otherwise) requests a document from a server, it sends along information in the request telling the server what media types it can consume. This information is usually conveyed in the HTTP accept header as a MIME type. A VoiceXML browser should explicitly request documents from a web server using the VoiceXML MIME type (â€œapplication/voicexml+xmlâ€) and servers should use this MIME type when responding to such requests (instead of sending back plain old â€œtext/xmlâ€).
+When any browser (VoiceXML or otherwise) requests a document from a server, it sends along information in the request telling the server what media types it can consume. This information is usually conveyed in the HTTP accept header as a MIME type. A VoiceXML browser should explicitly request documents from a web server using the VoiceXML MIME type ("application/voicexml+xml") and servers should use this MIME type when responding to such requests (instead of sending back plain old "text/xml").
 
 If a browser can&#8217;t consume VoiceXML, what&#8217;s the point of responding with it (unless were doing something legitimate, like debugging). It was with this thought in mind that I decided to throw together a quick script to inspect the Accept header on HTTP requests and to only send back VoiceXML content if the appropriate MIME type is included in the request.
 
@@ -81,7 +81,7 @@ The child class for our example looks like this:
 
 </pre>
 
-This class uses a specific pattern (passed in to its one an only method as a string) and looks for it in the accept header. We return a boolean value depending on whether the string is found in the header value (note â€“ many browsers, including VoiceXML browsers, will use a comma delimited string of different MIME types in the accept header)
+This class uses a specific pattern (passed in to its one an only method as a string) and looks for it in the accept header. We return a boolean value depending on whether the string is found in the header value (note "“ many browsers, including VoiceXML browsers, will use a comma delimited string of different MIME types in the accept header)
 
 ### Using the HTTP Header Inspection Classes
 
@@ -114,9 +114,9 @@ Now that we have our two simple classes, we use them like so:
 
 Of particular note here is our use of the PHP [apache\_request\_headers()](http://us2.php.net/manual/en/function.apache-request-headers.php) function. This function will return an associative array of all the HTTP headers and their values. Use of this function is limited, however, to instances where PHP is running as an Apache module.
 
-In this example, we check specifically for the presence of the â€œapplication/voicexml+xmlâ€ content type in the HTTP headers. If we find it, we send back VoiceXML; if not, we simply respond with a 404 error and stop execution of the script.
+In this example, we check specifically for the presence of the "application/voicexml+xml" content type in the HTTP headers. If we find it, we send back VoiceXML; if not, we simply respond with a 404 error and stop execution of the script.
 
-This simple example is just one way of ensuring that your VoiceXML code is obscured form prying eyes. Its far from perfect â€“ anyone with some chops can easily construct an HTTP request with the appropriate MIME type and look at your VoiceXML code in an effort to footprint your application for possible SQL injection.
+This simple example is just one way of ensuring that your VoiceXML code is obscured form prying eyes. Its far from perfect "“ anyone with some chops can easily construct an HTTP request with the appropriate MIME type and look at your VoiceXML code in an effort to footprint your application for possible SQL injection.
 
 However, an approach like this one (and those discussed in the previous post) can make life harder for the average web surfer intent on doing a little mischief. It might also make it harder for automated vulnerability scanners to footprint your applications.
 

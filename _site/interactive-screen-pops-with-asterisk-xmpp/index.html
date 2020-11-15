@@ -1,7 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> Interactive Screen Pops with Asterisk &#038; XMPP</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> Interactive Screen Pops with Asterisk &#038; XMPP</h1>
 <div id="content">  
   <p>I’ve got a thing about <a href="http://en.wikipedia.org/wiki/Screen_pop">screen pops</a>.</p>
 
@@ -13,15 +46,15 @@
 
 <p>This new function nicely compliments the existing <a href="https://wiki.asterisk.org/wiki/display/AST/Application_JabberSend">JabberSend() dialplan application</a> and lets you read incoming XMPP messages into dialplan variables (via <a href="https://wiki.asterisk.org/wiki/display/AST/Application_Set">Set()</a>).</p>
 
-<p>Now that you can both send <strong>and</strong> receive XMPP messages via the dialplan, it is possible to build sophisticated CTI applications using standards-based XMPP servers and clients with nothing but <code class="highlighter-rouge">extensions.conf</code>. Here’s how.</p>
+<p>Now that you can both send <strong>and</strong> receive XMPP messages via the dialplan, it is possible to build sophisticated CTI applications using standards-based XMPP servers and clients with nothing but <code class="language-plaintext highlighter-rouge">extensions.conf</code>. Here’s how.</p>
 
 <p>You’ll need an XMPP server with (at least) two accounts. One for you, as a user. One for Asterisk. You’ll also want to fire up your XMPP client and add the Asterisk user to your buddy list.</p>
 
-<p>Set up jabber.conf with the details of the Asterisk account on your XMPP server (make sure you run <code class="highlighter-rouge">jabber reload</code> in the Asterisk CLI after modifying the file):</p>
+<p>Set up jabber.conf with the details of the Asterisk account on your XMPP server (make sure you run <code class="language-plaintext highlighter-rouge">jabber reload</code> in the Asterisk CLI after modifying the file):</p>
 
-<p>Once you’ve done that, you’ll need to add some dialplan logic to use both JabberSend() and JABBER_RECEIVE (run <code class="highlighter-rouge">dialplan reload</code> in the Asterisk CLI after adding this logic):</p>
+<p>Once you’ve done that, you’ll need to add some dialplan logic to use both JabberSend() and JABBER_RECEIVE (run <code class="language-plaintext highlighter-rouge">dialplan reload</code> in the Asterisk CLI after adding this logic):</p>
 
-<p>In this simple example, anytime a call comes into the <code class="highlighter-rouge">default</code> context, a set of IM messages are sent to the XMPP account user@xxx.xxx.xxx.xxx (where xxx.xxx.xxx.xxx represents the host name/IP for your XMPP server). The following line in the dialplan will cause Asterisk to wait 10 seconds to receive a response from user@xxx.xxx.xxx.xxx.</p>
+<p>In this simple example, anytime a call comes into the <code class="language-plaintext highlighter-rouge">default</code> context, a set of IM messages are sent to the XMPP account user@xxx.xxx.xxx.xxx (where xxx.xxx.xxx.xxx represents the host name/IP for your XMPP server). The following line in the dialplan will cause Asterisk to wait 10 seconds to receive a response from user@xxx.xxx.xxx.xxx.</p>
 
 <blockquote>
   <p>exten =&gt; _XXXX,n,Set(OPTION = ${JABBER_RECEIVE(asterisk,user@xxx.xxx.xxx.xxx,10)})</p>
@@ -36,5 +69,11 @@
 <p>Happy screen popping!</p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

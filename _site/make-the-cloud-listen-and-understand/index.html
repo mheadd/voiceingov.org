@@ -1,7 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> Make the Cloud Listen (and Understand)</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> Make the Cloud Listen (and Understand)</h1>
 <div id="content">  
   <p>Yesterday I wrote <a href="http://www.voiceingov.org/blog/?p=1972">a post about the changing cloud telephony landscape</a>, and highlighted some key factors that will dictate which cloud telephony providers are around for the long haul and deliver the next innovations.</p>
 
@@ -28,9 +61,9 @@
 
 <p>Using the <a href="http://github.com/tropo/tropo-webapi-php">PHP WebAPI Library</a> and <a href="http://www.limonade-php.net/">Limonade</a>, we can construct a simple, yet power script that looks like this:</p>
 
-<p>This script is pretty self-explanatory, but there are some key points I want to emphasize. First, note the <code class="highlighter-rouge">$options</code> array that holds the reference to an external grammar file (more on that in a bit). Tropo seems to need for this reference to be an absolute one and not a relative reference to the file (not hard to do with PHP – you just need to be aware of it).</p>
+<p>This script is pretty self-explanatory, but there are some key points I want to emphasize. First, note the <code class="language-plaintext highlighter-rouge">$options</code> array that holds the reference to an external grammar file (more on that in a bit). Tropo seems to need for this reference to be an absolute one and not a relative reference to the file (not hard to do with PHP – you just need to be aware of it).</p>
 
-<p>Also, the file reference needs to include a trailing parameter indicating that this is an XML grammar (<code class="highlighter-rouge">;type=application/grammar-xml</code>). This seems to be true even if the grammar file is served with the correct MIME type by whatever is serving it.</p>
+<p>Also, the file reference needs to include a trailing parameter indicating that this is an XML grammar (<code class="language-plaintext highlighter-rouge">;type=application/grammar-xml</code>). This seems to be true even if the grammar file is served with the correct MIME type by whatever is serving it.</p>
 
 <p>Now lets have a look at this grammar file.</p>
 
@@ -47,20 +80,20 @@
 </blockquote>
 
 <blockquote>
-  <p><code class="highlighter-rouge">&lt;item&gt;foo&lt;tag&gt;&lt;strong&gt;out="bar";&lt;/strong&gt;&lt;/tag&gt;&lt;/item&gt;</code></p>
+  <p><code class="language-plaintext highlighter-rouge">&lt;item&gt;foo&lt;tag&gt;&lt;strong&gt;out="bar";&lt;/strong&gt;&lt;/tag&gt;&lt;/item&gt;</code></p>
 
   <p>Does not work on Tropo (String Literal syntax):</p>
 </blockquote>
 
 <blockquote>
-  <p><code class="highlighter-rouge">&lt;item&gt;foo&lt;tag&gt;&lt;strong&gt;bar&lt;/strong&gt;&lt;/tag&gt;&lt;/item&gt;</code></p>
+  <p><code class="language-plaintext highlighter-rouge">&lt;item&gt;foo&lt;tag&gt;&lt;strong&gt;bar&lt;/strong&gt;&lt;/tag&gt;&lt;/item&gt;</code></p>
 </blockquote>
 
 <p>So, when a caller says the name of a person in our company directory we want to return the number for that person to our Tropo script so we can transfer the call to them. This can clearly be seen when we examine the Result object that is delivered by the Tropo platform.</p>
 
 <p>Tropo’s Result object includes the full grammar engine output, and lots of very detailed information about the recognition. As you can see, the <strong>utterance</strong> that the speech recognition engine heard was the name of one of our faux employees. The <strong>value</strong> that was returned is the number of that person.</p>
 
-<p>We use this value in the <code class="highlighter-rouge">transfer_call()</code> method of our Tropo script.</p>
+<p>We use this value in the <code class="language-plaintext highlighter-rouge">transfer_call()</code> method of our Tropo script.</p>
 
 <blockquote>
   <p>`<br />
@@ -90,5 +123,11 @@ The sky is the limit. Which I guess is the point of cloud telephony&#8230;
 </p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

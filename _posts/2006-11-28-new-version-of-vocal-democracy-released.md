@@ -10,6 +10,6 @@ categories:
   - General Discussion
   - Phone Voting
 ---
-A new release of [Vocal Democracy](http://vdemocracy.sourceforge.net/) is now available â€” the improvements keep coming. Iâ€™m very happy with where this project is right now.
+A new release of [Vocal Democracy](http://vdemocracy.sourceforge.net/) is now available "” the improvements keep coming. I'm very happy with where this project is right now.
 
 There is still a lot of work to be done, but I hope to have another release out before the end of the year.

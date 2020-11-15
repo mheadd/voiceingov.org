@@ -17,19 +17,19 @@ categories:
 tags:
   - Asterisk
 ---
-Once you&#8217;ve got your Trixbox all set up, you need to think about backups â€“ what happens if your system needs to be restored, or if you&#8217;re doing and upgrade (say from version 2.0 to 2.2)?
+Once you&#8217;ve got your Trixbox all set up, you need to think about backups "“ what happens if your system needs to be restored, or if you&#8217;re doing and upgrade (say from version 2.0 to 2.2)?
 
-The FreePBX module in Trixbox has a handy â€œSystem Backupâ€ feature â€“ in FreePBX, go to Tools->Backup & Restore.
+The FreePBX module in Trixbox has a handy "System Backup" feature "“ in FreePBX, go to Tools->Backup & Restore.
 
-Click on the â€œAdd Backup Scheduleâ€ link and name your new schedule â€“ I personally take the simple approach of just doing a weekly backup on Sunday night.
+Click on the "Add Backup Schedule" link and name your new schedule "“ I personally take the simple approach of just doing a weekly backup on Sunday night.
 
-When your backup is created, Trixbox places a â€œ.tar.gzâ€ file in the /var/lib/asterisk/backups/ directory. So, if you created a schedule called â€œWeeklyâ€ your backup file would be placed in the directory /var/lib/asterisk/backups/Weekly/. Here these files will stay â€“ a new one is created each time your scheduled backup is run â€“ unless you do something with them.
+When your backup is created, Trixbox places a ".tar.gz" file in the /var/lib/asterisk/backups/ directory. So, if you created a schedule called "Weekly" your backup file would be placed in the directory /var/lib/asterisk/backups/Weekly/. Here these files will stay "“ a new one is created each time your scheduled backup is run "“ unless you do something with them.
 
 For obvious reasons, we want to move these backup files to another server for safe keeping. Additionally, one we&#8217;ve successfully moved our backup, we want to clean up the old files from our backup directory.
 
 There are <a href="http://www.sureteq.com/asterisk/trixboxv2.2.htm#18.1_-_Backing_up_Trixbox" target="_blank">any number</a> of ways of doing this. Here is my preferred method:
 
-> Create a new user on your Trixbox machine, and add that user to the â€œasteriskâ€ group. (The user will need to be a part of this group to access the backups directory.)
+> Create a new user on your Trixbox machine, and add that user to the "asterisk" group. (The user will need to be a part of this group to access the backups directory.)
 > 
 > **useradd -G asterisk backup
   

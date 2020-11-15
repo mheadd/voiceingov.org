@@ -1,7 +1,40 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+  </head>
   <body>
-      <h1> Upgrading to CouchDB 0.11</h1>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+      
+      <li class="nav-item"><a class="nav-link" href="/about"> About</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/technologies"> Technologies</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/tutorials"> Tutorials</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/developer-tools"> Developer Tools</a></li>
+      
+      <li class="nav-item"><a class="nav-link" href="/built-by-me"> Built by Me</a></li>
+      
+    </ul>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main role="main" class="container">
+      <div>
+    <h1> Upgrading to CouchDB 0.11</h1>
 <div id="content">  
   <p>Just a few days ago, <a href="http://blog.couch.io/post/490755034/couchdb-0-11-0-released" target="_blank">CouchDB version 0.11 was released</a> – this new version is packed full of cool new features as <a href="http://blog.couch.io/post/468392274/whats-new-in-apache-couchdb-0-11-part-three-new" target="_blank">outlined on the Couch.io blog</a>. It’s also the first release without the Alpha or Beta label attached to it.</p>
 
@@ -11,7 +44,7 @@
 
 <p>If you’ve read <a href="http://www.voiceingov.org/blog/?p=1525">my previous series on using CouchDB</a> to build cloud telephony applications with Voxeo’s <a href="https://www.tropo.com/home.jsp" target="_blank">Tropo platform</a>, and you used my instructions for setting up CouchDB on Ubuntu 8.04, then upgrading to CouchDB version 0.11 will be a piece of cake. (Note – the mirror you download from may be different than below. Go to the <a href="http://couchdb.apache.org/downloads.html" target="_blank">download page</a> to find the best one):</p>
 
-<p>Before upgrading, make sure that any customizations you’ve made to the CouchDB configuration are in <code class="highlighter-rouge">/usr/local/etc/couchdb/local.ini</code>. The upgrade process will overwrite any changes you have made in <code class="highlighter-rouge">default.ini</code>.</p>
+<p>Before upgrading, make sure that any customizations you’ve made to the CouchDB configuration are in <code class="language-plaintext highlighter-rouge">/usr/local/etc/couchdb/local.ini</code>. The upgrade process will overwrite any changes you have made in <code class="language-plaintext highlighter-rouge">default.ini</code>.</p>
 
 <blockquote>
   <p>$ sudo /usr/local/etc/init.d/couchdb stop</p>
@@ -73,7 +106,7 @@
   <p><strong>{”couchdb”:”Welcome”,”version”:”0.11.0″}</strong></p>
 </blockquote>
 
-<p>Note – if you see an error that says <code class="highlighter-rouge">{"error":"error","reason":"eacces"}</code> when trying to create a database or insert documents, you may need to re run some commands listed in the previous install instructions:</p>
+<p>Note – if you see an error that says <code class="language-plaintext highlighter-rouge">{"error":"error","reason":"eacces"}</code> when trying to create a database or insert documents, you may need to re run some commands listed in the previous install instructions:</p>
 
 <blockquote>
   <p>$ sudo chown -R couchdb /usr/local/etc/couchdb</p>
@@ -92,5 +125,11 @@
 <p>Stay tuned – this project is going to kill!</p>
 
 </div>
+  </div>
+</main>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

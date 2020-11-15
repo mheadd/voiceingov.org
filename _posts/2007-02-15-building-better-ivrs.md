@@ -21,7 +21,7 @@ Since VoiceXML is the defacto standard for developing IVR systems, I believe tha
 
 > The VoiceXML <link> element is the best way to provide a global transfer option. Using <link>, we can easily create a way for a caller to transfer to a representative at any point during an IVR.
 > 
-> The following example shows a link element that will fire off a user defined event called â€œhelp&#8221; when either the 0 DTMF key is pressed, or the caller says any of the items defined in the grammar. Placing this call in the application root document gives it scope in any part of the IVR application:
+> The following example shows a link element that will fire off a user defined event called "help&#8221; when either the 0 DTMF key is pressed, or the caller says any of the items defined in the grammar. Placing this call in the application root document gives it scope in any part of the IVR application:
 > 
 > <link dtmf=&#8221;0&#8243; event=&#8221;help&#8221;>
   
@@ -59,13 +59,13 @@ Since VoiceXML is the defacto standard for developing IVR systems, I believe tha
   
 > </catch>
 > 
-> If you give this <link> application-level scope, you need to be conscious of fields where you may be using similar grammar elements. So, for example, if your IVR has a field in it that also uses the 0 DTMF key or one of the words in the <link> grammar, make sure that you specify which grammar the field should use by setting the â€œmodal&#8221; attribute on your <field> item.
+> If you give this <link> application-level scope, you need to be conscious of fields where you may be using similar grammar elements. So, for example, if your IVR has a field in it that also uses the 0 DTMF key or one of the words in the <link> grammar, make sure that you specify which grammar the field should use by setting the "modal&#8221; attribute on your <field> item.
 
 **2. Callers should never be asked to repeat any information (name, full account number, description of issue, etc.) provided to a human or an automated system during a call.**
 
 > This is more a <acronym title="Computer Telephony Integration">CTI</acronym> issue than anything else, but there are some things that can be done within a VoiceXML application to make sure that the appropriate information is passed to an agent when a call is transferred.
 > 
-> The VoiceXML specification describes the â€œaai&#8221; attribute of the <transfer> tag. This attribute allows a VoiceXML application to pass data to a called party. Additionally, some VoiceXML platforms allow a developer to set the ANI when making a transfer:
+> The VoiceXML specification describes the "aai&#8221; attribute of the <transfer> tag. This attribute allows a VoiceXML application to pass data to a called party. Additionally, some VoiceXML platforms allow a developer to set the ANI when making a transfer:
 > 
 > <transfer dest=&#8221;tel:+13159999999;ani=8077894563&#8243;/>
 > 
@@ -87,11 +87,11 @@ Since VoiceXML is the defacto standard for developing IVR systems, I believe tha
 > 
 > <property name=&#8221;bargein&#8221; value=&#8221;dtmf&#8221;/>
 > 
-> Additionally, using the â€œbargeintype&#8221; property can help ensure that bargains only occur when there is an active grammar matched. Finally, you can use the â€œmarktime&#8221; property of the application.lastresult$ object to determine where in a prompt a caller barged in (this is a new feature oF VoiceXML 2.1). This can be helpful in determining If the bargein was accidental or purposeful.
+> Additionally, using the "bargeintype&#8221; property can help ensure that bargains only occur when there is an active grammar matched. Finally, you can use the "marktime&#8221; property of the application.lastresult$ object to determine where in a prompt a caller barged in (this is a new feature oF VoiceXML 2.1). This can be helpful in determining If the bargein was accidental or purposeful.
 
 **6. Do not disconnect for user errors, including when there are no perceived key presses (as the caller might be on a rotary phone); instead queue for a human operator and/or offer the choice for call-back.**
 
-> Although there arenâ€™t a lot of rotary callers out there, there are some. And since handling multiple noinputs/nomatches is pretty straightforward in VoiceXML, there is no reason not to include this in your applications:
+> Although there aren't a lot of rotary callers out there, there are some. And since handling multiple noinputs/nomatches is pretty straightforward in VoiceXML, there is no reason not to include this in your applications:
 > 
 > <catch event=&#8221;noinput nomatch&#8221; count=&#8221;3&#8243;>
     

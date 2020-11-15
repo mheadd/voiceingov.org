@@ -23,13 +23,13 @@ Ah, the old security by obscurity argument&#8230; Not good enough! There&#8217;s
 
 _&#8220;Our application servers are behind a firewall and aren&#8217;t accessible from outside our network. The only connection to the outside world are the phone lines coming into our call center.&#8221;_
 
-That may be true (its not â€“ I assume that there is Internet access in your call center. Doh!), but even if it is it just means your safe from outside attacks. There isn&#8217;t anything stopping anyone from inside your network from getting cute. Still think your safe?
+That may be true (its not "“ I assume that there is Internet access in your call center. Doh!), but even if it is it just means your safe from outside attacks. There isn&#8217;t anything stopping anyone from inside your network from getting cute. Still think your safe?
 
 To boil it down, there is no good excuse for not taking steps to avoid SQL injection attacks in voice applications.
 
 ### What can be done?
 
-First and foremost, voice developers should have a thorough understanding of the issue and take the appropriate steps to cleanse user input. User input is anything that a user can possibly submit to your application â€“ you may have control over what selections a user can make in your voice application, but an attacker that is &#8220;footprinting&#8221; your application with a browser can put in anything they want.
+First and foremost, voice developers should have a thorough understanding of the issue and take the appropriate steps to cleanse user input. User input is anything that a user can possibly submit to your application "“ you may have control over what selections a user can make in your voice application, but an attacker that is &#8220;footprinting&#8221; your application with a browser can put in anything they want.
 
 The best way to mitigate the risk of SQL injection attacks against voice applications is (not surprisingly) identical to that for other kinds of web applications. Follow the [checklist provided by Open Web Application Security Project](http://www.owasp.org/index.php/Top_10_2007-A2). If I can quote Brad (Judge Reinhold) from Fast Times at Ridgemont High: &#8220;Learn it&#8230; Know it&#8230; Live it!&#8221;
 
@@ -39,9 +39,9 @@ While it&#8217;s true that voice applications face the same risks as other kinds
 
 Most SQL injection attacks usually begin with the process of &#8220;footprinting&#8221; &#8212; an attacker will usually view the source HTML for a web site and determine what variables are being submitted by a web form, and the URL that they are being submitted to. The attacker will then try and manipulate the values to break the SQL statement that is being constructed with the submitted values. When this happens, valuable information can be gleaned from the behavior of the web application, including any error messages or warnings that are displayed to the end user.
 
-It&#8217;s hard to prevent people from looking at the source code of a web site â€“ visual web sites generally have to be available to respond to requests from any browser that requests a page. They work on the standard HTTP port (port 80). Otherwise, visitors would have a hard time seeing and using a web site and it would probably defeat the purpose of building it in the first place.
+It&#8217;s hard to prevent people from looking at the source code of a web site "“ visual web sites generally have to be available to respond to requests from any browser that requests a page. They work on the standard HTTP port (port 80). Otherwise, visitors would have a hard time seeing and using a web site and it would probably defeat the purpose of building it in the first place.
 
-VoiceXML applications are different. Users do not interact directly with the &#8220;browser&#8221; that is requesting pages from the web server &#8212; they interact with a telephone. A web server that is interacting with a VoiceXML browser does not need to be available to **any** browser making a request â€“ it only needs to be available to the VoiceXML browser(s) that it is set up to interact with.
+VoiceXML applications are different. Users do not interact directly with the &#8220;browser&#8221; that is requesting pages from the web server &#8212; they interact with a telephone. A web server that is interacting with a VoiceXML browser does not need to be available to **any** browser making a request "“ it only needs to be available to the VoiceXML browser(s) that it is set up to interact with.
 
 One method of obscuring VoiceXML pages from prying eyes (and reducing the risk of footprinting) is to lock down access to a voice application server, so that it only responds to requests from the IP address(es) of the VoiceXML browser(s) it is set up for. There are several ways to do this:
 
@@ -59,7 +59,7 @@ In PHP, this last point might look something like:
   
 > } 
 
-Another alternative is to [run your web server on an alternate port](http://httpd.apache.org/docs/1.3/mod/core.html#port) â€“ there isn&#8217;t any reason that the server responding to requests from your VoiceXML browser needs to run on port 80. (Note â€“ this really doesn&#8217;t prevent anyone who knows how to use [netcat](http://netcat.sourceforge.net/) from scanning your server to see what ports are open, but it makes life a bit harder for the average person intent on mischief.)
+Another alternative is to [run your web server on an alternate port](http://httpd.apache.org/docs/1.3/mod/core.html#port) "“ there isn&#8217;t any reason that the server responding to requests from your VoiceXML browser needs to run on port 80. (Note "“ this really doesn&#8217;t prevent anyone who knows how to use [netcat](http://netcat.sourceforge.net/) from scanning your server to see what ports are open, but it makes life a bit harder for the average person intent on mischief.)
 
 A final thought on this topic is to limit the requests that your web server will respond to by predicating the response on the MIME types listed in the [HTTP Accept header](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). This header tells the web server what kind of content the requesting browser can consume. Many visual web browsers make their requests with the wildcard \*/\* telling the server to send any content back. VoiceXML browsers **should** include the appropriate MIME type for VoiceXML content (&#8220;application/voicexml+xml&#8221;) in their HTTP requests. This would allow someone so inclined to look for this MIME type on incoming requests, and to only consider requests that include it as legitimate.
 
