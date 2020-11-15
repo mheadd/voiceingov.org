@@ -38,7 +38,7 @@ To SMS-enable your application (so that users can simply send a text message to 
 
 If you set up a Jabber account for your app, you can interact with it by sending it a message &#8211; try starting things off by sending a simple message like &#8220;Hello.&#8221; Once you do, you&#8217;ll see the same series of prompts that you can hear when you call into your application via Skype.
 
-<img src="http://localhost:8000/wp-content/uploads/2010/07/before.png" alt="IM Bot Before Changes" title="IM Bot Before Changes" width="487" height="353" style="margin:5px;padding:7px;" />
+<img src="/wp-content/uploads/2010/07/before.png" alt="IM Bot Before Changes" title="IM Bot Before Changes" width="487" height="353" style="margin:5px;padding:7px;" />
 
 Now that we can see how our application behaves when we interact with it using an IM client, it becomes obvious that there are some things we&#8217;d like to change to optimize it for this channel. User interface elements like a welcome message, reprompts (playing a prompt over again when a user has not entered any input), etc. don&#8217;t really make much sense in the context of an IM session. More importantly, it would be nice if we could simply send a zip code to our application to begin the session, as opposed to sending a message like &#8220;Hello.&#8221;
 
@@ -65,7 +65,7 @@ After accessing the value of this property, we need to do something with it:
 
 Now that we can access the _initialText_ sent to our application, and we can examine it to determine if the user has sent us a valid zip code. This allows us to tailor the behavior of our app more efficiently to an IM channel _without changing how it behaves when a caller makes a telephone call to it_.
 
-<img src="http://localhost:8000/wp-content/uploads/2010/07/after.png" alt="IM Bot Before Changes" title="after" width="484" height="196" style="margin:5px;padding:7px;" />
+<img src="/wp-content/uploads/2010/07/after.png" alt="IM Bot Before Changes" title="after" width="484" height="196" style="margin:5px;padding:7px;" />
 
 The modified script with changes to optimize it for IM <a href="http://gist.github.com/464579" target="_blank">can be found here</a>.
 

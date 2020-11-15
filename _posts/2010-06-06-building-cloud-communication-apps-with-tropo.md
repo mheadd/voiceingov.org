@@ -75,9 +75,9 @@ You can look at the rendered JSON in your browser, and you should see something 
 
 Go to the <a href="https://www.tropo.com/applications/" target="_blank">Applications</a> section in your Tropo account and set up a new WebAPI application that points to the location of this script.
 
-<img src="http://localhost:8000/wp-content/uploads/2010/06/application_step_1.png" alt="Create a new Tropo WebAPI application" title="Create a new Tropo WebAPI application" width="385" height="224" style="margin:5px;padding:7px;" />
+<img src="/wp-content/uploads/2010/06/application_step_1.png" alt="Create a new Tropo WebAPI application" title="Create a new Tropo WebAPI application" width="385" height="224" style="margin:5px;padding:7px;" />
 
-<img src="http://localhost:8000/wp-content/uploads/2010/06/application_step_2.png" alt="Assign a URL to your new Tropo WebAPI application" title="Assign a URL to your new Tropo WebAPI application" width="385" height="200" style="margin:5px;padding:7px;" />
+<img src="/wp-content/uploads/2010/06/application_step_2.png" alt="Assign a URL to your new Tropo WebAPI application" title="Assign a URL to your new Tropo WebAPI application" width="385" height="200" style="margin:5px;padding:7px;" />
 
 When you create your application, Tropo will automatically provision a Skype number, a SIP number and an <a href="http://www.inum.net/" target="_blank">iNum</a>. You can additionally add a PSTN number in a range of different area codes at no charge.
 

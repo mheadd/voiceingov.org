@@ -13,7 +13,7 @@ categories:
 ---
 Yesterday in Philadelphia, at the offices of [Azavea](http://www.azavea.com/) (a Philly-based geographic data and civic apps company), [7 Code for America fellows](http://twitter.com/cfaphl) sponsored what was the last in a month-long series of workshops/gatherings/hackathons.
   
-<img src="http://localhost:8000/wp-content/uploads/2011/02/phillyseal.jpg?w=283&#038;h=300" alt="City of Philadelphia" title="City of Philadelphia" width="200" height="210" style="float:right;margin:5px;" />
+<img src="/wp-content/uploads/2011/02/phillyseal.jpg?w=283&#038;h=300" alt="City of Philadelphia" title="City of Philadelphia" width="200" height="210" style="float:right;margin:5px;" />
   
 Yesterday&#8217;s event was promoted as a [Data Camp](http://phillydatacamp.com/projects/) &#8211; a one day sprint meant to identify useful sources of information about Philadelphia, and to build civic applications and mashups using that data. The idea was to have &#8220;demoable&#8221; projects by the end of the day.
 

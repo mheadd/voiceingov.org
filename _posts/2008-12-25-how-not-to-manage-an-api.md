@@ -21,7 +21,7 @@ categories:
 ---
 Recently, I decided to build a small application that interacts with the Twitter API, the <a href="http://cli.gs/api" target="_blank">cli.gs</a> API and Google Calendar to allow me to get advanced notice of any and all Boston Celtics games. The app is actually live and can be <a href="http://twitter.com/celticsgames" target="_blank">followed on Twitter</a>.
   
-<img src="http://localhost:8000/wp-content/uploads/2008/12/celtics.gif" alt="Boston Celtics" title="Boston Celtics" style="float:left;margin-top:15px;margin-right:15px;margin-bottom:15px;padding-top:10px;padding-bottom:10px;padding-right:10px;" />
+<img src="/wp-content/uploads/2008/12/celtics.gif" alt="Boston Celtics" title="Boston Celtics" style="float:left;margin-top:15px;margin-right:15px;margin-bottom:15px;padding-top:10px;padding-bottom:10px;padding-right:10px;" />
   
 It&#8217;s a pretty neat little application that runs on a daily `cron` job and queries a small database to see if there is a Celtics game on the following day. If there is a game the next day, it generates a link to add the game to Google Calendar, shortens the link using the cli.gs API and sends out a Tweet with the game details and Calendar link. Pretty sweet, right?
 

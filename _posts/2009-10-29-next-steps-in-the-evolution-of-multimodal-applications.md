@@ -23,7 +23,7 @@ Stated simply, the customers of tomorrow will communicate differently than the c
 
 Bottom line, if you haven&#8217;t developed methods for communicating with the new wave of customers that use different modes of communication then your shiznit will be cooked. Ya dig?
 
-<img src="http://localhost:8000/wp-content/uploads/2009/10/choices.jpg" alt="choices" title="So many choices..." style="float:left;padding:5px;margin:15px;" />
+<img src="/wp-content/uploads/2009/10/choices.jpg" alt="choices" title="So many choices..." style="float:left;padding:5px;margin:15px;" />
 
 <a href="http://www.voxeo.com/" target="_blank">Voxeo</a> (the company for which RJ is CTO) has been on a buying spree of late, with the seeming goal of shoring up its offerings to cover a wide array of different communication modalities. I&#8217;ve expounded in the past on one acquisition in particular as being especially relevant – particularly as it relates to the next generation of customers – the [acquisition of IMified](http://www.voiceingov.org/blog/?p=860).
 

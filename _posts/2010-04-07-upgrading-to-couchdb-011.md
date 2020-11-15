@@ -26,7 +26,7 @@ tags:
 ---
 Just a few days ago, <a href="http://blog.couch.io/post/490755034/couchdb-0-11-0-released" target="_blank">CouchDB version 0.11 was released</a> &#8211; this new version is packed full of cool new features as <a href="http://blog.couch.io/post/468392274/whats-new-in-apache-couchdb-0-11-part-three-new" target="_blank">outlined on the Couch.io blog</a>. It&#8217;s also the first release without the Alpha or Beta label attached to it.
   
-![Apache CouchDB Logo](http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png)
+![Apache CouchDB Logo](/wp-content/uploads/2010/01/couchdb-logo.png)
   
 What&#8217;s more exciting, CouchDB version 0.11 is a feature-freeze release candidate for the upcoming version 1.0. So if you&#8217;ve played around with CouchDB and have an old instance laying around, now is the time to upgrade.
 

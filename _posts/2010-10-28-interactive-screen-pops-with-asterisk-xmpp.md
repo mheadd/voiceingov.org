@@ -16,7 +16,7 @@ categories:
 ---
 I&#8217;ve got a thing about [screen pops](http://en.wikipedia.org/wiki/Screen_pop).
   
-<img src="http://localhost:8000/wp-content/uploads/2010/10/asterisk1.gif" alt="Asterisk" title="Asterisk" style="margin:10px;padding:15px;float:right;" />
+<img src="/wp-content/uploads/2010/10/asterisk1.gif" alt="Asterisk" title="Asterisk" style="margin:10px;padding:15px;float:right;" />
   
 I&#8217;ve [written before](http://www.voiceingov.org/blog/?p=326) about using Asterisk and XMPP to enable IM-based screen pops, but the recent release of Asterisk 1.8 creates a whole new reason to be excited about this topic.
 

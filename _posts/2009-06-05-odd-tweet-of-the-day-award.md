@@ -23,4 +23,4 @@ Although it seems a bit early to be handing out an award that could cover the en
 
 I have know idea what this Tweet means, and suspect it was posted in error &#8211; perhaps someone at FEMA though they were typing into their IM client.
 
-![fema_tweet](http://localhost:8000/wp-content/uploads/2009/06/fema_tweet.jpg "What the what..?")
+![fema_tweet](/wp-content/uploads/2009/06/fema_tweet.jpg "What the what..?")

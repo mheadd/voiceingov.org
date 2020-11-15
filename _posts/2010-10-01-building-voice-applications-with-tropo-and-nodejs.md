@@ -18,7 +18,7 @@ I&#8217;ve been smitten of late with [Node.js](http://nodejs.org/).
 
 Node.js is a framework for building server-based applications in JavaScript. Node.js is event driven, so if you got a fairly good understanding of state-driven development frameworks you&#8217;ll probably get it quickly. If not, start [here](http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb).
   
-<img src="http://localhost:8000/wp-content/uploads/2010/10/nodejs_.jpg" alt="Node.js" title="Node.js" width="222" height="75" style="float:right;margin:15px;" />
+<img src="/wp-content/uploads/2010/10/nodejs_.jpg" alt="Node.js" title="Node.js" width="222" height="75" style="float:right;margin:15px;" />
   
 I wanted to learn more about Node.js, so I decided to build a module. There are lots of modules out there, but I wanted to do something very specific with mine. I wanted to use Node.js to build voice applications. (Not a shocker, it&#8217;s what I do.)
 
@@ -35,7 +35,7 @@ With these ingredients you&#8217;ve got a pretty powerful foundation on which to
 
 But why would you want to build a voice application with JavaScript?
   
-<img src="http://localhost:8000/wp-content/uploads/2010/03/tropo.jpg" alt="Tropo" title="Tropo" width="194" height="119" style="float:left;margin:15px;" />
+<img src="/wp-content/uploads/2010/03/tropo.jpg" alt="Tropo" title="Tropo" width="194" height="119" style="float:left;margin:15px;" />
   
 Pretty much all of the voice application development tools and technologies that have been developed over the last decade or so have one essential unifying characteristic &#8211; each of them seeks to leverage easy to understand, low cost web technologies to build phone applications.
 

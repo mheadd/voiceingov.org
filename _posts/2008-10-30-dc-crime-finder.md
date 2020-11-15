@@ -18,7 +18,7 @@ The &#8220;DC Crime Finder&#8221; is a multimodal app that lets residents of the
 
 It uses <a href="http://data.octo.dc.gov/" target="_blank">actual crime data published by the District</a> and supports a wide range of devices for looking up addresses and crime locations. The DC Crime Finder works with traditional desktop web browsers, mobile devices and PDAs, smart phones, iPhones, G1 phones &#8212; essentially any device that has a web browser and access to the Internet.
 
-<img style="float:left;padding:15px;margin:5px;" title="DC Crime Finder" src="http://localhost:8000/wp-content/uploads/2008/10/cell-phonethumbnail.gif" alt="" />
+<img style="float:left;padding:15px;margin:5px;" title="DC Crime Finder" src="/wp-content/uploads/2008/10/cell-phonethumbnail.gif" alt="" />
 
 The application also works with ordinary cell phones and even land line phones. It sports a voice user interface (VUI) which makes it accessible from any old school telephone &#8212; even a rotary phone (if anyone in DC still has one).
 

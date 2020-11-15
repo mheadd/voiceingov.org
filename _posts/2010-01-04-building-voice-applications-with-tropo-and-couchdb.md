@@ -43,7 +43,7 @@ There has simply never been a more varied and powerful array of tools available 
 
 Over the same period of time there&#8217;s also been lots of changes to some of the foundational technologies supporting voice applications (and other kinds of web applications). The NoSQL movement is gaining steam, and there is an interesting collection of new <a href="http://nosql-database.org/" target="_blank">document-oriented databases</a> available for developers to use. One of my favorite is Apache <a href="http://couchdb.apache.org/" target="_blank">CouchDB</a>.
 
-![Apache CouchDB Logo](http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png)
+![Apache CouchDB Logo](/wp-content/uploads/2010/01/couchdb-logo.png)
 
 The thing I find really interesting about CouchDB is that it makes use of an HTTP-based API &#8211; pretty much any tool or technology that can communicate via HTTP can be used to interact with a CouchDB instance (hello command line&#8230;). In addition, that data structure of the documents stored in a CouchDB instance is <a href="http://www.json.org/" target="_blank">JSON</a>. In my mind, this makes CouchDB a very useful choice when building cloud applications, specifically cloud telephony applications.
 

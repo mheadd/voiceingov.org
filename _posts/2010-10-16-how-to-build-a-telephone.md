@@ -21,10 +21,10 @@ categories:
   The old way.
 </h3>
 
-![The old way](http://localhost:8000/wp-content/uploads/2010/10/old-phone.jpg "The old way")
+![The old way](/wp-content/uploads/2010/10/old-phone.jpg "The old way")
 
 <h3 style="margin-top:50px;">
   The new way.
 </h3>
 
-[![](http://localhost:8000/wp-content/uploads/2010/10/new-phone.jpg "The new way")](http://phono.com/)
+[![](/wp-content/uploads/2010/10/new-phone.jpg "The new way")](http://phono.com/)

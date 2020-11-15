@@ -17,7 +17,7 @@ categories:
 ---
 I&#8217;ve been experimenting with <a href="http://developers.facebook.com/news.php?blog=1&story=108" target="_blank">Facebook Connect</a> for a week or so now, and I&#8217;ve finally got it enabled for comments on this site. I&#8217;m using a slightly modified version of the WP-FBConnect plugin that <a href="http://wiki.developers.facebook.com/index.php/WP-FBConnect" target="_blank">can be found here</a>. I&#8217;ll probably continue to tinker with the code as I use it more, and get a better feeling for what I like and don&#8217;t like.
   
-<img src="http://localhost:8000/wp-content/uploads/2008/12/facebook.jpg" alt="facebook" title="facebook" style="float:left;margin-right:15px;margin-top:10px;margin-bottom:2px;" />
+<img src="/wp-content/uploads/2008/12/facebook.jpg" alt="facebook" title="facebook" style="float:left;margin-right:15px;margin-top:10px;margin-bottom:2px;" />
   
 Enabling this plugin displays a new log in option for leaving comments &#8212; users now have the option of logging into this site via Facebook Connect. This will create a new account on the site that they can use to leave comments, manage their profile, etc. Additionally, when a user leaves a comment, they have the option of having it published on their Facebook profile. Pretty neat!
 

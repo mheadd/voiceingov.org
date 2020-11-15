@@ -28,7 +28,7 @@ tags:
 ---
 This is the continuation of a series that will describe how to build voice applications with the <a href="http://www.tropo.com" target="_blank">Tropo</a> cloud telephony platform and <a href="http://couchdb.apache.org/" target="_blank">CouchDB</a>.
   
-![Apache CouchDB Logo](http://localhost:8000/wp-content/uploads/2010/01/couchdb-logo.png)
+![Apache CouchDB Logo](/wp-content/uploads/2010/01/couchdb-logo.png)
   
 In the [last post](http://www.voiceingov.org/blog/?p=1471), I detailed how to get a CouchDB instance up and running on Ubuntu, and how to get an account started on Tropo so that you can start building cloud telephony applications. In this post, we&#8217;ll create our first CouchDB database and create a simple Tropo application that connects to our CouchDB instance. First, however, we need to tweak the default settings for CouchDB so that we can access our CouchDB instance from the an external environment.
 
