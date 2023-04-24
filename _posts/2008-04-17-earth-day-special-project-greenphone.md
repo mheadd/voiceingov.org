@@ -22,7 +22,7 @@ I decided to whip up a simple application that would allow a caller to search fo
   * To integrate with SOAP-based web services to obtain data on E85 and Bi-Diesel station locations, and to do other cool stuff like send an SMS message from VoiceXML.
   * To make use of interesting and unique audio files for prompts and to signal specific types of outcomes.
 
-The fruits of one weekend of labor can be [downloaded here](http://www.voiceingov.org/tutorials/greenPhone.zip). To set up and test this application, you will need the following:
+The fruits of one weekend of labor can be downloaded here (sorry, the source code for this app is not available anymore) . To set up and test this application, you will need the following:
 
   * An account with StrikeIron to use the web services that drive the GreenPhone application.
   * A copy of Voxeo Prophecy.
